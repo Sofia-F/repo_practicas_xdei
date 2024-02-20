@@ -47,21 +47,18 @@ def update_attr(id, attr, val):
     payload = val
     headers = {'Content-Type': 'text/plain'}
     response = requests.request("PUT", url, headers=headers, data=payload)
-    print(response.status_code, response.text)
+    return response.status_code, response.text
 
-# GET - list_entities
-# def list_entities(type):
-#     url = "http://localhost:1026/v2/entities/?type="+type
-#     response = requests.request("GET", url)
-
-#     return (response.status_code, response.text)
-
-
-def list_entities(type = None,options = 'count', attrs = None):
+def list_entities(type = None, options = 'count', attrs = None):
     url = "http://localhost:1026/v2/entities/"
-
+    if type != None:
+        url = url + "?type="+str(type)
+    if options != None:
+        url = url + "&options=" + str(options)
+    if attrs != None:
+        url = url + "&attrs=" + attrs.join(",")
     response = requests.request("GET", url)
-    print(response.status_code, response.text)
+    return response.status_code, response.text
 
 
 if __name__ == "__main__":
@@ -104,8 +101,8 @@ if __name__ == "__main__":
     print(val)
 
     # Update attributes
-    # status, val = update_attrs(id, attrs_vals)
-    # print(status)
+    status, val = update_attrs(id, attrs_vals)
+    print(status)
 
     # Read an attribute
     status, val = read_attr(id, attr)
