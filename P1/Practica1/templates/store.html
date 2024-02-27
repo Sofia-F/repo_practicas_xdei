@@ -5,9 +5,10 @@
  <p>
  Product ID: {{id_items[3]}}<br>
  Name: {{store.name.value}}<br>
- Address: {{store.address.value}}<br>
- Location: {{store.location.value}}
+ Address: {{store.address.value.addressRegion}}<br>
+ Location: {{store.location.value.coordinates[1]}}, {{store.location.value.coordinates[0]}}
  </p>
+
  <table>
  <tr>
  <th>Store</th>
@@ -26,4 +27,7 @@
  </tr>
  {% endfor %}
  </table>
+
+ 
 {% endblock %}
+
