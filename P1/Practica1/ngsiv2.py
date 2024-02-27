@@ -20,12 +20,12 @@ def delete_entity(id):
 def read_entity(id):
     url = "http://localhost:1026/v2/entities/" + id
     response = requests.request("GET", url)
-    return (response.status_code, response.text)
+    return (response.status_code, response.json())
 
 def read_attr(id, attr):
     url = "http://localhost:1026/v2/entities/"+ id + "/attrs/" + attr + "/value"
     response = requests.request("GET", url)
-    return (response.status_code, response.text)
+    return (response.status_code, response.json())
 
 # DELETE - delete_attr(id, attr)
 def delete_attr(id, attr):
