@@ -1,4 +1,5 @@
-import re
+import requests
+import pprint
 from datetime import datetime
 from flask import render_template
 import ngsiv2
@@ -28,7 +29,7 @@ def stores():
 def products():
  (status, products) = ngsiv2.list_entities(type = 'Product', options = 'keyValues')
  print(status)
- print(products)
+ pprint.pprint(products)
  if status == 200:
     return render_template('products.html', products = products)
 
