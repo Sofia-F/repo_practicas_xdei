@@ -12,18 +12,30 @@ app = Flask(__name__)
 def home():
     return render_template("home.html")
 
-@app.route("/api/data")
-def get_data():
-    return app.send_static_file("data.json")
-
-# New functions
 @app.route("/about/")
 def about():
     return render_template("about.html")
 
-@app.route("/stores/")
+@app.route('/stores/')
 def stores():
-    return render_template("stores.html")
+ (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')
+#  print(status)
+#  pprint.pprint(products)
+ if status == 200:
+    return render_template('stores.html', stores = stores)
+ 
+@app.route('/stores/<id>')
+def store(id):
+ (status, store) = ngsiv2.read_entity(id)
+ print(status)
+ pprint.pprint(product)
+ if status == 200:
+    (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
+                                                    options = 'keyValues',
+                                                    attrs = f'refStore=={id}')
+    print(inventory_items)
+    if status == 200:
+        return render_template('store.html', store = store, inventory_items = inventory_items)
 
 @app.route('/products/')
 def products():
