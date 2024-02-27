@@ -1,7 +1,10 @@
-{% extends "layout.html" %}
-{% block title %}
-Stores
-{% endblock %}
+{% extends 'layout.html' %}
+{% block title %}<h1>Products</h1>{% endblock %}
 {% block content %}
-<p>Product page for the Visual Studio Code Flask tutorial.</p>
+ {% for product in products %}
+ {% set product_url = '/products/' + product.id %}
+ {% set id_items = product.id.split(':') %}
+ <p></p>
+ <a href={{product_url}}>Product {{id_items[3]}}</a>
+ {% endfor %}
 {% endblock %}
