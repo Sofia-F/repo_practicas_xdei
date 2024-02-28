@@ -41,12 +41,22 @@ th {
     background-color: #1e2a3a;
     color: #ffffff;
 }
-#container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  
-#container > div {
-width: 50%;
+
+.map {
+    margin-top: 5px; 
+    float: right;
+    width: 50%;
+    height: block;
+}
+
+.table {
+    margin-top: 5px; 
+    float: left;
+    width: 100%;
+    height: block;
+}
+
+img {
+    width: 64%;
+    height: 55%;
 }
