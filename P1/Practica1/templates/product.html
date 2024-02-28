@@ -3,10 +3,10 @@
 {% block content %}
  {% set id_items = product.id.split(':') %}
  <p>
- Product ID: {{id_items[3]}}<br>
- Name: {{product.name.value}}<br>
- Size: {{product.size.value}}<br>
- Price: {{product.price.value}}
+ <b>Product ID</b>: {{id_items[3]}}<br>
+ <b>Name</b>: {{product.name.value}}<br>
+ <b>Size</b>: {{product.size.value}}<br>
+ <b>Price</b>: {{product.price.value}}
  </p>
  <table>
  <tr>

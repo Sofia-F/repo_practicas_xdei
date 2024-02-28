@@ -1,6 +1,6 @@
 .message {
     font-weight: 600;
-    color: blue;
+    color: #1e2a3a;
 }
 
 .navbar {
@@ -32,8 +32,18 @@
 }
 
 th, td {
-    border: 1px solid #dddddd;
+    border: 1px solid #000000;
     text-align: left;
     padding: 8px;
-    background-color: #e6e6e6; /* Color de fondo gris */
+}
+
+th {
+    background-color: #1e2a3a;
+    color: #ffffff;
+}
+
+img {
+    width: 300px;
+    height: auto;
+    display: inline-block;
 }
