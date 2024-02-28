@@ -4,7 +4,7 @@
 }
 
 .navbar {
-    background-color: lightslategray;
+    background-color: rgb(7, 135, 103);
     font-size: 1em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: white;
@@ -41,9 +41,12 @@ th {
     background-color: #1e2a3a;
     color: #ffffff;
 }
-
-img {
-    width: 300px;
-    height: auto;
-    display: inline-block;
+#container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+#container > div {
+width: 50%;
 }
