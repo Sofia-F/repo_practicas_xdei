@@ -7,13 +7,15 @@
     </head>
 
     <body>
-        <div class="navbar">
-            <a href="{{ url_for('home') }}" class="navbar-brand">Home</a>
-            <a href="{{ url_for('about') }}" class="navbar-item">About</a>
-            <a href="{{ url_for('stores') }}" class="navbar-item">stores</a>
-            <a href="{{ url_for('products') }}" class="navbar-item">Products</a>
+        <div class="dropdown">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}">About</a>
+            <a href="{{ url_for('stores') }}">Stores</a>
+            <a href="{{ url_for('products') }}">Products</a>
         </div>
-
+        <div class="navbar">
+            <div></div><!-- Esto es para alinear el contenido a la derecha -->
+        </div>
         <div class="body-content">
             {% block content %}
             {% endblock %}
