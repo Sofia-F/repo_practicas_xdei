@@ -1,69 +1,14 @@
 .message {
     font-weight: 600;
-    color: #13bc26;
+    color: #1e3a23;
 }
 
 .navbar {
     background-color: #021544;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding: 2px;
-    color: white;
-}
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 10px;
-}
-.navbar a:hover {
-    background-color: #ddd;
-    color: black;
-}
-.navbar a.home {
-    font-weight: bold; /* Texto en negrita para el enlace 'Home' */
-}
-/* Estilos para el menú desplegable */
-.dropdown {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 200px;
-    background-color: #021544;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-.dropdown a {
-    padding: 10px 15px;
-    display: block;
-    color: white;
-    text-decoration: none;
-}
-.dropdown a:hover {
-    background-color: #ddd;
-    color: #021544;
-}
-/* Estilos para el contenido */
-.body-content {
-    margin-left: 220px; /* Ajusta este valor según el ancho del menú desplegable */
-    padding: 20px;
-}
-.content img {
-    display: block;
-    max-width: 10%; /* Limita el ancho máximo de las imágenes al 50% del contenedor */
-    margin-bottom: 20px;
-}
-
-/* .navbar {
-    background-color: rgb(7, 135, 103);
     font-size: 1em;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: white;
     padding: 8px 5px 8px 5px;
 }
-
 
 .navbar a {
     text-decoration: none;
@@ -81,19 +26,9 @@
 }
 
 .body-content {
+    color: black;
     padding: 5px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-} */
-
-.gallery img {
-    max-width: 40%; /* Limita el ancho máximo de las imágenes al 40% del contenedor */
-    margin-bottom: 20px;
-}
-.img1 {
-    float: left; /* Hace que la primera imagen esté a la izquierda */
-}
-.img2 {
-    float: right; /* Hace que la segunda imagen esté a la derecha */
 }
 
 th, td {
@@ -119,6 +54,15 @@ th {
     float: left;
     width: 100%;
     height: block;
+}
+
+.gallery img {
+    max-width: 20%; /* Limita el ancho máximo de las imágenes al 40% del contenedor */
+    margin-bottom: 100px;
+}
+.img1 {
+    float: left; /* Hace que la primera imagen esté a la izquierda */
+    
 }
 
 img {
