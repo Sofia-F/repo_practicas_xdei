@@ -55,9 +55,10 @@ def list_entities(type = None, options = 'count', attrs = None):
     if options != None:
         url = url + "&options=" + str(options)
     if attrs != None:
-        url = url + "&attrs=" + ",".join(attrs)
+        url = url + "&attrs=" + attrs.join(",")
+
     response = requests.request("GET", url)
-    return (response.status_code, response.json())
+    return response.status_code, response.json()
 
 if __name__ == "__main__":
 
