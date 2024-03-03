@@ -69,3 +69,7 @@ img {
     width: 64%;
     height: 55%;
 }
+
+.welcome {
+    font-style: italic;
+}
