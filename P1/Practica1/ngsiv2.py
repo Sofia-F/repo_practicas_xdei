@@ -54,7 +54,7 @@ def list_entities(type = None, options = 'count', attrs = None):
     if options != None:
         url = url + "&options=" + str(options)
     if attrs != None:
-        url = url + "&attrs=" + attrs
+        url = url + "&attrs=" + ",".join(attrs)
     print(url)
 
     response = requests.request("GET", url)
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     print(status, " ", val)
 
     # Read entities
-    status, val = list_entities(type = "Supplier", options="values", attrs="name")
+    status, val = list_entities(type = "Supplier", options="values", attrs=["id","name"])
     print(status, " ", val)
 
     # Read entities
