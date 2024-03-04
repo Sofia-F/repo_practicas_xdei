@@ -25,7 +25,6 @@ def stores():
     return render_template('stores.html', stores = stores)
  
 @app.route('/stores/<id>')
-
 def store(id):
  (status, store) = ngsiv2.read_entity(id)
  print(status)
