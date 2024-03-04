@@ -55,7 +55,6 @@ def list_entities(type = None, options = 'count', attrs = None):
         url = url + "&options=" + str(options)
     if attrs != None:
         url = url + "&attrs=" + ",".join(attrs)
-    print(url)
 
     response = requests.request("GET", url)
     return response.status_code, response.json()
