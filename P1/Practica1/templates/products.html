@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% block title %}<h1>Products</h1>{% endblock %}
+{% block title %}Products{% endblock %}
 {% block content %}
  {% for product in products %}
  {% set product_url = '/products/' + product.id %}
