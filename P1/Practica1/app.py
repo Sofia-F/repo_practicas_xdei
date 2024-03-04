@@ -60,7 +60,7 @@ def product(id):
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
-                                                    attrs = f'refProduct=={id}')
+                                                    attrs = None)
     print(inventory_items)
     if status == 200:
         return render_template('product.html', product = product, inventory_items = inventory_items)

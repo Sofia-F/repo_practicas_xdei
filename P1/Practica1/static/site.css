@@ -57,12 +57,12 @@ th {
 }
 
 .gallery img {
-    max-width: 20%; /* Limita el ancho máximo de las imágenes al 40% del contenedor */
-    margin-bottom: 100px;
+    max-width: 40%; /* Limita el ancho máximo de las imágenes al 40% del contenedor */
+    margin-bottom: 20px;
 }
+
 .img1 {
-    float: left; /* Hace que la primera imagen esté a la izquierda */
-    
+    float: left; /* Hace que la primera imagen esté a la izquierda */ 
 }
 
 img {
