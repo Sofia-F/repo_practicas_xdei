@@ -90,7 +90,7 @@ if __name__ == "__main__":
     print(status, " ", val)
 
     # Read entities
-    status, val = list_entities(type = "Supplier", options="values", attrs=["id","name"])
+    status, val = list_entities(type = "Supplier", options="values", attrs="name")
     print(status, " ", val)
 
     # Read entities
