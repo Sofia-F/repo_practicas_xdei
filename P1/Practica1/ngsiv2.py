@@ -3,7 +3,6 @@ import json
 
 def create_entity(entity):
     url = "http://localhost:1026/v2/entities/"
-
     payload = json.dumps(entity)
     headers = {'Content-Type': 'application/json'}
     response = requests.request("POST", url, headers=headers, data=payload)
@@ -55,7 +54,8 @@ def list_entities(type = None, options = 'count', attrs = None):
     if options != None:
         url = url + "&options=" + str(options)
     if attrs != None:
-        url = url + "&attrs=" + attrs.join(",")
+        url = url + "&attrs=" + attrs
+    print(url)
 
     response = requests.request("GET", url)
     return response.status_code, response.json()

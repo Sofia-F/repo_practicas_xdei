@@ -32,7 +32,7 @@ def store(id):
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
-                                                    attrs = f'refStore=={id}')
+                                                    attrs = None)
     print(inventory_items)
     if status == 200:
         lon_deg = store['location']['value']['coordinates'][0]
