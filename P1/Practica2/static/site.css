@@ -1,0 +1,75 @@
+.message {
+    font-weight: 600;
+    color: #1e3a23;
+}
+
+.navbar {
+    background-color: #021544;
+    font-size: 1em;
+    color: white;
+    padding: 8px 5px 8px 5px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar-brand {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.navbar-item {
+    font-variant: small-caps;
+    margin-left: 30px;
+}
+
+.body-content {
+    color: black;
+    padding: 5px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+th, td {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #1e2a3a;
+    color: #ffffff;
+}
+
+.map {
+    margin-top: 5px; 
+    float: right;
+    width: 50%;
+    height: block;
+}
+
+.table {
+    margin-top: 5px; 
+    float: left;
+    width: 100%;
+    height: block;
+}
+
+.gallery img {
+    max-width: 40%; /* Limita el ancho máximo de las imágenes al 40% del contenedor */
+    margin-bottom: 20px;
+}
+
+.img1 {
+    float: left; /* Hace que la primera imagen esté a la izquierda */ 
+}
+
+img {
+    width: 64%;
+    height: 55%;
+}
+
+.welcome {
+    font-style: italic;
+}

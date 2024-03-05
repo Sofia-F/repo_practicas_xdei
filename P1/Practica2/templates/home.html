@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<p class="welcome">Welcome to the FIWARE Smart Store</p>
+<div class="gallery">
+    <img class="img1" src="{{ url_for('static', filename='diagrama.png') }}" alt="Image 1">
+    <img class="img2" src="{{ url_for('static', filename='logo.png') }}" alt="Image 2">
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% block title %}Stores{% endblock %}
+{% block content %}
+ {% for store in stores %}
+ {% set store_url = '/stores/' + store.id %}
+ {% set id_items = store.id.split(':') %}
+ <p></p>
+ <a href={{store_url}}>Store {{id_items[3]}}</a>
+ {% endfor %}
+{% endblock %}
