@@ -1,7 +1,7 @@
 import requests
 import pprint
 from datetime import datetime
-from flask import render_template
+from flask import render_template, request, redirect, url_for
 import ngsiv2
 from flask import Flask
 import math
@@ -63,3 +63,20 @@ def product(id):
     print(inventory_items)
     if status == 200:
         return render_template('product.html', product = product, inventory_items = inventory_items)
+
+@app.route("/products/create", methods=['GET', 'POST'])
+def create_product():
+    if request.method == 'POST':
+        product = {"id": request.form["id"],
+                "type": "Product",
+                "name": {"type": "Text", "value": request.form["name"]},
+                "size": {"type": "Text", "value": request.form["size"]},
+                "price": {"type": "Integer", "value": int(request.form["price"])}}
+        status = ngsiv2.create_entity(product)
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('display_products'))
+    else:
+        return render_template('create_product.html')
