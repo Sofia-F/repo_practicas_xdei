@@ -62,63 +62,67 @@ def list_entities(type = None, options = 'count', attrs = None):
 if __name__ == "__main__":
 
     # Inputs
-    entity = {
-        "id":"urn:ngsi-ld:Supplier:001", "type":"Supplier",
-        "name":{"type":"Text", "value":"Alfonso"},
+    entity1 = {
+        "id":"urn:ngsi-ld:Employee:001",
+        "type":"Employee",
+        "name":{"type":"Text", "value":"Jonh"},
+        "email":{"type":"Text", "value":"jonh.manager@gmail.com"},
+        "dateOfContract":{"type":"Date", "value":"2014-03-01T00:00:00Z"},
+        "category":{"type":"Text", "value":"Manager"},
+        "salary":{"type":"Float", "value":"3000"},
+        "skills":{"type":"Text", "value":"WritingReports"},
+        "username":{"type":"Text", "value":"Smith"},
+        "password":{"type":"Text", "value":"jonh$smith"}
     }
 
-    entity2 = {
-        "id":"urn:ngsi-ld:Supplier:002", "type":"Supplier",
-        "name":{"type":"Text", "value":"Sofia"}
-    }
+    id = "urn:ngsi-ld:Employee:001"
 
-    id = "urn:ngsi-ld:Supplier:001"
-    id2 = "urn:ngsi-ld:Supplier:002"
-    attr = "name"
+#     id1 = "urn:ngsi-ld:Store:001"
 
-    attrs_vals = {"name": {"type": "Integer",
-                           "value": 89}}
+
+#     attrs_Store1 = { "image": {"type": "Image",
+#                            "value": "store1.jpg"},
+#                     "url": {"type": "Text",
+#                            "value": "https:store1.com"},
+#                     "telephone": {"type": "Text",
+#                            "value": "981065890"},
+#                     "countryCode": {"type": "Text",
+#                            "value": "49"},
+#                     "capacity": {"type": "Number",
+#                            "value": 500},
+#                     "Description": {"type": "Text",
+#                            "value": "Store number 1"},
+#                     "temperature": {"type": "Numer",
+#                            "value": 21.5},
+#                     "relativeHumidity": {"type": "Number",
+#                            "value": 20}}
+    
+    
+#     id5 = "urn:ngsi-ld:Product:001"
+#     attrs_Product1 = {"image": {"type": "Image",
+#                            "value":"product1.jpg"},
+#                       "color": {"type": "Text",
+#                            "value": "Red"}}
+
 
     # Create an entity
-    status = create_entity(entity2)
-    status = create_entity(entity)
+    status = create_entity(entity1)
     print(status)
-
-    # Read an entity
     status, val = read_entity(id)
     print(status, " ", val)
 
-    # Read entities
-    status, val = list_entities(type = "Supplier", options="values", attrs=["id","name"])
-    print(status, " ", val)
+#     # Read entities
+#     status, val = list_entities(type = "Supplier", options="values", attrs=["id","name"])
+#     print(status, " ", val)
 
-    # Read entities
-    status, val = list_entities(type = "Supplier")
-    print(status, " ", val)
+#     # Update attributes
+#     status = update_attrs(id5, attrs_Product1)
+#     print(status)
+#     status = update_attrs(id1, attrs_Store1)
+#     print(status)
 
-    # Update an attribute
-    status = update_attr(id, attr, val = "Alogon")
-    print(status)
+#     status, val = read_entity(id5)
+#     print(status, " ", val)
 
-    # Read an attribute
-    status, val = read_attr(id, attr)
-    print(status, " ", val)
-
-    status, val = read_entity(id)
-    print(status, " ", val)
-
-    # Update attributes
-    status = update_attrs(id, attrs_vals)
-    print(status)
-
-    status, val = read_entity(id)
-    print(status, " ", val)
-
-    # Delete an attribute
-    status = delete_attr(id, attr)
-    print(status)
-
-    # Delete an entity
-    status = delete_entity(id2)
-    status = delete_entity(id)
-    print(status)
+#     status, val = read_entity(id1)
+#     print(status, " ", val)
