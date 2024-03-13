@@ -80,3 +80,27 @@ def create_product():
             return redirect(url_for('display_products'))
     else:
         return render_template('create_product.html')
+    
+
+@app.route("/employee/create", methods=['GET', 'POST'])
+def create_employee():
+    if request.method == 'POST':
+        product = {"id": request.form["id"],
+                "type": "Employee",
+                "name": {"type": "Text", "value": request.form["name"]},
+                "email": {"type": "Text", "value": request.form["email"]},
+                "dateOfContract": {"type": "dateTime", "value": request.form["dateTime"]},
+                "category": {"type": "text", "value": request.form["category"]},
+                "salary": {"type": "text", "value": request.form["salary"]},
+                "skills": {"type": "text", "value": request.form["skills"]},
+                "username": {"type": "text", "value": request.form["username"]},
+                "password": {"type": "text", "value": request.form["password"]}
+                }
+        status = ngsiv2.create_entity(employee)
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('display_employees'))
+    else:
+        return render_template('create_employee.html')
