@@ -16,6 +16,24 @@ def home():
 def about():
     return render_template("about.html")
 
+@app.route('/employees/')
+def employees():
+ (status, employees) = ngsiv2.list_entities(type = 'Employee', options = 'keyValues')
+#  print(status)
+#  pprint.pprint(stores)
+ if status == 200:
+    return render_template('employees.html', employees = employees)
+ 
+@app.route('/employees/<id>')
+def employee(id):
+ (status, employee) = ngsiv2.read_entity(id)
+ print(status)
+#  if status == 200:
+#     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
+#                                                     options = 'keyValues',
+#                                                     attrs = None)
+ return render_template('employee.html', employee = employee)
+
 @app.route('/stores/')
 def stores():
  (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')

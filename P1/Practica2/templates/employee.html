@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block title %}Employee{% endblock %}
+{% block content %}
+ {% set id_items = employee.id.split(':') %}
+ <p>
+ <b>EmployeeID</b>: {{id_items[3]}}<br>
+ <b>Name</b>: {{employee.name.value}}<br>
+ <b>dateOfContract</b>: {{employee.dateOfContract.value}}<br>
+ <b>category</b>: {{employee.category.value}}
+ </p>
+{% endblock %}
