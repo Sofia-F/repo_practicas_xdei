@@ -62,67 +62,222 @@ def list_entities(type = None, options = 'count', attrs = None):
 if __name__ == "__main__":
 
     # Inputs
-    entity1 = {
-        "id":"urn:ngsi-ld:Employee:001",
-        "type":"Employee",
-        "name":{"type":"Text", "value":"Jonh"},
-        "email":{"type":"Text", "value":"jonh.manager@gmail.com"},
-        "dateOfContract":{"type":"Date", "value":"2014-03-01T00:00:00Z"},
-        "category":{"type":"Text", "value":"Manager"},
-        "salary":{"type":"Float", "value":"3000"},
-        "skills":{"type":"Text", "value":"WritingReports"},
-        "username":{"type":"Text", "value":"Smith"},
-        "password":{"type":"Text", "value":"jonh$smith"}
+    employees = [
+    {
+        "id": "urn:ngsi-ld:Employee:001",
+        "type": "Employee",
+        "name": { "type": "Text", "value": "Sofia" },
+        "email": { "type": "Text", "value": "sofia.employee@gmail.com" },
+        "dateOfContract": { "type": "Date", "value": "2019-07-15T00:00:00Z" },
+        "category": { "type": "Text", "value": "Manager" },
+        "salary": { "type": "Float", "value": 2800 },
+        "skills": { "type": "Text", "value": "CustomerRelationships" },
+        "username": { "type": "Text", "value": "SofiaM" },
+        "password": { "type": "Text", "value": "sofiamanager" }
+    },
+    {
+        "id": "urn:ngsi-ld:Employee:002",
+        "type": "Employee",
+        "name": { "type": "Text", "value": "Diego" },
+        "email": { "type": "Text", "value": "diego.employee@gmail.com" },
+        "dateOfContract": { "type": "Date", "value": "2020-02-20T00:00:00Z" },
+        "category": { "type": "Text", "value": "Regular" },
+        "salary": { "type": "Float", "value": 3200 },
+        "skills": { "type": "Text", "value": "WritingReports" },
+        "username": { "type": "Text", "value": "DiegoR" },
+        "password": { "type": "Text", "value": "diegoregular" }
+    },
+    {
+        "id": "urn:ngsi-ld:Employee:003",
+        "type": "Employee",
+        "name": { "type": "Text", "value": "Elena" },
+        "email": { "type": "Text", "value": "elena.employee@gmail.com" },
+        "dateOfContract": { "type": "Date", "value": "2018-11-10T00:00:00Z" },
+        "category": { "type": "Text", "value": "Intern" },
+        "salary": { "type": "Float", "value": 2500 },
+        "skills": { "type": "Text", "value": "MachineryDriving" },
+        "username": { "type": "Text", "value": "ElenaI" },
+        "password": { "type": "Text", "value": "elenaintern" }
     }
+    ]
 
-    id = "urn:ngsi-ld:Employee:001"
+    stores = [
+    {
+        "id": "urn:ngsi-ld:Store:001",
+        "name": {"type": "Text", "value": "Store 1"},
+        "image": {"type": "Image", "value": "store2.jpg"},
+        "url": {"type": "Text", "value": "https://store2.com"},
+        "telephone": {"type": "Text", "value": "913456789"},
+        "countryCode": {"type": "Text", "value": "34"},
+        "capacity": {"type": "Number", "value": 600},
+        "address": {"type": "Text", "value": "Madrid"},
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-3.7038, 40.4168]}},
+        "Description": {"type": "Text", "value": "Store number 2"},
+        "temperature": {"type": "Number", "value": 22.0},
+        "relativeHumidity": {"type": "Number", "value": 25}
+    },
+    {
+        "id": "urn:ngsi-ld:Store:002",
+        "name": {"type": "Text", "value": "Store 2"},
+        "image": {"type": "Image", "value": "store3.jpg"},
+        "url": {"type": "Text", "value": "https://store3.com"},
+        "telephone": {"type": "Text", "value": "917654321"},
+        "countryCode": {"type": "Text", "value": "34"},
+        "capacity": {"type": "Number", "value": 450},
+        "address": {"type": "Text", "value": "Barcelona"},
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [2.1540, 41.3902]}},
+        "Description": {"type": "Text", "value": "Store number 3"},
+        "temperature": {"type": "Number", "value": 20.5},
+        "relativeHumidity": {"type": "Number", "value": 22}
+    },
+    {
+        "id": "urn:ngsi-ld:Store:003",
+        "name": {"type": "Text", "value": "Store 3"},
+        "image": {"type": "Image", "value": "store4.jpg"},
+        "url": {"type": "Text", "value": "https://store4.com"},
+        "telephone": {"type": "Text", "value": "910987654"},
+        "countryCode": {"type": "Text", "value": "34"},
+        "capacity": {"type": "Number", "value": 700},
+        "address": {"type": "Text", "value": "Valencia"},
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
+        "Description": {"type": "Text", "value": "Store number 4"},
+        "temperature": {"type": "Number", "value": 23.5},
+        "relativeHumidity": {"type": "Number", "value": 18}
+    }
+    ]
 
-#     id1 = "urn:ngsi-ld:Store:001"
 
+    products = [
+    {
+        "id": "urn:ngsi-ld:Product:001",
+        "name": {"type": "Text", "value": "Pizza"},
+        "image": {"type": "Image", "value": "pizza.jpg"},
+        "color": {"type": "Text", "value": "Brown"},
+        "size": {"type": "Text", "value": "Large"},
+        "price": {"type": "Number", "value": 10.99}
+    },
+    {
+        "id": "urn:ngsi-ld:Product:002",
+        "name": {"type": "Text", "value": "Burger"},
+        "image": {"type": "Image", "value": "burger.jpg"},
+        "color": {"type": "Text", "value": "Yellow"},
+        "size": {"type": "Text", "value": "Medium"},
+        "price": {"type": "Number", "value": 8.99}
+    },
+    {
+        "id": "urn:ngsi-ld:Product:003",
+        "name": {"type": "Text", "value": "Sushi"},
+        "image": {"type": "Image", "value": "sushi.jpg"},
+        "color": {"type": "Text", "value": "White"},
+        "size": {"type": "Text", "value": "Small"},
+        "price": {"type": "Number", "value": 12.99}
+    },
+    {
+        "id": "urn:ngsi-ld:Product:004",
+        "name": {"type": "Text", "value": "Salad"},
+        "image": {"type": "Image", "value": "salad.jpg"},
+        "color": {"type": "Text", "value": "Green"},
+        "size": {"type": "Text", "value": "Medium"},
+        "price": {"type": "Number", "value": 7.99}
+    },
+    {
+        "id": "urn:ngsi-ld:Product:005",
+        "name": {"type": "Text", "value": "Pasta"},
+        "image": {"type": "Image", "value": "pasta.jpg"},
+        "color": {"type": "Text", "value": "Yellow"},
+        "size": {"type": "Text", "value": "Large"},
+        "price": {"type": "Number", "value": 9.99}
+    },
+    {
+        "id": "urn:ngsi-ld:Product:006",
+        "name": {"type": "Text", "value": "Ice Cream"},
+        "image": {"type": "Image", "value": "icecream.jpg"},
+        "color": {"type": "Text", "value": "Various"},
+        "size": {"type": "Text", "value": "Small"},
+        "price": {"type": "Number", "value": 5.99}
+    },
+    {
+        "id": "urn:ngsi-ld:Product:007",
+        "name": {"type": "Text", "value": "Sushi Roll"},
+        "image": {"type": "Image", "value": "sushi_roll.jpg"},
+        "color": {"type": "Text", "value": "Various"},
+        "size": {"type": "Text", "value": "Medium"},
+        "price": {"type": "Number", "value": 11.99}
+    }
+    ]
 
-#     attrs_Store1 = { "image": {"type": "Image",
-#                            "value": "store1.jpg"},
-#                     "url": {"type": "Text",
-#                            "value": "https:store1.com"},
-#                     "telephone": {"type": "Text",
-#                            "value": "981065890"},
-#                     "countryCode": {"type": "Text",
-#                            "value": "49"},
-#                     "capacity": {"type": "Number",
-#                            "value": 500},
-#                     "Description": {"type": "Text",
-#                            "value": "Store number 1"},
-#                     "temperature": {"type": "Numer",
-#                            "value": 21.5},
-#                     "relativeHumidity": {"type": "Number",
-#                            "value": 20}}
+    inventory_items = [
+    {
+        "id": "urn:ngsi-ld:InventoryItem:001",
+        "type": "InventoryItem",
+        "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:001"},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
+        "shelfCount": {"type": "Number", "value": 50},
+        "stockCount": {"type": "Number", "value": 500}
+    }
+    ]
+
+    shelfs = [
+    {
+        "id": "urn:ngsi-ld:Shelf:001",
+        "type": "Shelf",
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
+        "maxCapacity": {"type": "Number", "value": 50},
+        "name": {"type": "Text", "value": "Corner Unit"}
+    }
+    ]
+
+    print("Deleting Products entities...")
+    for i in range(9):
+        status = delete_entity("urn:ngsi-ld:Product:00"+str(i+1))
+        print(status)
+
+    print()
+    print("Deleting Stores entities...")
+    for i in range(4):
+        print("urn:ngsi-ld:Store:00" + str(i+1))
+        status = delete_entity("urn:ngsi-ld:Store:00" + str(i+1))
+        print(status)
+
+    print()
+    print("Deleting Shelf entities...")
+    for i in range(4):
+        print("urn:ngsi-ld:Shelf:00" + str(i+1))
+        status = delete_entity("urn:ngsi-ld:Shelf:00" + str(i+1))
+        print(status)
+
+    print()
+    print("Deleting InventoryItem entities...")
+    for i in range(4):
+        print("urn:ngsi-ld:InventoryItem:00" + str(i+1))
+        status = delete_entity("urn:ngsi-ld:InventoryItem:00" + str(i+1))
+        print(status)
+
+    print()
+    print("Creating employees entities...")
+    for employee in employees:
+        print(employee)
+        status = create_entity(employee)
+        print(status)
+        status, val = read_entity(str(employee["id"]))
+        print(status, " ", val)
+
+    print()
+    print("Creating stores entities...")
+    for store in stores:
+        status = create_entity(store)
+        print(status)
+        status, val = read_entity(store["id"])
+        print(status, " ", val)
     
-    
-#     id5 = "urn:ngsi-ld:Product:001"
-#     attrs_Product1 = {"image": {"type": "Image",
-#                            "value":"product1.jpg"},
-#                       "color": {"type": "Text",
-#                            "value": "Red"}}
-
-
-    # Create an entity
-    status = create_entity(entity1)
-    print(status)
-    status, val = read_entity(id)
-    print(status, " ", val)
-
-#     # Read entities
-#     status, val = list_entities(type = "Supplier", options="values", attrs=["id","name"])
-#     print(status, " ", val)
-
-#     # Update attributes
-#     status = update_attrs(id5, attrs_Product1)
-#     print(status)
-#     status = update_attrs(id1, attrs_Store1)
-#     print(status)
-
-#     status, val = read_entity(id5)
-#     print(status, " ", val)
-
-#     status, val = read_entity(id1)
-#     print(status, " ", val)
+    print()
+    print("Creating products entities...")
+    for product in products:
+        status = create_entity(product)
+        print(status)
+        status, val = read_entity(product["id"])
+        print(status, " ", val)
+    print()
+    print("Completed")
