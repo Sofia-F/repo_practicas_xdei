@@ -104,6 +104,7 @@ if __name__ == "__main__":
     stores = [
     {
         "id": "urn:ngsi-ld:Store:001",
+        "type": "Store",
         "name": {"type": "Text", "value": "Store 1"},
         "image": {"type": "Image", "value": "store2.jpg"},
         "url": {"type": "Text", "value": "https://store2.com"},
@@ -118,6 +119,7 @@ if __name__ == "__main__":
     },
     {
         "id": "urn:ngsi-ld:Store:002",
+        "type": "Store",
         "name": {"type": "Text", "value": "Store 2"},
         "image": {"type": "Image", "value": "store3.jpg"},
         "url": {"type": "Text", "value": "https://store3.com"},
@@ -132,6 +134,7 @@ if __name__ == "__main__":
     },
     {
         "id": "urn:ngsi-ld:Store:003",
+        "type": "Store",
         "name": {"type": "Text", "value": "Store 3"},
         "image": {"type": "Image", "value": "store4.jpg"},
         "url": {"type": "Text", "value": "https://store4.com"},
@@ -150,6 +153,7 @@ if __name__ == "__main__":
     products = [
     {
         "id": "urn:ngsi-ld:Product:001",
+        "type": "Product",
         "name": {"type": "Text", "value": "Pizza"},
         "image": {"type": "Image", "value": "pizza.jpg"},
         "color": {"type": "Text", "value": "Brown"},
@@ -158,6 +162,7 @@ if __name__ == "__main__":
     },
     {
         "id": "urn:ngsi-ld:Product:002",
+        "type": "Product",
         "name": {"type": "Text", "value": "Burger"},
         "image": {"type": "Image", "value": "burger.jpg"},
         "color": {"type": "Text", "value": "Yellow"},
@@ -166,6 +171,7 @@ if __name__ == "__main__":
     },
     {
         "id": "urn:ngsi-ld:Product:003",
+        "type": "Product",
         "name": {"type": "Text", "value": "Sushi"},
         "image": {"type": "Image", "value": "sushi.jpg"},
         "color": {"type": "Text", "value": "White"},
@@ -174,6 +180,7 @@ if __name__ == "__main__":
     },
     {
         "id": "urn:ngsi-ld:Product:004",
+        "type": "Product",
         "name": {"type": "Text", "value": "Salad"},
         "image": {"type": "Image", "value": "salad.jpg"},
         "color": {"type": "Text", "value": "Green"},
@@ -182,6 +189,7 @@ if __name__ == "__main__":
     },
     {
         "id": "urn:ngsi-ld:Product:005",
+        "type": "Product",
         "name": {"type": "Text", "value": "Pasta"},
         "image": {"type": "Image", "value": "pasta.jpg"},
         "color": {"type": "Text", "value": "Yellow"},
@@ -190,6 +198,7 @@ if __name__ == "__main__":
     },
     {
         "id": "urn:ngsi-ld:Product:006",
+        "type": "Product",
         "name": {"type": "Text", "value": "Ice Cream"},
         "image": {"type": "Image", "value": "icecream.jpg"},
         "color": {"type": "Text", "value": "Various"},
@@ -198,6 +207,7 @@ if __name__ == "__main__":
     },
     {
         "id": "urn:ngsi-ld:Product:007",
+        "type": "Product",
         "name": {"type": "Text", "value": "Sushi Roll"},
         "image": {"type": "Image", "value": "sushi_roll.jpg"},
         "color": {"type": "Text", "value": "Various"},

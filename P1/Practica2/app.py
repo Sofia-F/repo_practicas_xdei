@@ -45,7 +45,7 @@ def stores():
 @app.route('/stores/<id>')
 def store(id):
  (status, store) = ngsiv2.read_entity(id)
- print(status)
+ print(store)
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
