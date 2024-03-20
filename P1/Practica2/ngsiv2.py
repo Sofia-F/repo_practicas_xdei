@@ -58,7 +58,17 @@ def list_entities(type = None, options = 'count', attrs = None):
 
     response = requests.request("GET", url)
     return response.status_code, response.json()
+import base64
+import math
 
+def b64(data):        
+    with open(data, 'rb') as file:
+        img = file.read()
+
+    enc_data_wo_pad = base64.b64encode(img).decode('utf-8').rstrip('=')
+
+    enc_data_w_pad = enc_data_wo_pad.ljust(math.ceil(len(enc_data_wo_pad) / 4) * 4, '=')
+    return enc_data_w_pad
 if __name__ == "__main__":
 
     # Inputs
@@ -155,7 +165,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
         "name": {"type": "Text", "value": "Pizza"},
-        "image": {"type": "Image", "value": "pizza.jpg"},
+        "image": {"type": "Text", "value": "b64"},
         "color": {"type": "Text", "value": "Brown"},
         "size": {"type": "Text", "value": "Large"},
         "price": {"type": "Number", "value": 10.99}
@@ -164,7 +174,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
         "name": {"type": "Text", "value": "Burger"},
-        "image": {"type": "Image", "value": "burger.jpg"},
+        "image": {"type": "File", "value": b64('product1.jpg')},
         "color": {"type": "Text", "value": "Yellow"},
         "size": {"type": "Text", "value": "Medium"},
         "price": {"type": "Number", "value": 8.99}
@@ -173,7 +183,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Product:003",
         "type": "Product",
         "name": {"type": "Text", "value": "Sushi"},
-        "image": {"type": "Image", "value": "sushi.jpg"},
+        "image": {"type": "Image", "value": b64("product1.jpg")},
         "color": {"type": "Text", "value": "White"},
         "size": {"type": "Text", "value": "Small"},
         "price": {"type": "Number", "value": 12.99}
@@ -182,7 +192,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Product:004",
         "type": "Product",
         "name": {"type": "Text", "value": "Salad"},
-        "image": {"type": "Image", "value": "salad.jpg"},
+        "image": {"type": "Image", "value": b64("product1.jpg")},
         "color": {"type": "Text", "value": "Green"},
         "size": {"type": "Text", "value": "Medium"},
         "price": {"type": "Number", "value": 7.99}
@@ -191,7 +201,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Product:005",
         "type": "Product",
         "name": {"type": "Text", "value": "Pasta"},
-        "image": {"type": "Image", "value": "pasta.jpg"},
+        "image": {"type": "Image", "value": b64("product1.jpg")},
         "color": {"type": "Text", "value": "Yellow"},
         "size": {"type": "Text", "value": "Large"},
         "price": {"type": "Number", "value": 9.99}
@@ -200,7 +210,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Product:006",
         "type": "Product",
         "name": {"type": "Text", "value": "Ice Cream"},
-        "image": {"type": "Image", "value": "icecream.jpg"},
+        "image": {"type": "Image", "value": b64("product1.jpg")},
         "color": {"type": "Text", "value": "Various"},
         "size": {"type": "Text", "value": "Small"},
         "price": {"type": "Number", "value": 5.99}
@@ -209,7 +219,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Product:007",
         "type": "Product",
         "name": {"type": "Text", "value": "Sushi Roll"},
-        "image": {"type": "Image", "value": "sushi_roll.jpg"},
+        "image": {"type": "Image", "value": b64("product1.jpg")},
         "color": {"type": "Text", "value": "Various"},
         "size": {"type": "Text", "value": "Medium"},
         "price": {"type": "Number", "value": 11.99}

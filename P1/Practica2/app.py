@@ -63,9 +63,9 @@ def store(id):
 
 @app.route('/products/')
 def products():
- (status, products) = ngsiv2.list_entities(type = 'Product', options = 'keyValues')
+ (status, products) = ngsiv2.list_entities(type = 'Product')
 #  print(status)
-#  pprint.pprint(products)
+ pprint.pprint(products)
  if status == 200:
     return render_template('products.html', products = products)
 
@@ -88,6 +88,7 @@ def create_product():
         product = {"id": request.form["id"],
                 "type": "Product",
                 "name": {"type": "Text", "value": request.form["name"]},
+                "image": {"type": "File", "value": request.form["image"]},                
                 "size": {"type": "Text", "value": request.form["size"]},
                 "price": {"type": "Integer", "value": int(request.form["price"])}}
         status = ngsiv2.create_entity(product)
