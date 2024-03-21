@@ -1,11 +1,16 @@
 import requests
 import json
+import base64
+import math
 
 def create_entity(entity):
     url = "http://localhost:1026/v2/entities/"
     payload = json.dumps(entity)
+    print(payload)
+    print(type(payload))
     headers = {'Content-Type': 'application/json'}
     response = requests.request("POST", url, headers=headers, data=payload)
+    print(response)
     return response.status_code
 
 def delete_entity(id):
@@ -32,6 +37,7 @@ def delete_attr(id, attr):
 def update_attrs(id, attrs_vals):
     url = "http://localhost:1026/v2/entities/"+ id + "/attrs/" 
     payload = json.dumps(attrs_vals)
+    print(payload)
     headers = {'Content-Type': 'application/json'}
     response = requests.request("PATCH", url, headers=headers, data=payload)
     return response.status_code
@@ -58,8 +64,6 @@ def list_entities(type = None, options = 'count', attrs = None):
 
     response = requests.request("GET", url)
     return response.status_code, response.json()
-import base64
-import math
 
 def b64(data):        
     with open(data, 'rb') as file:

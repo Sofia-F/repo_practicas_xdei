@@ -27,7 +27,6 @@ def employees():
 @app.route('/employees/<id>')
 def employee(id):
  (status, employee) = ngsiv2.read_entity(id)
- print(status)
 #  if status == 200:
 #     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
 #                                                     options = 'keyValues',
@@ -45,7 +44,6 @@ def stores():
 @app.route('/stores/<id>')
 def store(id):
  (status, store) = ngsiv2.read_entity(id)
- print(store)
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
@@ -65,15 +63,12 @@ def store(id):
 def products():
  (status, products) = ngsiv2.list_entities(type = 'Product')
 #  print(status)
- pprint.pprint(products)
  if status == 200:
     return render_template('products.html', products = products)
 
 @app.route('/products/<id>')
 def product(id):
  (status, product) = ngsiv2.read_entity(id)
- print(status)
- pprint.pprint(product)
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
@@ -85,26 +80,50 @@ def product(id):
 @app.route("/products/create", methods=['GET', 'POST'])
 def create_product():
     if request.method == 'POST':
+        print(request.form["id"])
         product = {"id": request.form["id"],
                 "type": "Product",
                 "name": {"type": "Text", "value": request.form["name"]},
-                "image": {"type": "File", "value": request.form["image"]},                
+                "image": {"type": "Text", "value": request.form["image"]},      
+                "color": {"type": "Text", "value": request.form["color"]},          
                 "size": {"type": "Text", "value": request.form["size"]},
                 "price": {"type": "Integer", "value": int(request.form["price"])}}
         status = ngsiv2.create_entity(product)
+        print(status)
         if status == 201:
             next = request.args.get('next', None)
             if next:
                 return redirect(next)
-            return redirect(url_for('display_products'))
+            return redirect(url_for('products'))
     else:
         return render_template('create_product.html')
+
+@app.route("/products/update", methods=['GET', 'POST'])
+def update_product():
+    if request.method == 'POST':
+        print(request.form["id"])
+        identifier = request.form["id"]
+        attrs = {
+                "name": {"type": "Text", "value": request.form["name"]},
+                "image": {"type": "Text", "value": request.form["image"]},      
+                "color": {"type": "Text", "value": request.form["color"]},          
+                "size": {"type": "Text", "value": request.form["size"]},
+                "price": {"type": "Integer", "value": int(request.form["price"])}}
+        status = ngsiv2.update_attrs(identifier, attrs)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('products'))
+    else:
+        return render_template('update_product.html')
     
 
 @app.route("/employee/create", methods=['GET', 'POST'])
 def create_employee():
     if request.method == 'POST':
-        product = {"id": request.form["id"],
+        employee = {"id": request.form["id"],
                 "type": "Employee",
                 "name": {"type": "Text", "value": request.form["name"]},
                 "email": {"type": "Text", "value": request.form["email"]},
