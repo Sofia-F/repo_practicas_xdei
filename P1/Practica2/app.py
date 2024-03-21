@@ -33,6 +33,49 @@ def employee(id):
 #                                                     attrs = None)
  return render_template('employee.html', employee = employee)
 
+@app.route("/employees/create", methods=['GET', 'POST'])
+def create_employee():
+    if request.method == 'POST':
+        print(request.form["id"])
+        store = {"id": request.form["id"],
+                "type": "Product",
+                "name": {"type": "Text", "value": request.form["name"]},
+                "image": {"type": "Text", "value": request.form["image"]},      
+                "color": {"type": "Text", "value": request.form["color"]},          
+                "size": {"type": "Text", "value": request.form["size"]},
+                "price": {"type": "Integer", "value": int(request.form["price"])}}
+        status = ngsiv2.create_entity(store)
+        print(status)
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('employees'))
+    else:
+        return render_template('create_employee.html')
+
+@app.route("/employee/update", methods=['GET', 'POST'])
+def update_employee():
+    if request.method == 'POST':
+        print(request.form["id"])
+        identifier = request.form["id"]
+        attrs = {
+                "name": {"type": "Text", "value": request.form["name"]},
+                "image": {"type": "Text", "value": request.form["image"]},      
+                "color": {"type": "Text", "value": request.form["color"]},          
+                "size": {"type": "Text", "value": request.form["size"]},
+                "price": {"type": "Integer", "value": int(request.form["price"])}}
+        status = ngsiv2.update_attrs(identifier, attrs)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('employees'))
+    else:
+        return render_template('update_employee.html')
+
+
 @app.route('/stores/')
 def stores():
  (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')
@@ -58,6 +101,48 @@ def store(id):
         xtile = int((lon_deg + 180.0) / 360.0 * n)
         ytile = int((1.0 - math.asinh(math.tan(lat_rad)) / math.pi) / 2.0 * n)
         return render_template('store.html', store = store, inventory_items = inventory_items, zoom = zoom, xtile = xtile, ytile = ytile)
+
+@app.route("/stores/create", methods=['GET', 'POST'])
+def create_store():
+    if request.method == 'POST':
+        print(request.form["id"])
+        store = {"id": request.form["id"],
+                "type": "Product",
+                "name": {"type": "Text", "value": request.form["name"]},
+                "image": {"type": "Text", "value": request.form["image"]},      
+                "color": {"type": "Text", "value": request.form["color"]},          
+                "size": {"type": "Text", "value": request.form["size"]},
+                "price": {"type": "Integer", "value": int(request.form["price"])}}
+        status = ngsiv2.create_entity(store)
+        print(status)
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('stores'))
+    else:
+        return render_template('create_store.html')
+
+@app.route("/stores/update", methods=['GET', 'POST'])
+def update_store():
+    if request.method == 'POST':
+        print(request.form["id"])
+        identifier = request.form["id"]
+        attrs = {
+                "name": {"type": "Text", "value": request.form["name"]},
+                "image": {"type": "Text", "value": request.form["image"]},      
+                "color": {"type": "Text", "value": request.form["color"]},          
+                "size": {"type": "Text", "value": request.form["size"]},
+                "price": {"type": "Integer", "value": int(request.form["price"])}}
+        status = ngsiv2.update_attrs(identifier, attrs)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('stores'))
+    else:
+        return render_template('update_store.html')
 
 @app.route('/products/')
 def products():
@@ -118,27 +203,3 @@ def update_product():
             return redirect(url_for('products'))
     else:
         return render_template('update_product.html')
-    
-
-@app.route("/employee/create", methods=['GET', 'POST'])
-def create_employee():
-    if request.method == 'POST':
-        employee = {"id": request.form["id"],
-                "type": "Employee",
-                "name": {"type": "Text", "value": request.form["name"]},
-                "email": {"type": "Text", "value": request.form["email"]},
-                "dateOfContract": {"type": "dateTime", "value": request.form["dateTime"]},
-                "category": {"type": "text", "value": request.form["category"]},
-                "salary": {"type": "text", "value": request.form["salary"]},
-                "skills": {"type": "text", "value": request.form["skills"]},
-                "username": {"type": "text", "value": request.form["username"]},
-                "password": {"type": "text", "value": request.form["password"]}
-                }
-        status = ngsiv2.create_entity(employee)
-        if status == 201:
-            next = request.args.get('next', None)
-            if next:
-                return redirect(next)
-            return redirect(url_for('display_employees'))
-    else:
-        return render_template('create_employee.html')
