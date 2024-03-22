@@ -6,8 +6,15 @@
  <b>Product ID</b>: {{id_items[3]}}<br>
  <b>Name</b>: {{product.name.value}}<br>
  <b>Size</b>: {{product.size.value}}<br>
- <b>Price</b>: {{product.price.value}}
+ <b>Price</b>: {{product.price.value}}<br>
+ <b>Color</b>: {{product.color.value}}
  </p>
+
+ {% set image_base = "data:image/png;base64," + product.image.value %}
+ <div class ='product_image'>  
+   <img src={{image_base}} alt="Image 2">
+ </div>
+
  <table>
  <tr>
  <th>Store</th>

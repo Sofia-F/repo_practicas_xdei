@@ -70,9 +70,8 @@ def b64(data):
         img = file.read()
 
     enc_data_wo_pad = base64.b64encode(img).decode('utf-8').rstrip('=')
+    return enc_data_wo_pad
 
-    enc_data_w_pad = enc_data_wo_pad.ljust(math.ceil(len(enc_data_wo_pad) / 4) * 4, '=')
-    return enc_data_w_pad
 if __name__ == "__main__":
 
     # Inputs
@@ -87,7 +86,8 @@ if __name__ == "__main__":
         "salary": { "type": "Float", "value": 2800 },
         "skills": { "type": "Text", "value": "CustomerRelationships" },
         "username": { "type": "Text", "value": "SofiaM" },
-        "password": { "type": "Text", "value": "sofiamanager" }
+        "password": { "type": "Text", "value": "sofiamanager" },
+        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:001"}
     },
     {
         "id": "urn:ngsi-ld:Employee:002",
@@ -99,7 +99,8 @@ if __name__ == "__main__":
         "salary": { "type": "Float", "value": 3200 },
         "skills": { "type": "Text", "value": "WritingReports" },
         "username": { "type": "Text", "value": "DiegoR" },
-        "password": { "type": "Text", "value": "diegoregular" }
+        "password": { "type": "Text", "value": "diegoregular" },
+        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:002"}
     },
     {
         "id": "urn:ngsi-ld:Employee:003",
@@ -111,7 +112,8 @@ if __name__ == "__main__":
         "salary": { "type": "Float", "value": 2500 },
         "skills": { "type": "Text", "value": "MachineryDriving" },
         "username": { "type": "Text", "value": "ElenaI" },
-        "password": { "type": "Text", "value": "elenaintern" }
+        "password": { "type": "Text", "value": "elenaintern" },
+        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:003"}
     }
     ]
 
@@ -120,29 +122,31 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Store:001",
         "type": "Store",
         "name": {"type": "Text", "value": "Store 1"},
-        "image": {"type": "Image", "value": "store2.jpg"},
-        "url": {"type": "Text", "value": "https://store2.com"},
+        "address": {"type": "Text", "value": "Calle de Alcala, Spain"},
+        "image": {"type": "Image", "value": b64("store1.jpg")},
+        "url": {"type": "Text", "value": "https://store1.com"},
         "telephone": {"type": "Text", "value": "913456789"},
         "countryCode": {"type": "Text", "value": "34"},
         "capacity": {"type": "Number", "value": 600},
         "address": {"type": "Text", "value": "Madrid"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-3.7038, 40.4168]}},
-        "Description": {"type": "Text", "value": "Store number 2"},
-        "temperature": {"type": "Number", "value": 22.0},
-        "relativeHumidity": {"type": "Number", "value": 25}
+        "description": {"type": "Text", "value": "Store number 1"},
+        "temperature": {},
+        "relativeHumidity": {}
     },
     {
         "id": "urn:ngsi-ld:Store:002",
         "type": "Store",
         "name": {"type": "Text", "value": "Store 2"},
-        "image": {"type": "Image", "value": "store3.jpg"},
-        "url": {"type": "Text", "value": "https://store3.com"},
+        "address": {"type": "Text", "value": "Carrer de Balmes, Spain"},
+        "image": {"type": "Image", "value": b64("store1.jpg")},
+        "url": {"type": "Text", "value": "https://store2.com"},
         "telephone": {"type": "Text", "value": "917654321"},
         "countryCode": {"type": "Text", "value": "34"},
         "capacity": {"type": "Number", "value": 450},
         "address": {"type": "Text", "value": "Barcelona"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [2.1540, 41.3902]}},
-        "Description": {"type": "Text", "value": "Store number 3"},
+        "description": {"type": "Text", "value": "Store number 2"},
         "temperature": {"type": "Number", "value": 20.5},
         "relativeHumidity": {"type": "Number", "value": 22}
     },
@@ -150,26 +154,26 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Store:003",
         "type": "Store",
         "name": {"type": "Text", "value": "Store 3"},
-        "image": {"type": "Image", "value": "store4.jpg"},
-        "url": {"type": "Text", "value": "https://store4.com"},
+        "address": {"type": "Text", "value": "Avenida de la Constitución, Spain"},
+        "image": {"type": "Image", "value": b64("store1.jpg")},
+        "url": {"type": "Text", "value": "https://store3.com"},
         "telephone": {"type": "Text", "value": "910987654"},
         "countryCode": {"type": "Text", "value": "34"},
         "capacity": {"type": "Number", "value": 700},
         "address": {"type": "Text", "value": "Valencia"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
-        "Description": {"type": "Text", "value": "Store number 4"},
+        "description": {"type": "Text", "value": "Store number 3"},
         "temperature": {"type": "Number", "value": 23.5},
         "relativeHumidity": {"type": "Number", "value": 18}
     }
     ]
-
 
     products = [
     {
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
         "name": {"type": "Text", "value": "Pizza"},
-        "image": {"type": "Text", "value": "b64"},
+        "image": {"type": "Image", "value": b64('product1.jpg')},
         "color": {"type": "Text", "value": "Brown"},
         "size": {"type": "Text", "value": "Large"},
         "price": {"type": "Number", "value": 10.99}
@@ -178,7 +182,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
         "name": {"type": "Text", "value": "Burger"},
-        "image": {"type": "File", "value": b64('product1.jpg')},
+        "image": {"type": "Image", "value": b64('product1.jpg')},
         "color": {"type": "Text", "value": "Yellow"},
         "size": {"type": "Text", "value": "Medium"},
         "price": {"type": "Number", "value": 8.99}
@@ -293,7 +297,7 @@ if __name__ == "__main__":
     for store in stores:
         status = create_entity(store)
         print(status)
-        status, val = read_entity(store["id"])
+        status, val = read_entity(str(store["id"]))
         print(status, " ", val)
     
     print()

@@ -2,10 +2,17 @@
 {% block title %}Employee{% endblock %}
 {% block content %}
  {% set id_items = employee.id.split(':') %}
+ {% set store_items = employee.refStore.value.split(':') %}
  <p>
  <b>EmployeeID</b>: {{id_items[3]}}<br>
  <b>Name</b>: {{employee.name.value}}<br>
  <b>dateOfContract</b>: {{employee.dateOfContract.value}}<br>
- <b>category</b>: {{employee.category.value}}
+ <b>category</b>: {{employee.category.value}}<br>
+ <b>salary</b>: {{employee.salary.value}}<br>
+ <b>skills</b>: {{employee.skills.value}}<br>
+ <b>username</b>: {{employee.username.value}}<br>
+ <b>password</b>: {{employee.password.value}}<br>
+ <b>refStore</b>: {{store_items[3]}}
  </p>
+
 {% endblock %}

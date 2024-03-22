@@ -7,10 +7,23 @@
  <b>Product ID</b>: {{id_items[3]}}<br>
  <b>Name</b>: {{store.name.value}}<br>
  <b>Address</b>: {{store.address.value.addressRegion}}<br>
- <b>Location</b>: {{store.location.value.coordinates[1]}}, {{store.location.value.coordinates[0]}}
+ <b>Location</b>: {{store.location.value.coordinates[1]}}, {{store.location.value.coordinates[0]}}<br>
+ <b>url</b>: {{store.url.value}}<br>
+ <b>telephone</b>: {{store.telephone.value}}<br>
+ <b>countryCode</b>: {{store.countryCode.value}}<br>
+ <b>capacity</b>: {{store.capacity.value}}<br>
+ <b>description</b>: {{store.description.value}}<br>
+ <b>temperature</b>: {{store.temperature.value}}<br>
+ <b>relativeHumidity</b>: {{store.relativeHumidity.value}}
+
  </p>
  <div class ='map'>  
-    <img src="https://tile.openstreetmap.org/{{zoom}}/{{xtile}}/{{ytile}}.png" alt="Image 2">
+    <img src="" alt="Image 2">
+ </div>
+
+ {% set image_base = "data:image/png;base64," + store.image.value %}
+ <div class ='store_image'>  
+   <img src={{image_base}} alt="Image 2">
  </div>
 
  <table>

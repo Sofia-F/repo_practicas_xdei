@@ -8,6 +8,50 @@ import math
 app = Flask(__name__)
 
 
+import requests
+import json
+
+import requests
+
+def register_weather_provider(id):
+    url = "http://localhost:1026/v2/registrations"
+
+    payload = json.dumps({
+    "description": "Get Weather data for Store",
+    "dataProvided": {
+        "entities": [
+        {
+            "id": id,
+            "type": "Store"
+        }
+        ],
+        "attrs": [
+        "temperature",
+        "relativeHumidity"
+        ]
+    },
+    "provider": {
+        "http": {
+        "url": "http://context-provider:3000/random/weatherConditions"
+        },
+        "legacyForwarding": False
+    },
+    "status": "active"
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    return response.status_code, response.text
+
+import requests
+
+def get_weather_value(id, attr):
+    url = "http://localhost:1026/v2/entities/"+ id + "/attrs/"+ attr +"/value"
+    response = requests.request("GET", url)
+    return response.status_code, response.json()
+
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -46,7 +90,8 @@ def create_employee():
                 "salary": {"type": "Integer", "value": int(request.form["salary"])},
                 "skills": {"type": "Text", "value": request.form["skills"]},
                 "username": {"type": "Text", "value": request.form["username"]},
-                "password": {"type": "Text", "value": request.form["password"]}
+                "password": {"type": "Text", "value": request.form["password"]},
+                "refStore": {"type": "Relationship", "value": request.form["store"]}
                 }
         status = ngsiv2.create_entity(employee)
         print(status)
@@ -71,8 +116,10 @@ def update_employee():
                 "salary": {"type": "Integer", "value": int(request.form["salary"])},
                 "skills": {"type": "Text", "value": request.form["skills"]},
                 "username": {"type": "Text", "value": request.form["username"]},
-                "password": {"type": "Text", "value": request.form["password"]}
+                "password": {"type": "Text", "value": request.form["password"]},
+                "refStore": {"type": "Relationship", "value": request.form["store"]}
                 }
+        
         status = ngsiv2.update_attrs(identifier, attrs)
         print(status)
         if status == 204:
@@ -94,12 +141,24 @@ def stores():
  
 @app.route('/stores/<id>')
 def store(id):
+ status, response = register_weather_provider(id)
+ print("Status provider: ", response)
+ status, response = get_weather_value(id, "relativeHumidity")
+ print("Status 1: ", status)
+ status2, response2 = get_weather_value(id, "temperature")
+ print("Status 2: ", status)
+ print("Hola")
+ print(response, "temp", response2)
+
  (status, store) = ngsiv2.read_entity(id)
+ store["image"]["value"] = store["image"]["value"].ljust(math.ceil(len(store["image"]["value"]) / 4) * 4, '=')
+ store["relativeHumidity"] = {"type": "Number", "value": response}
+ store["temperature"] = {"type": "Number", "value": response2}
+
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
                                                     attrs = None)
-    print(inventory_items)
     if status == 200:
         lon_deg = store['location']['value']['coordinates'][0]
         lat_deg = store['location']['value']['coordinates'][1]
@@ -117,10 +176,20 @@ def create_store():
         store = {"id": request.form["id"],
                 "type": "Product",
                 "name": {"type": "Text", "value": request.form["name"]},
-                "image": {"type": "Text", "value": request.form["image"]},      
-                "color": {"type": "Text", "value": request.form["color"]},          
-                "size": {"type": "Text", "value": request.form["size"]},
-                "price": {"type": "Integer", "value": int(request.form["price"])}}
+                "address": {"type": "Text", "value": request.form["address"]},
+                "location": {"type": "geo:json",
+                             "value": {"type": "Point", "coordinates": [request.form["X_cord"],
+                                                                        request.form["Y_cord"]]}},
+                "image": {"type": "Text", "value": request.form["image"]},  
+                "url": {"type": "Text", "value": request.form["url"]},
+                "telephone": {"type": "Text", "value": request.form["telephone"]},
+                "countryCode": {"type": "Text", "value": request.form["countryCode"]},
+                "capacity": {"type": "Integer", "value": request.form["capacity"]},
+                "description": {"type": "Integer", "value": request.form["description"]},
+                "temperature": {"type": "Text", "value": request.form["temperature"]},    
+                "relativeHumidity": {"type": "Integer", "value": request.form["relativeHumidity"]}
+        }
+        
         status = ngsiv2.create_entity(store)
         print(status)
         if status == 201:
@@ -138,10 +207,19 @@ def update_store():
         identifier = request.form["id"]
         attrs = {
                 "name": {"type": "Text", "value": request.form["name"]},
-                "image": {"type": "Text", "value": request.form["image"]},      
-                "color": {"type": "Text", "value": request.form["color"]},          
-                "size": {"type": "Text", "value": request.form["size"]},
-                "price": {"type": "Integer", "value": int(request.form["price"])}}
+                "address": {"type": "Text", "value": request.form["address"]},
+                "location": {"type": "geo:json",
+                             "value": {"type": "Point", "coordinates": [request.form["X_cord"],
+                                                                        request.form["Y_cord"]]}},
+                "image": {"type": "Text", "value": request.form["image"]},  
+                "url": {"type": "Text", "value": request.form["url"]},
+                "telephone": {"type": "Text", "value": request.form["telephone"]},
+                "countryCode": {"type": "Text", "value": request.form["countryCode"]},
+                "capacity": {"type": "Integer", "value": request.form["capacity"]},
+                "description": {"type": "Integer", "value": request.form["description"]},
+                "temperature": {"type": "Text", "value": request.form["temperature"]},    
+                "relativeHumidity": {"type": "Integer", "value": request.form["relativeHumidity"]}
+        }
         status = ngsiv2.update_attrs(identifier, attrs)
         print(status)
         if status == 204:
@@ -162,6 +240,8 @@ def products():
 @app.route('/products/<id>')
 def product(id):
  (status, product) = ngsiv2.read_entity(id)
+ product["image"]["value"] = product["image"]["value"].ljust(math.ceil(len(product["image"]["value"]) / 4) * 4, '=')
+
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
