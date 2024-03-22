@@ -37,14 +37,18 @@ def employee(id):
 def create_employee():
     if request.method == 'POST':
         print(request.form["id"])
-        store = {"id": request.form["id"],
+        employee = {"id": request.form["id"],
                 "type": "Product",
                 "name": {"type": "Text", "value": request.form["name"]},
-                "image": {"type": "Text", "value": request.form["image"]},      
-                "color": {"type": "Text", "value": request.form["color"]},          
-                "size": {"type": "Text", "value": request.form["size"]},
-                "price": {"type": "Integer", "value": int(request.form["price"])}}
-        status = ngsiv2.create_entity(store)
+                "email": {"type": "Text", "value": request.form["email"]},      
+                "dateOfContract": {"type": "Text", "value": request.form["dateOfContract"]},          
+                "category": {"type": "Text", "value": request.form["category"]},
+                "salary": {"type": "Integer", "value": int(request.form["salary"])},
+                "skills": {"type": "Text", "value": request.form["skills"]},
+                "username": {"type": "Text", "value": request.form["username"]},
+                "password": {"type": "Text", "value": request.form["password"]}
+                }
+        status = ngsiv2.create_entity(employee)
         print(status)
         if status == 201:
             next = request.args.get('next', None)
@@ -61,10 +65,14 @@ def update_employee():
         identifier = request.form["id"]
         attrs = {
                 "name": {"type": "Text", "value": request.form["name"]},
-                "image": {"type": "Text", "value": request.form["image"]},      
-                "color": {"type": "Text", "value": request.form["color"]},          
-                "size": {"type": "Text", "value": request.form["size"]},
-                "price": {"type": "Integer", "value": int(request.form["price"])}}
+                "email": {"type": "Text", "value": request.form["email"]},      
+                "dateOfContract": {"type": "Text", "value": request.form["dateOfContract"]},          
+                "category": {"type": "Text", "value": request.form["category"]},
+                "salary": {"type": "Integer", "value": int(request.form["salary"])},
+                "skills": {"type": "Text", "value": request.form["skills"]},
+                "username": {"type": "Text", "value": request.form["username"]},
+                "password": {"type": "Text", "value": request.form["password"]}
+                }
         status = ngsiv2.update_attrs(identifier, attrs)
         print(status)
         if status == 204:
