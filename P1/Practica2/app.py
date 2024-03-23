@@ -93,6 +93,22 @@ def update_employee():
     else:
         return render_template('update_employee.html')
 
+@app.route("/employee/delete", methods=['GET', 'POST'])
+def delete_employee():
+    if request.method == 'POST':
+        print(request.form["id"])
+        identifier = str(request.form["id"])
+        status = ngsiv2.delete_entity(identifier)
+        #status = ngsiv2.delete_context_provider(identifier)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('employees'))
+    else:
+        return render_template('delete_employee.html')
+
 
 @app.route('/stores/')
 def stores():
@@ -189,6 +205,22 @@ def update_store():
     else:
         return render_template('update_store.html')
 
+@app.route("/store/delete", methods=['GET', 'POST'])
+def delete_store():
+    if request.method == 'POST':
+        print(request.form["id"])
+        identifier = str(request.form["id"])
+        status = ngsiv2.delete_entity(identifier)
+        #status = ngsiv2.delete_context_provider(identifier)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('stores'))
+    else:
+        return render_template('delete_store.html')
+
 @app.route('/products/')
 def products():
  (status, products) = ngsiv2.list_entities(type = 'Product')
@@ -250,3 +282,19 @@ def update_product():
             return redirect(url_for('products'))
     else:
         return render_template('update_product.html')
+    
+@app.route("/product/delete", methods=['GET', 'POST'])
+def delete_product():
+    if request.method == 'POST':
+        print(request.form["id"])
+        identifier = str(request.form["id"])
+        status = ngsiv2.delete_entity(identifier)
+        #status = ngsiv2.delete_context_provider(identifier)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('products'))
+    else:
+        return render_template('delete_product.html')

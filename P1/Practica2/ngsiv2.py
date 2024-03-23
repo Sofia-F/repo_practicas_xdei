@@ -136,6 +136,25 @@ def register_tweet_provider(id):
 
     return response.status_code, response.text
 
+import requests
+
+def delete_context_provider(id):
+    url = "http://localhost:1026/v2/registrations"
+
+    payload = {}
+    files={}
+    headers = {}
+
+    response = requests.request("GET", url, headers=headers, data=payload, files=files)
+    response["dataProvided"]
+
+    url = "http://localhost:1026/v2/registrations/5ad5b9435c28633f0ae90671"
+    payload = {}
+    files={}
+    headers = {}
+    response = requests.request("DELETE", url, headers=headers, data=payload, files=files)
+    return response
+
 if __name__ == "__main__":
 
     # Inputs

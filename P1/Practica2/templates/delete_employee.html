@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block title %}Employee{% endblock %}
+{% block content %}
+<form action="/employee/delete">
+    <label for="id">Id:</label><br>
+    <input type="text" id="id" name="id"><br>
+
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
+
+
