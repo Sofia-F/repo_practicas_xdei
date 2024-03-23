@@ -71,6 +71,8 @@ def employees():
 @app.route('/employees/<id>')
 def employee(id):
  (status, employee) = ngsiv2.read_entity(id)
+ print(employee)
+ employee["image"]["value"] = employee["image"]["value"].ljust(math.ceil(len(employee["image"]["value"]) / 4) * 4, '=')
 #  if status == 200:
 #     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
 #                                                     options = 'keyValues',

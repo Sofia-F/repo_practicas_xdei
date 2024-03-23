@@ -1,6 +1,10 @@
 {% extends 'layout.html' %}
 {% block title %}Employee{% endblock %}
 {% block content %}
+ <div class="imageemp-container">
+    {% set image_base = "data:image/png;base64," + employee.image.value %}
+    <img id=originalImage src={{image_base}} alt="Image 2">
+ </div>
  {% set id_items = employee.id.split(':') %}
  {% set store_items = employee.refStore.value.split(':') %}
  <button onclick="location.href = 'http://127.0.0.1:5000/employee/update';">Modify employee</button>

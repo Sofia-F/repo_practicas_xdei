@@ -87,7 +87,8 @@ if __name__ == "__main__":
         "skills": { "type": "Text", "value": "CustomerRelationships" },
         "username": { "type": "Text", "value": "SofiaM" },
         "password": { "type": "Text", "value": "sofiamanager" },
-        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:001"}
+        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
+        "image": {"type": "Image", "value": b64("empleado.jpg")},
     },
     {
         "id": "urn:ngsi-ld:Employee:002",
@@ -100,7 +101,8 @@ if __name__ == "__main__":
         "skills": { "type": "Text", "value": "WritingReports" },
         "username": { "type": "Text", "value": "DiegoR" },
         "password": { "type": "Text", "value": "diegoregular" },
-        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:002"}
+        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:002"},
+        "image": {"type": "Image", "value": b64("empleado.jpg")}
     },
     {
         "id": "urn:ngsi-ld:Employee:003",
@@ -113,7 +115,8 @@ if __name__ == "__main__":
         "skills": { "type": "Text", "value": "MachineryDriving" },
         "username": { "type": "Text", "value": "ElenaI" },
         "password": { "type": "Text", "value": "elenaintern" },
-        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:003"}
+        "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:003"},
+        "image": {"type": "Image", "value": b64("empleado.jpg")},
     }
     ]
 

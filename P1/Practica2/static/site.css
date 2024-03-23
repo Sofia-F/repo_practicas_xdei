@@ -108,3 +108,24 @@ img {
     float:right;
     width: 60%;
 }
+
+.imageemp-container {
+    float:right;
+    width: 25%;
+}
+
+.product_image:hover {
+    animation: rotate 3s;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes rotate {
+    0% { transform: scale(1.2) translate(1px, 1px) rotate(360deg); }
+}
+
+#originalImage{
+    width: 50%;
+}
+#originalImage:hover {
+    transform: scale(1.2); /* Escala la imagen al 120% */
+}
