@@ -72,6 +72,38 @@ def b64(data):
     enc_data_wo_pad = base64.b64encode(img).decode('utf-8').rstrip('=')
     return enc_data_wo_pad
 
+def register_weather_provider(id):
+    url = "http://localhost:1026/v2/registrations"
+
+    payload = json.dumps({
+    "description": "Get Weather data for Store",
+    "dataProvided": {
+        "entities": [
+        {
+            "id": id,
+            "type": "Store"
+        }
+        ],
+        "attrs": [
+        "temperature",
+        "relativeHumidity"
+        ]
+    },
+    "provider": {
+        "http": {
+        "url": "http://context-provider:3000/random/weatherConditions"
+        },
+        "legacyForwarding": False
+    },
+    "status": "active"
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    return response.status_code, response.text
+
 if __name__ == "__main__":
 
     # Inputs
@@ -133,9 +165,7 @@ if __name__ == "__main__":
         "capacity": {"type": "Number", "value": 600},
         "address": {"type": "Text", "value": "Madrid"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-3.7038, 40.4168]}},
-        "description": {"type": "Text", "value": "Store number 1"},
-        "temperature": {},
-        "relativeHumidity": {}
+        "description": {"type": "Text", "value": "Store number 1"}
     },
     {
         "id": "urn:ngsi-ld:Store:002",
@@ -150,8 +180,6 @@ if __name__ == "__main__":
         "address": {"type": "Text", "value": "Barcelona"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [2.1540, 41.3902]}},
         "description": {"type": "Text", "value": "Store number 2"},
-        "temperature": {"type": "Number", "value": 20.5},
-        "relativeHumidity": {"type": "Number", "value": 22}
     },
     {
         "id": "urn:ngsi-ld:Store:003",
@@ -165,9 +193,7 @@ if __name__ == "__main__":
         "capacity": {"type": "Number", "value": 700},
         "address": {"type": "Text", "value": "Valencia"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
-        "description": {"type": "Text", "value": "Store number 3"},
-        "temperature": {"type": "Number", "value": 23.5},
-        "relativeHumidity": {"type": "Number", "value": 18}
+        "description": {"type": "Text", "value": "Store number 3"}
     }
     ]
 
@@ -298,6 +324,8 @@ if __name__ == "__main__":
     print()
     print("Creating stores entities...")
     for store in stores:
+        status = register_weather_provider(str(store["id"]))
+        print(status)
         status = create_entity(store)
         print(status)
         status, val = read_entity(str(store["id"]))

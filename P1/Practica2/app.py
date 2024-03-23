@@ -6,46 +6,7 @@ import ngsiv2
 from flask import Flask
 import math
 app = Flask(__name__)
-
-
-import requests
 import json
-
-import requests
-
-def register_weather_provider(id):
-    url = "http://localhost:1026/v2/registrations"
-
-    payload = json.dumps({
-    "description": "Get Weather data for Store",
-    "dataProvided": {
-        "entities": [
-        {
-            "id": id,
-            "type": "Store"
-        }
-        ],
-        "attrs": [
-        "temperature",
-        "relativeHumidity"
-        ]
-    },
-    "provider": {
-        "http": {
-        "url": "http://context-provider:3000/random/weatherConditions"
-        },
-        "legacyForwarding": False
-    },
-    "status": "active"
-    })
-    headers = {
-    'Content-Type': 'application/json'
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload)
-    return response.status_code, response.text
-
-import requests
 
 def get_weather_value(id, attr):
     url = "http://localhost:1026/v2/entities/"+ id + "/attrs/"+ attr +"/value"
@@ -79,7 +40,7 @@ def employee(id):
 #                                                     attrs = None)
  return render_template('employee.html', employee = employee)
 
-@app.route("/employees/create", methods=['GET', 'POST'])
+@app.route("/employee/create", methods=['GET', 'POST'])
 def create_employee():
     if request.method == 'POST':
         print(request.form["id"])
@@ -143,8 +104,6 @@ def stores():
  
 @app.route('/stores/<id>')
 def store(id):
- status, response = register_weather_provider(id)
- print("Status provider: ", response)
  status, response = get_weather_value(id, "relativeHumidity")
  print("Status 1: ", status)
  status2, response2 = get_weather_value(id, "temperature")

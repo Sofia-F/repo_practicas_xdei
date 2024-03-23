@@ -32,6 +32,11 @@ color: black;
     color: white;
 }
 
+.active{
+    background-color: #04AA6D;
+    color: white;
+}
+
 
 .body-content {
     color: black;
@@ -71,6 +76,11 @@ th {
 
 .img1 {
     float: left; /* Hace que la primera imagen esté a la izquierda */ 
+    width: 25%;
+}
+
+.img2 {
+    width: 30%;
 }
 
 img {
