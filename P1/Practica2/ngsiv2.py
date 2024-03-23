@@ -104,6 +104,38 @@ def register_weather_provider(id):
     response = requests.request("POST", url, headers=headers, data=payload)
     return response.status_code, response.text
 
+def register_tweet_provider(id):
+    url = "http://localhost:1026/v2/registrations"
+
+    payload = json.dumps({
+    "description": "Get Tweets for Store",
+    "dataProvided": {
+        "entities": [
+        {
+            "id": id,
+            "type": "Store"
+        }
+        ],
+        "attrs": [
+        "tweets"
+        ]
+    },
+    "provider": {
+        "http": {
+        "url": "http://context-provider:3000/catfacts/tweets"
+        },
+        "legacyForwarding": False
+    },
+    "status": "active"
+    })
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    return response.status_code, response.text
+
 if __name__ == "__main__":
 
     # Inputs
@@ -325,6 +357,8 @@ if __name__ == "__main__":
     print("Creating stores entities...")
     for store in stores:
         status = register_weather_provider(str(store["id"]))
+        print(status)
+        status = register_tweet_provider(str(store["id"]))
         print(status)
         status = create_entity(store)
         print(status)

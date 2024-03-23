@@ -139,3 +139,21 @@ img {
 #originalImage:hover {
     transform: scale(1.2); /* Escala la imagen al 120% */
 }
+
+.tweet-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tweet-box {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+.tweet-content {
+    margin: 0;
+    font-size: 14px;
+}

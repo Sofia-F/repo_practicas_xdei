@@ -105,16 +105,14 @@ def stores():
 @app.route('/stores/<id>')
 def store(id):
  status, response = get_weather_value(id, "relativeHumidity")
- print("Status 1: ", status)
  status2, response2 = get_weather_value(id, "temperature")
- print("Status 2: ", status)
- print("Hola")
- print(response, "temp", response2)
+ status2, response3 = get_weather_value(id, "tweets")
 
  (status, store) = ngsiv2.read_entity(id)
  store["image"]["value"] = store["image"]["value"].ljust(math.ceil(len(store["image"]["value"]) / 4) * 4, '=')
  store["relativeHumidity"] = {"type": "Number", "value": response}
  store["temperature"] = {"type": "Number", "value": response2}
+ store["tweets"] = {"type": "Text", "value": response3}
 
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',

@@ -22,7 +22,7 @@
     <b>capacity</b>: {{store.capacity.value}}<br>
     <b>description</b>: {{store.description.value}}<br>
     <b>temperature</b>: {{store.temperature.value}}<br>
-    <b>relativeHumidity</b>: {{store.relativeHumidity.value}}
+    <b>relativeHumidity</b>: {{store.relativeHumidity.value}}<br>
 </p>
 
 <table>
@@ -43,4 +43,13 @@
     </tr>
     {% endfor %}
 </table>
+<br>
+<div class="tweet-container">
+   {% for tweet in store.tweets.value %}
+       <div class="tweet-box">
+           <p class="tweet-content">{{ tweet }}</p>
+       </div>
+   {% endfor %}
+</div>
+
 {% endblock %}
