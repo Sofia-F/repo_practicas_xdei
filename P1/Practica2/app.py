@@ -109,7 +109,6 @@ def delete_employee():
     else:
         return render_template('delete_employee.html')
 
-
 @app.route('/stores/')
 def stores():
  (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')
@@ -298,3 +297,23 @@ def delete_product():
             return redirect(url_for('products'))
     else:
         return render_template('delete_product.html')
+
+@app.route("/buy/<id>", methods=['GET', 'POST'])
+def buy_product(id):
+    if request.method == 'POST':
+        attrs = {
+                "shelfCount": {"type":"Integer", "value": {"$inc": -1}},
+                "stockCount": {"type":"Integer", "value": {"$inc": -1}}
+            }
+        status = ngsiv2.update_attrs(id, attrs)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('products'))
+    else:
+        status, inventory_item = ngsiv2.read_entity(id)
+        status, product = ngsiv2.read_entity(str(inventory_item["refProduct"]["value"]))
+        return render_template('buy_product.html', inventory_item = inventory_item,
+                               product = product)

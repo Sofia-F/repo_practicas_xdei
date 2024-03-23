@@ -136,7 +136,23 @@ def register_tweet_provider(id):
 
     return response.status_code, response.text
 
-import requests
+def register_subscription():
+    url = "http://localhost:1026/v2/subscriptions"
+
+    payload = json.dumps({
+    "description": "Notify me of all product price changes",
+    "subject": { "entities": [{"idPattern": ".*", "type": "Product"}],
+    "condition": { "attrs": [ "price" ] } },
+    "notification": {
+    "http": { "url": "http://tutorial:3000/subscription/price-change" } }
+    })
+
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    return response.status_code, response.text
 
 def delete_context_provider(id):
     url = "http://localhost:1026/v2/registrations"
@@ -386,6 +402,8 @@ if __name__ == "__main__":
     
     print()
     print("Creating products entities...")
+    status = register_subscription()
+    print(status)
     for product in products:
         status = create_entity(product)
         print(status)

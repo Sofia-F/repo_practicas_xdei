@@ -15,12 +15,14 @@
  <b>Price</b>: {{product.price.value}}<br>
  <b>Color</b>: {{product.color.value}}
  </p>
+
  <table>
  <tr>
  <th>Store</th>
  <th>Shelf</th>
  <th>Shelf count</th>
  <th>Stock count</th>
+ <th>Buy product</th>
  </tr>
  {% for inventory_item in inventory_items %}
  <tr>
@@ -30,6 +32,8 @@
  <td>{{id_items[3]}}</td>
  <td>{{inventory_item.shelfCount}}</td>
  <td>{{inventory_item.stockCount}}</td>
+ {% set unit_url = '/buy/' + inventory_item.id %}
+ <td><button onclick="location.href = '{{unit_url}}';">Buy a product</button></td>
  </tr>
  {% endfor %}
  </table>
