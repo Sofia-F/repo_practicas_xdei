@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block title %}Stores{% endblock %}
 {% block content %}
+ <button onclick="location.href = 'http://127.0.0.1:5000/store/create';">Add store</button>
  {% for store in stores %}
  {% set store_url = '/stores/' + store.id %}
  {% set id_items = store.id.split(':') %}

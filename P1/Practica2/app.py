@@ -169,7 +169,7 @@ def store(id):
         ytile = int((1.0 - math.asinh(math.tan(lat_rad)) / math.pi) / 2.0 * n)
         return render_template('store.html', store = store, inventory_items = inventory_items, zoom = zoom, xtile = xtile, ytile = ytile)
 
-@app.route("/stores/create", methods=['GET', 'POST'])
+@app.route("/store/create", methods=['GET', 'POST'])
 def create_store():
     if request.method == 'POST':
         print(request.form["id"])
@@ -200,7 +200,7 @@ def create_store():
     else:
         return render_template('create_store.html')
 
-@app.route("/stores/update", methods=['GET', 'POST'])
+@app.route("/store/update", methods=['GET', 'POST'])
 def update_store():
     if request.method == 'POST':
         print(request.form["id"])
@@ -250,7 +250,7 @@ def product(id):
     if status == 200:
         return render_template('product.html', product = product, inventory_items = inventory_items)
 
-@app.route("/products/create", methods=['GET', 'POST'])
+@app.route("/product/create", methods=['GET', 'POST'])
 def create_product():
     if request.method == 'POST':
         print(request.form["id"])
@@ -271,7 +271,7 @@ def create_product():
     else:
         return render_template('create_product.html')
 
-@app.route("/products/update", methods=['GET', 'POST'])
+@app.route("/product/update", methods=['GET', 'POST'])
 def update_product():
     if request.method == 'POST':
         print(request.form["id"])

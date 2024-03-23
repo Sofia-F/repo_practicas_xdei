@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block title %}Employees{% endblock %}
 {% block content %}
+ <button onclick="location.href = 'http://127.0.0.1:5000/employee/create';">Add employee</button>
  {% for employee in employees %}
  {% set employee_url = '/employees/' + employee.id %}
  {% set id_items = employee.id.split(':') %}

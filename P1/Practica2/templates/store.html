@@ -1,50 +1,46 @@
 {% extends 'layout.html' %}
 {% block title %}Store{% endblock %}
 {% block content %}
- {% set id_items = store.id.split(':') %}
+<div class="image-container">
+    {% set image_base = "data:image/png;base64," + store.image.value %}
+    <br>
+    <img class="img_store" src="{{ image_base }}" alt="Store Image">
+    <br>
+    <img class="map_store" src="https://tile.openstreetmap.org/{{zoom}}/{{xtile}}/{{ytile}}.png" alt="Image 2">
+</div>
+<button>Delete store</button>
+<button onclick="location.href = 'http://127.0.0.1:5000/store/update';">Modify store</button>
+{% set id_items = store.id.split(':') %}
+<p>
+    <b>Store ID</b>: {{id_items[3]}}<br>
+    <b>Name</b>: {{store.name.value}}<br>
+    <b>Address</b>: {{store.address.value.addressRegion}}<br>
+    <b>Location</b>: {{store.location.value.coordinates[1]}}, {{store.location.value.coordinates[0]}}<br>
+    <b>url</b>: {{store.url.value}}<br>
+    <b>telephone</b>: {{store.telephone.value}}<br>
+    <b>countryCode</b>: {{store.countryCode.value}}<br>
+    <b>capacity</b>: {{store.capacity.value}}<br>
+    <b>description</b>: {{store.description.value}}<br>
+    <b>temperature</b>: {{store.temperature.value}}<br>
+    <b>relativeHumidity</b>: {{store.relativeHumidity.value}}
+</p>
 
- <p>
- <b>Product ID</b>: {{id_items[3]}}<br>
- <b>Name</b>: {{store.name.value}}<br>
- <b>Address</b>: {{store.address.value.addressRegion}}<br>
- <b>Location</b>: {{store.location.value.coordinates[1]}}, {{store.location.value.coordinates[0]}}<br>
- <b>url</b>: {{store.url.value}}<br>
- <b>telephone</b>: {{store.telephone.value}}<br>
- <b>countryCode</b>: {{store.countryCode.value}}<br>
- <b>capacity</b>: {{store.capacity.value}}<br>
- <b>description</b>: {{store.description.value}}<br>
- <b>temperature</b>: {{store.temperature.value}}<br>
- <b>relativeHumidity</b>: {{store.relativeHumidity.value}}
-
- </p>
- <div class ='map'>  
-    <img src="" alt="Image 2">
- </div>
-
- {% set image_base = "data:image/png;base64," + store.image.value %}
- <div class ='store_image'>  
-   <img src={{image_base}} alt="Image 2">
- </div>
-
- <table>
- <tr>
- <th>Store</th>
- <th>Shelf</th>
- <th>Shelf count</th>
- <th>Stock count</th>
- </tr>
- {% for inventory_item in inventory_items %}
- <tr>
- {% set id_items = inventory_item.refStore.split(':') %}
- <td>{{id_items[3]}}</td>
- {% set id_items = inventory_item.refShelf.split(':') %}
- <td>{{id_items[3]}}</td>
- <td>{{inventory_item.shelfCount}}</td>
- <td>{{inventory_item.stockCount}}</td>
- </tr>
- {% endfor %}
- </table>
-
- 
+<table>
+    <tr>
+        <th>Store</th>
+        <th>Shelf</th>
+        <th>Shelf count</th>
+        <th>Stock count</th>
+    </tr>
+    {% for inventory_item in inventory_items %}
+    <tr>
+        {% set id_items = inventory_item.refStore.split(':') %}
+        <td>{{ id_items[3] }}</td>
+        {% set id_items = inventory_item.refShelf.split(':') %}
+        <td>{{ id_items[3] }}</td>
+        <td>{{ inventory_item.shelfCount }}</td>
+        <td>{{ inventory_item.stockCount }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
-

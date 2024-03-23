@@ -1,6 +1,12 @@
 {% extends 'layout.html' %}
 {% block title %}Product{% endblock %}
 {% block content %}
+ <div class="imageprod-container">
+    {% set image_base = "data:image/png;base64," + product.image.value %}
+    <img class=product_image src={{image_base}} alt="Image 2">
+ </div>
+ <button>Delete product</button>
+ <button onclick="location.href = 'http://127.0.0.1:5000/product/update';">Modify product</button>
  {% set id_items = product.id.split(':') %}
  <p>
  <b>Product ID</b>: {{id_items[3]}}<br>
@@ -9,12 +15,6 @@
  <b>Price</b>: {{product.price.value}}<br>
  <b>Color</b>: {{product.color.value}}
  </p>
-
- {% set image_base = "data:image/png;base64," + product.image.value %}
- <div class ='product_image'>  
-   <img src={{image_base}} alt="Image 2">
- </div>
-
  <table>
  <tr>
  <th>Store</th>

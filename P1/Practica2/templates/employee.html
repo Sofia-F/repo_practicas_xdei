@@ -3,6 +3,8 @@
 {% block content %}
  {% set id_items = employee.id.split(':') %}
  {% set store_items = employee.refStore.value.split(':') %}
+ <button onclick="location.href = 'http://127.0.0.1:5000/employee/update';">Modify employee</button>
+ <button>Delete employee</button>
  <p>
  <b>EmployeeID</b>: {{id_items[3]}}<br>
  <b>Name</b>: {{employee.name.value}}<br>
