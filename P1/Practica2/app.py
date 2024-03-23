@@ -230,13 +230,13 @@ def products():
 @app.route('/products/<id>')
 def product(id):
  (status, product) = ngsiv2.read_entity(id)
+ print(product)
  product["image"]["value"] = product["image"]["value"].ljust(math.ceil(len(product["image"]["value"]) / 4) * 4, '=')
 
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
                                                     attrs = None)
-    print(inventory_items)
     if status == 200:
         return render_template('product.html', product = product, inventory_items = inventory_items)
 

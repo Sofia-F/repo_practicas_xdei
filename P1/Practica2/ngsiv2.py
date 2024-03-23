@@ -142,7 +142,9 @@ def register_subscription():
     payload = json.dumps({
     "description": "Notify me of all product price changes",
     "subject": { "entities": [{"idPattern": ".*", "type": "Product"}],
-    "condition": { "attrs": [ "price" ] } },
+                 "condition": {"attrs": ["shelfCount"],
+                             "expression": {"q": "shelfCount<10;refStore==urn:ngsi-ld:Store:001"}}
+    },
     "notification": {
     "http": { "url": "http://tutorial:3000/subscription/price-change" } }
     })
@@ -152,7 +154,7 @@ def register_subscription():
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    return response.status_code, response.text
+    return response.status_code
 
 def delete_context_provider(id):
     url = "http://localhost:1026/v2/registrations"
@@ -402,7 +404,7 @@ if __name__ == "__main__":
     
     print()
     print("Creating products entities...")
-    status = register_subscription()
+    status3 = register_subscription()
     print(status)
     for product in products:
         status = create_entity(product)
@@ -411,3 +413,4 @@ if __name__ == "__main__":
         print(status, " ", val)
     print()
     print("Completed")
+    print(status3)
