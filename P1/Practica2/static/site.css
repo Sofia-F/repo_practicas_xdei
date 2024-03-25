@@ -7,6 +7,9 @@
     background-color: #333;
     width: 100%;
     overflow: hidden;
+    position: fixed; 
+    top: 0;
+    z-index: 1000;
     padding-top: 14px;
     padding-bottom: 14px;
 }
@@ -37,6 +40,12 @@ color: black;
     color: white;
 }
 
+body {
+    margin-top: 50px; /* Espacio deseado en la parte superior */
+    margin-bottom: 14px; /* Espacio deseado en la parte inferior */
+    margin-left: 0; /* Elimina el margen izquierdo */
+    margin-right: 0; /* Elimina el margen derecho */
+}
 
 .body-content {
     color: black;
@@ -136,6 +145,7 @@ img {
 #originalImage{
     width: 50%;
 }
+
 #originalImage:hover {
     transform: scale(1.2); /* Escala la imagen al 120% */
 }

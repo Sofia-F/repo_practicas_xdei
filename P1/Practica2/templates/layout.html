@@ -8,11 +8,12 @@
 
     <body>
         <div class="navbar">
-            <a href="{{ url_for('home') }}" class="active">Home</a>
-            <a href="{{ url_for('products') }}" class="navbar-item">Products</a>
-            <a href="{{ url_for('stores') }}" class="navbar-item">Stores</a>
-            <a href="{{ url_for('employees') }}" class="navbar-item">Employees</a>
-            <a href="{{ url_for('about') }}" class="navbar-item">About</a>
+            <a href="{{ url_for('home') }}" {% if request.path == url_for('home') %}class="active"{% endif %}>Home</a>
+            <a href="{{ url_for('products') }}" {% if request.path == url_for('products') %}class="active"{% endif %}>Products</a>
+            <a href="{{ url_for('stores') }}" {% if request.path == url_for('stores') %}class="active"{% endif %}>Stores</a>
+            <a href="{{ url_for('employees') }}" {% if request.path == url_for('employees') %}class="active"{% endif %}>Employees</a>
+            <a href="{{ url_for('about') }}" {% if request.path == url_for('about') %}class="active"{% endif %}>About</a>
+         
             <!-- <a href="{{ url_for('create_product') }}" class="navbar-item">Create</a>
             <a href="{{ url_for('create_store') }}" class="navbar-item">Create</a>
             <a href="{{ url_for('create_employee') }}" class="navbar-item">Create</a>
