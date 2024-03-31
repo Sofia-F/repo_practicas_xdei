@@ -118,10 +118,18 @@ img {
 }
 
 .img_store{
+
     width: 50%;
     height: auto;
 }
 
+.img_store:hover {
+    transform: scale(1.2); /* Escala la imagen al 120% */
+
+    animation: rotate 3s;
+    animation-iteration-count: infinite;
+  }
+  
 .product_image{
     width: 50%;
     height: auto;

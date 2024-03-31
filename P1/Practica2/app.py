@@ -45,7 +45,7 @@ def create_employee():
     if request.method == 'POST':
         print(request.form["id"])
         employee = {"id": request.form["id"],
-                "type": "Product",
+                "type": "Employee",
                 "name": {"type": "Text", "value": request.form["name"]},
                 "email": {"type": "Text", "value": request.form["email"]},      
                 "dateOfContract": {"type": "Text", "value": request.form["dateOfContract"]},          
@@ -147,7 +147,7 @@ def create_store():
     if request.method == 'POST':
         print(request.form["id"])
         store = {"id": request.form["id"],
-                "type": "Product",
+                "type": "Store",
                 "name": {"type": "Text", "value": request.form["name"]},
                 "address": {"type": "Text", "value": request.form["address"]},
                 "location": {"type": "geo:json",

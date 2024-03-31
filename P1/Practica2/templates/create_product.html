@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-{% block title %}Product{% endblock %}
+{% block title %}Create Product{% endblock %}
 {% block content %}
 <form action="/product/create" method = "POST">
     <label for="id">Id:</label><br>
@@ -11,7 +11,7 @@
     <label for="size">Size:</label><br>
     <input type="text" id="size" name="size"><br>
     <label for="image">Image:</label><br>
-    <input type="Text" id="image" name="image"><br>
+    <input type="file" id="image" name="image"><br><br>
     <label for="color">Color:</label><br>
     <input type="Text" id="color" name="color"><br>
 
