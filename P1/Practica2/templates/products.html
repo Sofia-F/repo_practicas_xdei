@@ -7,7 +7,7 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>Nombre</th>
+        <th>Name</th>
         <th>Color</th>
         <th>Size</th>
         <th>Image</th>
@@ -18,8 +18,8 @@
     {% set id_items = product.id.split(':') %}
     {% set image_base = "data:image/png;base64," + product.image.value %}
     <tr>
-        <td>{{ id_items[3] }}</td> 
         <td><a href="/products/{{ product.id }}">Product {{ id_items[3] }}</a></td>
+        <td>{{product.name.value}}</td>
         <td>{{product.color.value}}</td>
         <td>{{product.size.value}}</td>
         <td><img class="img_store" src="{{ image_base }}" alt="Store Image"></td>

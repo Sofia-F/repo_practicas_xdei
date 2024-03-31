@@ -7,7 +7,7 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>Nombre</th>
+        <th>Name</th>
         <th>Pais</th>
         <th>Temperatura</th>
         <th>Humedad Relativa</th>
@@ -19,8 +19,8 @@
     {% set id_items = store.id.split(':') %}
     {% set image_base = "data:image/png;base64," + store.image %}
     <tr>
-        <td>{{ id_items[3] }}</td> 
         <td><a href="/stores/{{ store.id }}">Store{{ id_items[3] }}</a></td>
+        <td>{{store.name}}</td>
         <td>{{store.countryCode}}</td>
         <td>{{store.temperature.value}}</td>
         <td>{{store.relativeHumidity.value}}</td>
