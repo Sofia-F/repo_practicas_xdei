@@ -66,11 +66,10 @@ def create_employee():
     else:
         return render_template('create_employee.html')
 
-@app.route("/employee/update", methods=['GET', 'POST'])
-def update_employee():
+@app.route("/employee/update/<id>", methods=['GET', 'POST'])
+def update_employee(id):
     if request.method == 'POST':
-        print(request.form["id"])
-        identifier = request.form["id"]
+
         attrs = {
                 "name": {"type": "Text", "value": request.form["name"]},
                 "email": {"type": "Text", "value": request.form["email"]},      
@@ -83,7 +82,7 @@ def update_employee():
                 "refStore": {"type": "Relationship", "value": request.form["store"]}
                 }
         
-        status = ngsiv2.update_attrs(identifier, attrs)
+        status = ngsiv2.update_attrs(id, attrs)
         print(status)
         if status == 204:
             next = request.args.get('next', None)
@@ -91,28 +90,27 @@ def update_employee():
                 return redirect(next)
             return redirect(url_for('employees'))
     else:
-        return render_template('update_employee.html')
+        return render_template('update_employee.html', id = id)
 
-@app.route("/employee/delete", methods=['GET', 'POST'])
-def delete_employee():
-    if request.method == 'POST':
-        print(request.form["id"])
-        identifier = str(request.form["id"])
-        status = ngsiv2.delete_entity(identifier)
+@app.route("/employee/delete/<id>", methods=['GET', 'POST'])
+def delete_employee(id):
+    if request.method == 'GET':
+
+        status = ngsiv2.delete_entity(id)
         #status = ngsiv2.delete_context_provider(identifier)
-        print(status)
+
         if status == 204:
             next = request.args.get('next', None)
             if next:
                 return redirect(next)
             return redirect(url_for('employees'))
-    else:
-        return render_template('delete_employee.html')
 
 @app.route('/stores/')
 def stores():
  (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')
+ print(stores)
  for store in stores:
+     print("Tienda")
      print(store)
      status, response = get_weather_value(store["id"], "relativeHumidity")
      status2, response2 = get_weather_value(store["id"], "temperature")
@@ -175,11 +173,9 @@ def create_store():
     else:
         return render_template('create_store.html')
 
-@app.route("/store/update", methods=['GET', 'POST'])
-def update_store():
+@app.route("/store/update/<id>", methods=['GET', 'POST'])
+def update_store(id):
     if request.method == 'POST':
-        print(request.form["id"])
-        identifier = request.form["id"]
         attrs = {
                 "name": {"type": "Text", "value": request.form["name"]},
                 "address": {"type": "Text", "value": request.form["address"]},
@@ -195,7 +191,7 @@ def update_store():
                 "temperature": {"type": "Text", "value": request.form["temperature"]},    
                 "relativeHumidity": {"type": "Integer", "value": request.form["relativeHumidity"]}
         }
-        status = ngsiv2.update_attrs(identifier, attrs)
+        status = ngsiv2.update_attrs(id, attrs)
         print(status)
         if status == 204:
             next = request.args.get('next', None)
@@ -203,15 +199,65 @@ def update_store():
                 return redirect(next)
             return redirect(url_for('stores'))
     else:
-        return render_template('update_store.html')
+        return render_template('update_store.html', id = id)
 
-@app.route("/store/delete", methods=['GET', 'POST'])
-def delete_store():
+@app.route("/store/delete/<id>", methods=['GET', 'POST'])
+def delete_store(id):
+    if request.method == 'GET':
+        status = ngsiv2.delete_entity(id)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('stores'))
+
+@app.route("/shelf/create", methods=['GET', 'POST'])
+def create_shelf():
     if request.method == 'POST':
-        print(request.form["id"])
-        identifier = str(request.form["id"])
-        status = ngsiv2.delete_entity(identifier)
-        #status = ngsiv2.delete_context_provider(identifier)
+
+        store = {
+            "id": request.form["id"],
+            "type": "InventoryItem",
+            "refShelf": {"type": "Text", "value": request.form["refShelf"]},
+            "refStore": {"type": "Text", "value": request.form["refStore"]},
+            "shelfCount": {"type": "Number", "value": request.form["shelfCount"]},
+            "stockCount": {"type": "Number", "value": request.form["stockCount"]}
+        }
+        
+        status = ngsiv2.create_entity(store)
+        print(status)
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('stores'))
+    else:
+        return render_template('create_shelf.html')
+    
+@app.route("/store/<idStore>/shelf/delete/<id>", methods=['GET', 'POST'])
+def delete_shelf(id, idStore):
+    if request.method == 'GET':
+        print(id)
+        print(idStore)
+        status = ngsiv2.delete_entity(id)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('stores'))
+
+@app.route("/store/<idStore>/shelf/update/<id>", methods=['GET', 'POST'])
+def update_shelf(id, idStore):
+    if request.method == 'POST':
+        attrs = {
+            "refShelf": {"type": "Text", "value": request.form["refShelf"]},
+            "refStore": {"type": "Text", "value": request.form["refStore"]},
+            "shelfCount": {"type": "Number", "value": request.form["shelfCount"]},
+            "stockCount": {"type": "Number", "value": request.form["stockCount"]}
+        }
+        status = ngsiv2.update_attrs(id, attrs)
         print(status)
         if status == 204:
             next = request.args.get('next', None)
@@ -219,8 +265,8 @@ def delete_store():
                 return redirect(next)
             return redirect(url_for('stores'))
     else:
-        return render_template('delete_store.html')
-
+        return render_template('update_shelf.html', id = id)
+            
 @app.route('/products/')
 def products():
  (status, products) = ngsiv2.list_entities(type = 'Product')
@@ -262,18 +308,18 @@ def create_product():
     else:
         return render_template('create_product.html')
 
-@app.route("/product/update", methods=['GET', 'POST'])
-def update_product():
+@app.route("/product/update/<id>", methods=['GET', 'POST'])
+def update_product(id):
+    print(id)
     if request.method == 'POST':
-        print(request.form["id"])
-        identifier = request.form["id"]
+        print(id)
         attrs = {
                 "name": {"type": "Text", "value": request.form["name"]},
                 "image": {"type": "Text", "value": request.form["image"]},      
                 "color": {"type": "Text", "value": request.form["color"]},          
                 "size": {"type": "Text", "value": request.form["size"]},
                 "price": {"type": "Integer", "value": int(request.form["price"])}}
-        status = ngsiv2.update_attrs(identifier, attrs)
+        status = ngsiv2.update_attrs(id, attrs)
         print(status)
         if status == 204:
             next = request.args.get('next', None)
@@ -281,23 +327,19 @@ def update_product():
                 return redirect(next)
             return redirect(url_for('products'))
     else:
-        return render_template('update_product.html')
+        print(id)
+        return render_template('update_product.html', id = id)
     
-@app.route("/product/delete", methods=['GET', 'POST'])
-def delete_product():
-    if request.method == 'POST':
-        print(request.form["id"])
-        identifier = str(request.form["id"])
-        status = ngsiv2.delete_entity(identifier)
-        #status = ngsiv2.delete_context_provider(identifier)
-        print(status)
+@app.route("/product/delete/<id>", methods=['GET', 'POST'])
+def delete_product(id):
+    if request.method == 'GET':
+        status = ngsiv2.delete_entity(id)
+
         if status == 204:
             next = request.args.get('next', None)
             if next:
                 return redirect(next)
             return redirect(url_for('products'))
-    else:
-        return render_template('delete_product.html')
 
 @app.route("/buy/<id>", methods=['GET', 'POST'])
 def buy_product(id):

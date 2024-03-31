@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block title %}Product{% endblock %}
+{% block content %}
+<form action="/product/create" method = "POST">
+    <label for="id">Id:</label><br>
+    <input type="text" id="id" name="id"><br>
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <label for="name">Price:</label><br>
+    <input type="number" id="price" name="price"><br><br>
+    <label for="size">Size:</label><br>
+    <input type="text" id="size" name="size"><br>
+    <label for="image">Image:</label><br>
+    <input type="Text" id="image" name="image"><br>
+    <label for="color">Color:</label><br>
+    <input type="Text" id="color" name="color"><br>
+
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
+
+

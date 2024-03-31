@@ -22,9 +22,9 @@
         <td>{{product.name.value}}</td>
         <td>{{product.color.value}}</td>
         <td>{{product.size.value}}</td>
-        <td><img class="img_store" src="{{ image_base }}" alt="Store Image"></td>
-        <td><button onclick="location.href = 'http://127.0.0.1:5000/product/create';">Update</button></td>
-        <td><button onclick="location.href = 'http://127.0.0.1:5000/product/create';">Delete</button></td>
+        <td><img class="img_store" src="{{ image_base }}" alt="Product Image"></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/product/update/{{ product.id }}';">Update</button></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/product/delete/{{ product.id }}';">Delete</button></td>
     </tr>
     {% endfor %}
 </table>

@@ -1,9 +1,11 @@
-{% extends 'layout.html' %}
-{% block title %}Store{% endblock %}
-{% block content %}
-<form action="/store/update">
-    <label for="id">Id:</label><br>
-    <input type="text" id="id" name="id"><br>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+</head>
+<body>
+<form action="{{ url_for('update_store', id=id) }}">
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
     <label for="address">Address:</label><br>
@@ -29,6 +31,8 @@
 
     <input type="submit" value="Submit">
 </form>
-{% endblock %}
+</body>
+</html>
+
 
 

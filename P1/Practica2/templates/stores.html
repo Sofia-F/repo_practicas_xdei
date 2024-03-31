@@ -25,8 +25,8 @@
         <td>{{store.temperature.value}}</td>
         <td>{{store.relativeHumidity.value}}</td>
         <td><img class="img_store" src="{{ image_base }}" alt="Store Image"></td>
-        <td><button onclick="location.href = 'http://127.0.0.1:5000/store/create';">Update</button></td>
-        <td><button onclick="location.href = 'http://127.0.0.1:5000/store/create';">Delete</button></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/store/update/{{ store.id }}';">Update</button></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/store/delete/{{ store.id }}';">Delete</button></td>
     </tr>
     {% endfor %}
 </table>
