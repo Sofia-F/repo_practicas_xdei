@@ -1,11 +1,33 @@
 {% extends 'layout.html' %}
 {% block title %}Stores{% endblock %}
 {% block content %}
- <button onclick="location.href = 'http://127.0.0.1:5000/store/create';">Add store</button>
- {% for store in stores %}
- {% set store_url = '/stores/' + store.id %}
- {% set id_items = store.id.split(':') %}
- <p></p>
- <a href={{store_url}}>Store {{id_items[3]}}</a>
- {% endfor %}
+<button onclick="location.href = 'http://127.0.0.1:5000/store/create';">Add store</button>
+<br>
+<br>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Pais</th>
+        <th>Temperatura</th>
+        <th>Humedad Relativa</th>
+        <th>Image</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for store in stores %}
+    {% set id_items = store.id.split(':') %}
+    {% set image_base = "data:image/png;base64," + store.image %}
+    <tr>
+        <td>{{ id_items[3] }}</td> 
+        <td><a href="/stores/{{ store.id }}">Store{{ id_items[3] }}</a></td>
+        <td>{{store.countryCode}}</td>
+        <td>{{store.temperature.value}}</td>
+        <td>{{store.relativeHumidity.value}}</td>
+        <td><img class="img_store" src="{{ image_base }}" alt="Store Image"></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/store/create';">Update</button></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/store/create';">Delete</button></td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

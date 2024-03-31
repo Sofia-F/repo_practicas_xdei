@@ -1,11 +1,28 @@
 {% extends 'layout.html' %}
 {% block title %}Employees{% endblock %}
 {% block content %}
- <button onclick="location.href = 'http://127.0.0.1:5000/employee/create';">Add employee</button>
- {% for employee in employees %}
- {% set employee_url = '/employees/' + employee.id %}
- {% set id_items = employee.id.split(':') %}
- <p></p>
- <a href={{employee_url}}> Employee {{id_items[3]}}</a>
- {% endfor %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Category</th>
+        <th>Skills</th>
+        <th>Image</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for employee in employees %}
+    {% set id_items = employee.id.split(':') %}
+    {% set image_base = "data:image/png;base64," + employee.image %}
+    <tr>
+        <td>{{ id_items[3] }}</td> 
+        <td><a href="/employees/{{ employee.id }}"> Employee {{ id_items[3] }}</a></td>
+        <td>{{employee.category}}</td>
+        <td>{{employee.skills}}</td>
+        <td><img class="img_store" src="{{ image_base }}" alt="Store Image"></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/employee/create';">Update</button></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/employee/create';">Delete</button></td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

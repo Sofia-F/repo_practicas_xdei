@@ -112,21 +112,22 @@ def delete_employee():
 @app.route('/stores/')
 def stores():
  (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')
-#  print(status)
-#  pprint.pprint(stores)
+ for store in stores:
+     print(store)
+     status, response = get_weather_value(store["id"], "relativeHumidity")
+     status2, response2 = get_weather_value(store["id"], "temperature")
+     store["temperature"] = {"type": "Text", "value": response}
+     store["relativeHumidity"] = {"type": "Text", "value": response2}
+
  if status == 200:
     return render_template('stores.html', stores = stores)
  
 @app.route('/stores/<id>')
 def store(id):
- status, response = get_weather_value(id, "relativeHumidity")
- status2, response2 = get_weather_value(id, "temperature")
  status2, response3 = get_weather_value(id, "tweets")
 
  (status, store) = ngsiv2.read_entity(id)
  store["image"]["value"] = store["image"]["value"].ljust(math.ceil(len(store["image"]["value"]) / 4) * 4, '=')
- store["relativeHumidity"] = {"type": "Number", "value": response}
- store["temperature"] = {"type": "Number", "value": response2}
  store["tweets"] = {"type": "Text", "value": response3}
 
  if status == 200:
