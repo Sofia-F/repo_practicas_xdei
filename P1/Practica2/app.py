@@ -111,7 +111,6 @@ def stores():
  print(stores)
  for store in stores:
      print("Tienda")
-     print(store)
      status, response = get_weather_value(store["id"], "relativeHumidity")
      status2, response2 = get_weather_value(store["id"], "temperature")
      store["temperature"] = {"type": "Text", "value": response}
@@ -125,6 +124,7 @@ def store(id):
  status2, response3 = get_weather_value(id, "tweets")
 
  (status, store) = ngsiv2.read_entity(id)
+ print(store)
  store["image"]["value"] = store["image"]["value"].ljust(math.ceil(len(store["image"]["value"]) / 4) * 4, '=')
  store["tweets"] = {"type": "Text", "value": response3}
 

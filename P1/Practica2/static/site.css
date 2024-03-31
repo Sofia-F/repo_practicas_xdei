@@ -64,11 +64,15 @@ th {
     color: #ffffff;
 }
 
-.map {
+.map_store {
     margin-top: 5px; 
     float: right;
     width: 50%;
     height: block;
+}
+
+#map {
+            height: 500px;
 }
 
 .table {

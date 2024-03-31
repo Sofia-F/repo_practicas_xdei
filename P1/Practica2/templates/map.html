@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <meta charset="UTF-8">
-    <title>Stores Map</title>
-    <style>
-        #map {
-            height: 500px;
-        }
-    </style>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block title %}Mapa{% endblock %}
+{% block content %}
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <div id="map"></div>
     {% set stores = stores %}
@@ -29,7 +19,7 @@
             let id = store.id
             let address = store.address
             let image = "data:image/png;base64," + store.image
-            let capacity = store.capacity
+            let capacity = stores.capacity
             const marker = L.marker([lat, lng]).addTo(map);
 
             const popupContent = `
@@ -43,5 +33,4 @@
             marker.bindPopup(popupContent);
         });
             </script>
-</body>
-</html>
+{% endblock %}
