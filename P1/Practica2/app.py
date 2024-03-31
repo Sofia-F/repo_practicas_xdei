@@ -133,8 +133,8 @@ def store(id):
                                                     options = 'keyValues',
                                                     attrs = None)
     if status == 200:
-        lon_deg = store['location']['value']['coordinates'][0]
-        lat_deg = store['location']['value']['coordinates'][1]
+        lon_deg = store['location']['value']['coordinates'][1]
+        lat_deg = store['location']['value']['coordinates'][0]
         zoom = 15
         n = 1 << zoom
         lat_rad = math.radians(lat_deg)
