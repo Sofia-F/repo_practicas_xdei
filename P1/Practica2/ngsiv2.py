@@ -189,7 +189,7 @@ if __name__ == "__main__":
         "username": { "type": "Text", "value": "SofiaM" },
         "password": { "type": "Text", "value": "sofiamanager" },
         "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
-        "image": {"type": "Image", "value": b64("empleado.jpg")},
+        "image": {"type": "Image", "value": b64("images/employees/employee1.jpg")},
     },
     {
         "id": "urn:ngsi-ld:Employee:002",
@@ -203,7 +203,7 @@ if __name__ == "__main__":
         "username": { "type": "Text", "value": "DiegoR" },
         "password": { "type": "Text", "value": "diegoregular" },
         "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:002"},
-        "image": {"type": "Image", "value": b64("empleado.jpg")}
+        "image": {"type": "Image", "value": b64("images/employees/employee2.jpg")}
     },
     {
         "id": "urn:ngsi-ld:Employee:003",
@@ -217,7 +217,7 @@ if __name__ == "__main__":
         "username": { "type": "Text", "value": "ElenaI" },
         "password": { "type": "Text", "value": "elenaintern" },
         "refStore": { "type": "Relationship", "value": "urn:ngsi-ld:Store:003"},
-        "image": {"type": "Image", "value": b64("empleado.jpg")},
+        "image": {"type": "Image", "value": b64("images/employees/employee3.jpg")},
     }
     ]
 
@@ -227,7 +227,7 @@ if __name__ == "__main__":
         "type": "Store",
         "name": {"type": "Text", "value": "Store 1"},
         "address": {"type": "Text", "value": "Calle de Alcala, Spain"},
-        "image": {"type": "Image", "value": b64("store1.jpg")},
+        "image": {"type": "Image", "value": b64("images/stores/store1.jpg")},
         "url": {"type": "Text", "value": "https://store1.com"},
         "telephone": {"type": "Text", "value": "913456789"},
         "countryCode": {"type": "Text", "value": "34"},
@@ -241,7 +241,7 @@ if __name__ == "__main__":
         "type": "Store",
         "name": {"type": "Text", "value": "Store 2"},
         "address": {"type": "Text", "value": "Carrer de Balmes, Spain"},
-        "image": {"type": "Image", "value": b64("store1.jpg")},
+        "image": {"type": "Image", "value": b64("images/stores/store2.jpg")},
         "url": {"type": "Text", "value": "https://store2.com"},
         "telephone": {"type": "Text", "value": "917654321"},
         "countryCode": {"type": "Text", "value": "34"},
@@ -255,7 +255,7 @@ if __name__ == "__main__":
         "type": "Store",
         "name": {"type": "Text", "value": "Store 3"},
         "address": {"type": "Text", "value": "Avenida de la Constitución, Spain"},
-        "image": {"type": "Image", "value": b64("store1.jpg")},
+        "image": {"type": "Image", "value": b64("images/stores/store3.jpg")},
         "url": {"type": "Text", "value": "https://store3.com"},
         "telephone": {"type": "Text", "value": "910987654"},
         "countryCode": {"type": "Text", "value": "34"},
@@ -270,63 +270,63 @@ if __name__ == "__main__":
     {
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
-        "name": {"type": "Text", "value": "Pizza"},
-        "image": {"type": "Image", "value": b64('product1.jpg')},
-        "color": {"type": "Text", "value": "Brown"},
-        "size": {"type": "Text", "value": "Large"},
-        "price": {"type": "Number", "value": 10.99}
+        "name": {"type": "Text", "value": "Orange"},
+        "image": {"type": "Image", "value": b64('images/products/product1.jpg')},
+        "color": {"type": "Text", "value": "#FF8000"},
+        "size": {"type": "Text", "value": "Medium"},
+        "price": {"type": "Number", "value": 3.99}
     },
     {
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
-        "name": {"type": "Text", "value": "Burger"},
-        "image": {"type": "Image", "value": b64('product1.jpg')},
-        "color": {"type": "Text", "value": "Yellow"},
+        "name": {"type": "Text", "value": "Banana"},
+        "image": {"type": "Image", "value": b64('images/products/product2.jpg')},
+        "color": {"type": "Text", "value": "#FFD300"},
         "size": {"type": "Text", "value": "Medium"},
-        "price": {"type": "Number", "value": 8.99}
+        "price": {"type": "Number", "value": 3.99}
     },
     {
         "id": "urn:ngsi-ld:Product:003",
         "type": "Product",
-        "name": {"type": "Text", "value": "Sushi"},
-        "image": {"type": "Image", "value": b64("product1.jpg")},
-        "color": {"type": "Text", "value": "White"},
-        "size": {"type": "Text", "value": "Small"},
-        "price": {"type": "Number", "value": 12.99}
+        "name": {"type": "Text", "value": "Lettuce"},
+        "image": {"type": "Image", "value": b64("images/products/product3.jpg")},
+        "color": {"type": "Text", "value": "#008000"},
+        "size": {"type": "Text", "value": "Medium"},
+        "price": {"type": "Number", "value": 6.99}
     },
     {
         "id": "urn:ngsi-ld:Product:004",
         "type": "Product",
-        "name": {"type": "Text", "value": "Salad"},
-        "image": {"type": "Image", "value": b64("product1.jpg")},
-        "color": {"type": "Text", "value": "Green"},
-        "size": {"type": "Text", "value": "Medium"},
-        "price": {"type": "Number", "value": 7.99}
+        "name": {"type": "Text", "value": "Tomato"},
+        "image": {"type": "Image", "value": b64("images/products/product4.jpg")},
+        "color": {"type": "Text", "value": "#FF0000"},
+        "size": {"type": "Text", "value": "Small"},
+        "price": {"type": "Number", "value": 4.99}
     },
     {
         "id": "urn:ngsi-ld:Product:005",
         "type": "Product",
-        "name": {"type": "Text", "value": "Pasta"},
-        "image": {"type": "Image", "value": b64("product1.jpg")},
-        "color": {"type": "Text", "value": "Yellow"},
+        "name": {"type": "Text", "value": "Eggs"},
+        "image": {"type": "Image", "value": b64("images/products/product5.jpg")},
+        "color": {"type": "Text", "value": "#FFEFAE"},
         "size": {"type": "Text", "value": "Large"},
-        "price": {"type": "Number", "value": 9.99}
+        "price": {"type": "Number", "value": 5.99}
     },
     {
         "id": "urn:ngsi-ld:Product:006",
         "type": "Product",
-        "name": {"type": "Text", "value": "Ice Cream"},
-        "image": {"type": "Image", "value": b64("product1.jpg")},
-        "color": {"type": "Text", "value": "Various"},
+        "name": {"type": "Text", "value": "Fish"},
+        "image": {"type": "Image", "value": b64("images/products/product6.jpg")},
+        "color": {"type": "Text", "value": "#0000FF"},
         "size": {"type": "Text", "value": "Small"},
-        "price": {"type": "Number", "value": 5.99}
+        "price": {"type": "Number", "value": 10.99}
     },
     {
         "id": "urn:ngsi-ld:Product:007",
         "type": "Product",
-        "name": {"type": "Text", "value": "Sushi Roll"},
-        "image": {"type": "Image", "value": b64("product1.jpg")},
-        "color": {"type": "Text", "value": "Various"},
+        "name": {"type": "Text", "value": "Meat"},
+        "image": {"type": "Image", "value": b64("images/products/product7.jpg")},
+        "color": {"type": "Text", "value": "#FF0000"},
         "size": {"type": "Text", "value": "Medium"},
         "price": {"type": "Number", "value": 11.99}
     }
