@@ -360,3 +360,8 @@ def buy_product(id):
         status, product = ngsiv2.read_entity(str(inventory_item["refProduct"]["value"]))
         return render_template('buy_product.html', inventory_item = inventory_item,
                                product = product)
+
+@app.route('/map/')
+def map():
+    (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')
+    return render_template('map.html', stores = stores)

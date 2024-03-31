@@ -233,7 +233,7 @@ if __name__ == "__main__":
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 600},
         "address": {"type": "Text", "value": "Madrid"},
-        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-3.7038, 40.4168]}},
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.51, 13.42]}},
         "description": {"type": "Text", "value": "Store number 1"}
     },
     {
@@ -247,7 +247,7 @@ if __name__ == "__main__":
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 450},
         "address": {"type": "Text", "value": "Barcelona"},
-        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [2.1540, 41.3902]}},
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.53, 13.40]}},
         "description": {"type": "Text", "value": "Store number 2"},
     },
     {
@@ -261,7 +261,7 @@ if __name__ == "__main__":
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 700},
         "address": {"type": "Text", "value": "Valencia"},
-        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.534, 13.403]}},
         "description": {"type": "Text", "value": "Store number 3"}
     }
     ]
