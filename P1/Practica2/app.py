@@ -131,7 +131,9 @@ def store(id):
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
-                                                    attrs = None)
+                                                    attrs = None,
+                                                    filter = "refStore=="+id)
+    print(inventory_items)
     if status == 200:
         lon_deg = store['location']['value']['coordinates'][1]
         lat_deg = store['location']['value']['coordinates'][0]

@@ -6,11 +6,8 @@ import math
 def create_entity(entity):
     url = "http://localhost:1026/v2/entities/"
     payload = json.dumps(entity)
-    print(payload)
-    print(type(payload))
     headers = {'Content-Type': 'application/json'}
     response = requests.request("POST", url, headers=headers, data=payload)
-    print(response)
     return response.status_code
 
 def delete_entity(id):
@@ -37,7 +34,6 @@ def delete_attr(id, attr):
 def update_attrs(id, attrs_vals):
     url = "http://localhost:1026/v2/entities/"+ id + "/attrs/" 
     payload = json.dumps(attrs_vals)
-    print(payload)
     headers = {'Content-Type': 'application/json'}
     response = requests.request("PATCH", url, headers=headers, data=payload)
     return response.status_code
@@ -50,13 +46,14 @@ def update_attr(id, attr, val):
     'Content-Type': 'text/plain'
     }
     response = requests.request("PUT", url, headers=headers, data=payload)
-    print(response.text)
     return response.status_code
 
-def list_entities(type = None, options = 'count', attrs = None):
+def list_entities(type = None, options = 'count', attrs = None, filter = None):
     url = "http://localhost:1026/v2/entities/"
     if type != None:
         url = url + "?type="+str(type)
+    if  filter != None:
+        url = url + "&q="+filter
     if options != None:
         url = url + "&options=" + str(options)
     if attrs != None:
@@ -226,13 +223,13 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Store:001",
         "type": "Store",
         "name": {"type": "Text", "value": "Store 1"},
-        "address": {"type": "Text", "value": "Calle de Alcala, Spain"},
+        "address": {"type": "Text", "value": "Unter den Linden, Germany"},
         "image": {"type": "Image", "value": b64("images/stores/store1.jpg")},
         "url": {"type": "Text", "value": "https://store1.com"},
         "telephone": {"type": "Text", "value": "913456789"},
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 600},
-        "address": {"type": "Text", "value": "Madrid"},
+        "address": {"type": "Text", "value": "Berlin"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.5133, 13.4233]}},
         "description": {"type": "Text", "value": "Store number 1"}
     },
@@ -240,13 +237,13 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Store:002",
         "type": "Store",
         "name": {"type": "Text", "value": "Store 2"},
-        "address": {"type": "Text", "value": "Carrer de Balmes, Spain"},
+        "address": {"type": "Text", "value": "Marienplatz, Germany"},
         "image": {"type": "Image", "value": b64("images/stores/store2.jpg")},
         "url": {"type": "Text", "value": "https://store2.com"},
         "telephone": {"type": "Text", "value": "917654321"},
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 450},
-        "address": {"type": "Text", "value": "Barcelona"},
+        "address": {"type": "Text", "value": "Berlin"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.5333, 13.4033]}},
         "description": {"type": "Text", "value": "Store number 2"},
     },
@@ -254,13 +251,13 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:Store:003",
         "type": "Store",
         "name": {"type": "Text", "value": "Store 3"},
-        "address": {"type": "Text", "value": "Avenida de la Constitución, Spain"},
+        "address": {"type": "Text", "value": "Brandenburger Tor, Germany"},
         "image": {"type": "Image", "value": b64("images/stores/store3.jpg")},
         "url": {"type": "Text", "value": "https://store3.com"},
         "telephone": {"type": "Text", "value": "910987654"},
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 700},
-        "address": {"type": "Text", "value": "Valencia"},
+        "address": {"type": "Text", "value": "Berlin"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.5343, 13.4033]}},
         "description": {"type": "Text", "value": "Store number 3"}
     }
@@ -341,6 +338,51 @@ if __name__ == "__main__":
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
         "shelfCount": {"type": "Number", "value": 50},
         "stockCount": {"type": "Number", "value": 500}
+    },
+    {
+        "id": "urn:ngsi-ld:InventoryItem:002",
+        "type": "InventoryItem",
+        "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:002"},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
+        "shelfCount": {"type": "Number", "value": 70},
+        "stockCount": {"type": "Number", "value": 500}
+    },
+    {
+        "id": "urn:ngsi-ld:InventoryItem:003",
+        "type": "InventoryItem",
+        "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:004"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:001"},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:002"},
+        "shelfCount": {"type": "Number", "value": 30},
+        "stockCount": {"type": "Number", "value": 500}
+    },
+    {
+        "id": "urn:ngsi-ld:InventoryItem:004",
+        "type": "InventoryItem",
+        "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:004"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:002"},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:002"},
+        "shelfCount": {"type": "Number", "value": 70},
+        "stockCount": {"type": "Number", "value": 500}
+    },
+    {
+        "id": "urn:ngsi-ld:InventoryItem:005",
+        "type": "InventoryItem",
+        "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:001"},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:003"},
+        "shelfCount": {"type": "Number", "value": 70},
+        "stockCount": {"type": "Number", "value": 500}
+    },
+    {
+        "id": "urn:ngsi-ld:InventoryItem:006",
+        "type": "InventoryItem",
+        "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:002"},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
+        "shelfCount": {"type": "Number", "value": 70},
+        "stockCount": {"type": "Number", "value": 500}
     }
     ]
 
@@ -355,52 +397,50 @@ if __name__ == "__main__":
     }
     ]
 
+    print(list_entities(type = "InventoryItem"))
+
     print("Deleting Products entities...")
     for i in range(9):
         status = delete_entity("urn:ngsi-ld:Product:00"+str(i+1))
-        print(status)
 
     print()
     print("Deleting Stores entities...")
     for i in range(4):
-        print("urn:ngsi-ld:Store:00" + str(i+1))
         status = delete_entity("urn:ngsi-ld:Store:00" + str(i+1))
-        print(status)
+
 
     print()
     print("Deleting Shelf entities...")
     for i in range(4):
-        print("urn:ngsi-ld:Shelf:00" + str(i+1))
         status = delete_entity("urn:ngsi-ld:Shelf:00" + str(i+1))
-        print(status)
 
     print()
     print("Deleting InventoryItem entities...")
-    for i in range(4):
-        print("urn:ngsi-ld:InventoryItem:00" + str(i+1))
-        status = delete_entity("urn:ngsi-ld:InventoryItem:00" + str(i+1))
+    lista_ids = ["001","002","003","004","005","006","007","008","401"]
+    for i in lista_ids:
+        status = delete_entity("urn:ngsi-ld:InventoryItem:"+i)
         print(status)
+
+    print()
+    print("Creating InventoryItem entities...")
+    lista_ids = ["001","002","003","004","005","006","007","008","401"]
+    for inventory in inventory_items:
+        status = create_entity(inventory)
+        status, val = read_entity(str(inventory["id"]))
 
     print()
     print("Creating employees entities...")
     for employee in employees:
-        print(employee)
         status = create_entity(employee)
-        print(status)
         status, val = read_entity(str(employee["id"]))
-        print(status, " ", val)
 
     print()
     print("Creating stores entities...")
     for store in stores:
         status = register_weather_provider(str(store["id"]))
-        print(status)
         status = register_tweet_provider(str(store["id"]))
-        print(status)
         status = create_entity(store)
-        print(status)
         status, val = read_entity(str(store["id"]))
-        print(status, " ", val)
     
     print()
     print("Creating products entities...")
@@ -408,9 +448,6 @@ if __name__ == "__main__":
     print(status)
     for product in products:
         status = create_entity(product)
-        print(status)
         status, val = read_entity(product["id"])
-        print(status, " ", val)
     print()
     print("Completed")
-    print(status3)
