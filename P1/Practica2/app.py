@@ -258,15 +258,16 @@ def delete_store(id):
                 return redirect(next)
             return redirect(url_for('stores'))
 
-@app.route("/shelf/create", methods=['GET', 'POST'])
-def create_shelf():
+@app.route("/store/<id>/shelf/<idShelf>/product/create", methods=['GET', 'POST'])
+def create_shelfProd(id,idShelf):
     if request.method == 'POST':
 
         store = {
             "id": request.form["id"],
             "type": "InventoryItem",
-            "refShelf": {"type": "Text", "value": request.form["refShelf"]},
-            "refStore": {"type": "Text", "value": request.form["refStore"]},
+            "refShelf": {"type": "Text", "value": idShelf},
+            "refStore": {"type": "Text", "value": id},
+            "refProduct": {"type": "Text", "value": request.form["refProduct"]},
             "shelfCount": {"type": "Number", "value": request.form["shelfCount"]},
             "stockCount": {"type": "Number", "value": request.form["stockCount"]}
         }
@@ -279,17 +280,36 @@ def create_shelf():
                 return redirect(next)
             return redirect(url_for('stores'))
     else:
-        return render_template('create_shelf.html')
+        (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
+                                                        options = 'keyValues',
+                                                        attrs = None,
+                                                        filter = "refStore=="+id+";refShelf=="+idShelf)
+        (status, products) = ngsiv2.list_entities(type = 'Product',
+                                                        options = 'keyValues')
+        product_list = []
+        for product in products:
+            product_list.append(product["id"])
+
+        for inventory in inventory_items:
+            print(inventory["refProduct"])
+            if inventory["refProduct"] in product_list:
+                product_list.remove(inventory["refProduct"])
+
+        return render_template('create_shelfProd.html', 
+                               id = id,
+                               idShelf = idShelf,
+                               product_list = product_list)
     
-@app.route("/product/<id>/shelf/create", methods=['GET', 'POST'])
-def create_prodShelf():
+@app.route("/store/<id>/product/<idProduct>/shelf/create", methods=['GET', 'POST'])
+def create_shelf(id, idProduct):
     if request.method == 'POST':
 
         store = {
             "id": request.form["id"],
             "type": "InventoryItem",
             "refShelf": {"type": "Text", "value": request.form["refShelf"]},
-            "refStore": {"type": "Text", "value": request.form["refStore"]},
+            "refStore": {"type": "Text", "value": id},
+            "refProduct": {"type": "Text", "value": idProduct},
             "shelfCount": {"type": "Number", "value": request.form["shelfCount"]},
             "stockCount": {"type": "Number", "value": request.form["stockCount"]}
         }
@@ -302,7 +322,25 @@ def create_prodShelf():
                 return redirect(next)
             return redirect(url_for('stores'))
     else:
-        return render_template('create_prodShelf.html')
+        (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
+                                                        options = 'keyValues',
+                                                        attrs = None,
+                                                        filter = "refStore=="+id+";refProduct=="+idProduct)
+        (status, shelves) = ngsiv2.list_entities(type = 'Shelf',
+                                                        options = 'keyValues')
+        shelf_list = []
+        for shelf in shelves:
+            shelf_list.append(shelf["id"])
+
+        for inventory in inventory_items:
+            print(inventory["refShelf"])
+            if inventory["refShelf"] in shelf_list:
+                shelf_list.remove(inventory["refShelf"])
+
+        return render_template('create_shelf.html', 
+                               id = id,
+                               idShelf = idProduct,
+                               product_list = shelf_list)
     
 @app.route("/store/<idStore>/shelf/delete/<id>", methods=['GET', 'POST'])
 def delete_shelf(id, idStore):

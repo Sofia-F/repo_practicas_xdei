@@ -24,10 +24,9 @@
     <b>temperature</b>: {{store.temperature.value}}<br>
     <b>relativeHumidity</b>: {{store.relativeHumidity.value}}<br>
 </p>
-<button onclick="location.href = 'http://127.0.0.1:5000/shelf/create';">Add Shelf</button>
-<br>
-<br>
 
+<br>
+<br>
 <table>
     <tr>
     <th>Store</th>
@@ -68,6 +67,7 @@
         <th>Buy</th>
         <th>Update Shelf</th>
         <th>Delete Shelf</th>
+        <th>Add Product</th>
     </tr>
     {% for inventory_item in inventory_items %}
     <tr>
@@ -87,6 +87,7 @@
         <td><button onclick="location.href = '{{unit_url}}';">Buy</button></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store.id}}/shelf/update/{{ inventory_item.id }}';">Update</button></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store.id}}/shelf/delete/{{ inventory_item.id }}';">Delete</button></td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store.id}}/shelf/{{inventory_item.refShelf}}/product/create';">Add Shelf</button></td>
     </tr>
     {% endfor %}
 </table>

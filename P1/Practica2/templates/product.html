@@ -15,21 +15,20 @@
  <b>Price</b>: {{product.price.value}}<br>
  <b>Color</b>: {{product.color.value}}
  </p>
- <button onclick="location.href = 'http://127.0.0.1:5000/product/{{product.id}}/shelf/create';">Create shelf</button>
- <br>
  <br>
  <table>
    <tr>
    <th>Store</th>
    <th>Product</th>
    <th>stockCount</th>
+   <th>Add Shelf</th>
    </tr>
    {% for store_id, product_id in grouped_inventory.keys() %}
    <tr>
       <td>{{ store_id.split(':')[3] }}</td>
       <td>{{ product_id.split(':')[3]}}</td>
       <td>{{ grouped_inventory[(store_id, product_id)] }}</td>
-
+      <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store_id}}/product/{{product_id}}/shelf/create';">Add Shelf</button></td>
     </tr>
     {% endfor %}
  </table>
