@@ -8,12 +8,12 @@
 <form action="{{ url_for('update_shelf', id=id, idStore = idStore) }}">
     <label for="name">refShelf:</label><br>
     <input type="text" id="refShelf" name="refShelf"><br>
-    <label for="name">refStore:</label><br>
+    <label for="refStore">refStore:</label><br>
     <input type="text" id="refStore" name="refStore"><br>
-    <label for="dateTime">shelfCount:</label><br>
-    <input type="dateTime" id="shelfCount" name="shelfCount"><br><br>
-    <label for="name">stockCount:</label><br>
-    <input type="text" id="stockCount" name="stockCount"><br><br>
+    <label for="shelfCount">shelfCount:</label><br>
+    <input type="number" id="shelfCount" name="shelfCount"><br><br>
+    <label for="stockCount">stockCount:</label><br>
+    <input type="number" id="stockCount" name="stockCount"><br><br>
     
     <input type="submit" value="Submit">
 </form>

@@ -28,8 +28,6 @@ def about():
 @app.route('/employees/')
 def employees():
  (status, employees) = ngsiv2.list_entities(type = 'Employee', options = 'keyValues')
-#  print(status)
-#  pprint.pprint(stores)
  if status == 200:
     return render_template('employees.html', employees = employees)
  
@@ -58,7 +56,8 @@ def create_employee():
                 "skills": {"type": "Text", "value": request.form["skills"]},
                 "username": {"type": "Text", "value": request.form["username"]},
                 "password": {"type": "Text", "value": request.form["password"]},
-                "refStore": {"type": "Relationship", "value": request.form["store"]}
+                "image": {"type": "Text", "value": ngsiv2.b64(request.form["image"])},
+                "refStore": {"type": "Relationship", "value": request.form["refStore"]}
                 }
         status = ngsiv2.create_entity(employee)
         print(status)
@@ -83,7 +82,8 @@ def update_employee(id):
                 "skills": {"type": "Text", "value": request.form["skills"]},
                 "username": {"type": "Text", "value": request.form["username"]},
                 "password": {"type": "Text", "value": request.form["password"]},
-                "refStore": {"type": "Relationship", "value": request.form["refStore"]}
+                "refStore": {"type": "Relationship", "value": request.form["refStore"]},
+                "image": {"type": "Text", "value": ngsiv2.b64(request.form["image"])}
                 }
         
         status = ngsiv2.update_attrs(id, attrs)
@@ -384,6 +384,7 @@ def update_shelf(id, idStore):
 def products():
  (status, products) = ngsiv2.list_entities(type = 'Product')
 #  print(status)
+ product["image"]["value"] = product["image"]["value"].ljust(math.ceil(len(product["image"]["value"]) / 4) * 4, '=')
  if status == 200:
     return render_template('products.html', products = products)
 

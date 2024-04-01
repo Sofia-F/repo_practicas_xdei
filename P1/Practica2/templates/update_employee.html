@@ -5,7 +5,7 @@
     <title>Update Product</title>
 </head>
 <body>
-<form action="{{ url_for('update_employee', id=id) }}">
+<form action="{{ url_for('update_employee', id=id) }}" method = post>
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name"><br>
     <label for="name">Email:</label><br>
@@ -19,13 +19,16 @@
     <label for="name">Skills:</label><br>
     <input type="text" id="skills" name="skills"><br><br>
     <label for="name">Username:</label><br>
-    <input type="number" id="username" name="username"><br><br>
+    <input type="text" id="username" name="username"><br><br>
     <label for="name">Password:</label><br>
     <input type="text" id="password" name="password"><br><br>
+    <label for="name">Image:</label><br>
+    <input type="file" id="image" name="image"><br><br>
     <label for="name">RefStore:</label><br>
     <input type="text" id="refStore" name="refStore"><br><br>
     
     <input type="submit" value="Submit">
+    <button onclick="location.href = 'http://127.0.0.1:5000/employees/';">Cancel</button>
 </form>
 </body>
 </html>
