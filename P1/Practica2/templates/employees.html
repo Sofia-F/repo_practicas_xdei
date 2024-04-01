@@ -20,8 +20,24 @@
     <tr>
         <td><a href="/employees/{{ employee.id }}"> Employee {{ id_items[3] }}</a></td>
         <td>{{employee.name}}</td>
-        <td>{{employee.category}}</td>
-        <td>{{employee.skills}}</td>
+        {% if employee.category == "Manager" %}
+            <td><i class="fa fa-black-tie"></i></td>
+        {% endif %}
+        {% if employee.category == "Regular" %}
+            <td><i class="fa fa-user-plus"></i></td> 
+        {% endif %} 
+        {% if employee.category == "Intern" %}
+            <td><i class="fa fa-user"></i></td>  
+        {% endif %}
+        {% if employee.skills == "MachineryDriving" %}
+            <td><i class="fa fa-truck"></i></td>
+        {% endif %}
+        {% if employee.skills == "WritingReports" %}
+            <td><i class="fa fa-edit"></i></td>  
+        {% endif %}
+        {% if employee.skills == "CustomerRelationships" %}
+            <td><i class="fa fa-handshake-o"></i></td>  
+        {% endif %}
         <td><img class="img_store" src="{{ image_base }}" alt="Store Image"></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/employee/update/{{ employee.id }}';">Update</button></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/employee/delete/{{ employee.id }}';">Delete</button></td>

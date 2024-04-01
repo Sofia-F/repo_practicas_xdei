@@ -42,7 +42,12 @@
        {% set percentage =  (grouped_inventory[(store_id, shelf_id)] / grouped_capacity[(store_id, shelf_id)])*100 %}
        <td>
         <div class="border">
-            <div style="height:24px;width:{{percentage}}%;background-color: gray;"></div>
+            {% if percentage < 50 %}
+                <div style="height:24px;width:{{percentage}}%;background-color: red;"></div>
+            {% endif %}
+            {% if percentage > 50 %}
+                <div style="height:24px;width:{{percentage}}%;background-color: green;"></div>
+            {% endif %}
         </div>
        </td>
        <td>{{ grouped_inventory[(store_id, shelf_id)] }}</td>
@@ -95,7 +100,7 @@
 <div class="tweet-container">
    {% for tweet in store.tweets.value %}
        <div class="tweet-box">
-           <p class="tweet-content">{{ tweet }}</p>
+           <p class="tweet-content"><i class="fa fa-twitter" style="color: dodgerblue;"></i> {{ tweet }}</p>
        </div>
    {% endfor %}
 </div>
