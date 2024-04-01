@@ -27,23 +27,57 @@
 <button onclick="location.href = 'http://127.0.0.1:5000/shelf/create';">Add Shelf</button>
 <br>
 <br>
+
+<table>
+    <tr>
+    <th>Store</th>
+    <th>Shelf</th>
+    <th>shelfCount</th>
+    <th>maxCapacity</th>
+    </tr>
+    {% for store_id, shelf_id in grouped_inventory.keys() %}
+    <tr>
+       <td>{{ store_id.split(':')[3] }}</td>
+       <td>{{ shelf_id.split(':')[3]}}</td>
+       <td>{{ grouped_inventory[(store_id, shelf_id)] }}</td>
+       <td>{{ grouped_capacity[(store_id, shelf_id)] }}</td>
+     </tr>
+     {% endfor %}
+</table>
+<br>
+<br>
+<br>
 <table>
     <tr>
         <th>Store</th>
         <th>Shelf</th>
+        <th>refProduct</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Color</th>
         <th>Shelf count</th>
         <th>Stock count</th>
+        <th>Buy</th>
         <th>Update Shelf</th>
         <th>Delete Shelf</th>
     </tr>
     {% for inventory_item in inventory_items %}
     <tr>
-        {% set id_items = inventory_item.refStore.split(':') %}
-        <td>{{ id_items[3] }}</td>
-        {% set id_items = inventory_item.refShelf.split(':') %}
-        <td>{{ id_items[3] }}</td>
+        {% set id_items1 = inventory_item.refStore.split(':') %}
+        <td>{{ id_items1[3] }}</td>
+        {% set id_items2 = inventory_item.refShelf.split(':') %}
+        <td>{{ id_items2[3] }}</td>
+        {% set id_items3 = inventory_item.refProduct.split(':') %}
+        <td>{{ id_items3[3] }}</td>
+        <td>{{ inventory_item.prodName }}</td>
+        <td>{{ inventory_item.prodPrice }}</td>
+        <td>{{ inventory_item.prodSize }}</td>
+        <td>{{ inventory_item.prodColor }}</td>
         <td>{{ inventory_item.shelfCount }}</td>
         <td>{{ inventory_item.stockCount }}</td>
+        {% set unit_url = '/buy/' + inventory_item.id %}
+        <td><button onclick="location.href = '{{unit_url}}';">Buy</button></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store.id}}/shelf/update/{{ inventory_item.id }}';">Update</button></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store.id}}/shelf/delete/{{ inventory_item.id }}';">Delete</button></td>
     </tr>

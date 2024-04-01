@@ -15,25 +15,43 @@
  <b>Price</b>: {{product.price.value}}<br>
  <b>Color</b>: {{product.color.value}}
  </p>
+ <button onclick="location.href = 'http://127.0.0.1:5000/product/{{product.id}}/shelf/create';">Create shelf</button>
+ <br>
+ <br>
+ <table>
+   <tr>
+   <th>Store</th>
+   <th>Product</th>
+   <th>stockCount</th>
+   </tr>
+   {% for store_id, product_id in grouped_inventory.keys() %}
+   <tr>
+      <td>{{ store_id.split(':')[3] }}</td>
+      <td>{{ product_id.split(':')[3]}}</td>
+      <td>{{ grouped_inventory[(store_id, product_id)] }}</td>
 
+    </tr>
+    {% endfor %}
+ </table>
+ <br>
+ <br>
  <table>
  <tr>
  <th>Store</th>
  <th>Shelf</th>
+ <th>refProduct</th>
  <th>Shelf count</th>
- <th>Stock count</th>
- <th>Buy product</th>
+
  </tr>
  {% for inventory_item in inventory_items %}
  <tr>
- {% set id_items = inventory_item.refStore.split(':') %}
- <td>{{id_items[3]}}</td>
- {% set id_items = inventory_item.refShelf.split(':') %}
- <td>{{id_items[3]}}</td>
+ {% set id_items1 = inventory_item.refStore.split(':') %}
+ <td>{{id_items1[3]}}</td>
+ {% set id_items2 = inventory_item.refShelf.split(':') %}
+ <td>{{id_items2[3]}}</td>
+ {% set id_items3 = inventory_item.refProduct.split(':') %}
+ <td>{{id_items3[3]}}</td>
  <td>{{inventory_item.shelfCount}}</td>
- <td>{{inventory_item.stockCount}}</td>
- {% set unit_url = '/buy/' + inventory_item.id %}
- <td><button onclick="location.href = '{{unit_url}}';">Buy a product</button></td>
  </tr>
  {% endfor %}
  </table>

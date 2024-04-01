@@ -124,7 +124,6 @@ def store(id):
  status2, response3 = get_weather_value(id, "tweets")
 
  (status, store) = ngsiv2.read_entity(id)
- print(store)
  store["image"]["value"] = store["image"]["value"].ljust(math.ceil(len(store["image"]["value"]) / 4) * 4, '=')
  store["tweets"] = {"type": "Text", "value": response3}
 
@@ -133,8 +132,50 @@ def store(id):
                                                     options = 'keyValues',
                                                     attrs = None,
                                                     filter = "refStore=="+id)
-    print(inventory_items)
+    (status, shelf_items) = ngsiv2.list_entities(type = 'Shelf',
+                                                 options = 'keyValues',
+                                                 attrs = None)
+    
+    (status, product_items) = ngsiv2.list_entities(type = 'Product',
+                                                 options = 'keyValues',
+                                                 attrs = None)
+    
+
     if status == 200:
+        print(shelf_items[1])
+        for inventory in inventory_items:
+            for shelf in shelf_items:
+                print(inventory["refShelf"], shelf["id"], inventory["refStore"], shelf["refStore"])
+                print(inventory["refShelf"] == shelf["id"])
+                print(inventory["refStore"] == shelf["refStore"])
+                if inventory["refShelf"] == shelf["id"] and inventory["refStore"] == shelf["refStore"]:
+                    print(shelf["maxCapacity"])
+                    inventory["maxCapacity"] = shelf["maxCapacity"]
+
+        for inventory in inventory_items:
+            for product in product_items:
+                print(inventory["refProduct"], product["id"])
+                print(inventory["refProduct"] == product["id"])
+                if inventory["refProduct"] == product["id"]:
+                    inventory["prodName"] = product["name"]
+                    inventory["prodPrice"] = product["price"]
+                    inventory["prodSize"] = product["size"]
+                    inventory["prodColor"] = product["color"]
+
+        grouped_inventory = {}
+        grouped_capacity = {}
+        for item in inventory_items:
+            store_id = item['refStore']
+            shelf_id = item['refShelf']
+            shelf_count = item['shelfCount']
+            max_capacity = item["maxCapacity"]
+            grouped_capacity[(store_id, shelf_id)] = max_capacity
+            if (store_id, shelf_id) in grouped_inventory:
+                grouped_inventory[(store_id, shelf_id)] += shelf_count
+            else:
+                grouped_inventory[(store_id, shelf_id)] = shelf_count
+        print(grouped_capacity)
+        print(grouped_inventory)
         lon_deg = store['location']['value']['coordinates'][1]
         lat_deg = store['location']['value']['coordinates'][0]
         zoom = 15
@@ -142,7 +183,10 @@ def store(id):
         lat_rad = math.radians(lat_deg)
         xtile = int((lon_deg + 180.0) / 360.0 * n)
         ytile = int((1.0 - math.asinh(math.tan(lat_rad)) / math.pi) / 2.0 * n)
-        return render_template('store.html', store = store, inventory_items = inventory_items, zoom = zoom, xtile = xtile, ytile = ytile)
+        return render_template('store.html', store = store, inventory_items = inventory_items,
+                                zoom = zoom, xtile = xtile, ytile = ytile,
+                                grouped_inventory = grouped_inventory,
+                                grouped_capacity = grouped_capacity)
 
 @app.route("/store/create", methods=['GET', 'POST'])
 def create_store():
@@ -237,6 +281,29 @@ def create_shelf():
     else:
         return render_template('create_shelf.html')
     
+@app.route("/product/<id>/shelf/create", methods=['GET', 'POST'])
+def create_prodShelf():
+    if request.method == 'POST':
+
+        store = {
+            "id": request.form["id"],
+            "type": "InventoryItem",
+            "refShelf": {"type": "Text", "value": request.form["refShelf"]},
+            "refStore": {"type": "Text", "value": request.form["refStore"]},
+            "shelfCount": {"type": "Number", "value": request.form["shelfCount"]},
+            "stockCount": {"type": "Number", "value": request.form["stockCount"]}
+        }
+        
+        status = ngsiv2.create_entity(store)
+        print(status)
+        if status == 201:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('stores'))
+    else:
+        return render_template('create_prodShelf.html')
+    
 @app.route("/store/<idStore>/shelf/delete/<id>", methods=['GET', 'POST'])
 def delete_shelf(id, idStore):
     if request.method == 'GET':
@@ -285,9 +352,26 @@ def product(id):
  if status == 200:
     (status, inventory_items) = ngsiv2.list_entities(type = 'InventoryItem',
                                                     options = 'keyValues',
-                                                    attrs = None)
+                                                    attrs = None,
+                                                    filter = "refProduct=="+id)
+    (status, shelf_items) = ngsiv2.list_entities(type = 'InventoryItem',
+                                                    options = 'keyValues',
+                                                    attrs = None,
+                                                    filter = "refProduct=="+id)
+                                                    
+    grouped_inventory = {}
+    for item in inventory_items:
+        store_id = item['refStore']
+        product_id = item['refProduct']
+        stock_count = item['stockCount']
+        if (store_id, product_id) in grouped_inventory:
+            grouped_inventory[(store_id, product_id)] += stock_count
+        else:
+            grouped_inventory[(store_id, product_id)] = stock_count
+
     if status == 200:
-        return render_template('product.html', product = product, inventory_items = inventory_items)
+        return render_template('product.html', product = product, inventory_items = inventory_items,
+                               grouped_inventory = grouped_inventory)
 
 @app.route("/product/create", methods=['GET', 'POST'])
 def create_product():
@@ -345,7 +429,7 @@ def delete_product(id):
 
 @app.route("/buy/<id>", methods=['GET', 'POST'])
 def buy_product(id):
-    if request.method == 'POST':
+    if request.method == 'GET':
         attrs = {
                 "shelfCount": {"type":"Integer", "value": {"$inc": -1}},
                 "stockCount": {"type":"Integer", "value": {"$inc": -1}}
@@ -356,12 +440,7 @@ def buy_product(id):
             next = request.args.get('next', None)
             if next:
                 return redirect(next)
-            return redirect(url_for('products'))
-    else:
-        status, inventory_item = ngsiv2.read_entity(id)
-        status, product = ngsiv2.read_entity(str(inventory_item["refProduct"]["value"]))
-        return render_template('buy_product.html', inventory_item = inventory_item,
-                               product = product)
+            return redirect(url_for('stores'))
 
 @app.route('/map/')
 def map():

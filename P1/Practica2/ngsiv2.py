@@ -334,7 +334,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:InventoryItem:001",
         "type": "InventoryItem",
         "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
-        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:001"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:unit001"},
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
         "shelfCount": {"type": "Number", "value": 50},
         "stockCount": {"type": "Number", "value": 500}
@@ -343,7 +343,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:InventoryItem:002",
         "type": "InventoryItem",
         "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
-        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:002"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:unit002"},
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
         "shelfCount": {"type": "Number", "value": 70},
         "stockCount": {"type": "Number", "value": 500}
@@ -352,7 +352,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:InventoryItem:003",
         "type": "InventoryItem",
         "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:004"},
-        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:001"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:unit003"},
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:002"},
         "shelfCount": {"type": "Number", "value": 30},
         "stockCount": {"type": "Number", "value": 500}
@@ -361,7 +361,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:InventoryItem:004",
         "type": "InventoryItem",
         "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:004"},
-        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:002"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:unit004"},
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:002"},
         "shelfCount": {"type": "Number", "value": 70},
         "stockCount": {"type": "Number", "value": 500}
@@ -370,7 +370,7 @@ if __name__ == "__main__":
         "id": "urn:ngsi-ld:InventoryItem:005",
         "type": "InventoryItem",
         "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
-        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:001"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:unit005"},
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:003"},
         "shelfCount": {"type": "Number", "value": 70},
         "stockCount": {"type": "Number", "value": 500}
@@ -378,8 +378,8 @@ if __name__ == "__main__":
     {
         "id": "urn:ngsi-ld:InventoryItem:006",
         "type": "InventoryItem",
-        "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
-        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:002"},
+        "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:003"},
+        "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:unit002"},
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
         "shelfCount": {"type": "Number", "value": 70},
         "stockCount": {"type": "Number", "value": 500}
@@ -388,16 +388,48 @@ if __name__ == "__main__":
 
     shelfs = [
     {
-        "id": "urn:ngsi-ld:Shelf:001",
+        "id": "urn:ngsi-ld:Shelf:unit001",
         "type": "Shelf",
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
-        "maxCapacity": {"type": "Number", "value": 50},
+        "maxCapacity": {"type": "Number", "value": 100},
+        "name": {"type": "Text", "value": "Corner Unit"}
+    },
+    {
+        "id": "urn:ngsi-ld:Shelf:unit002",
+        "type": "Shelf",
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.374, 39.4399]}},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
+        "maxCapacity": {"type": "Number", "value": 200},
+        "name": {"type": "Text", "value": "Corner Unit"}
+    },
+    {
+        "id": "urn:ngsi-ld:Shelf:unit003",
+        "type": "Shelf",
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:002"},
+        "maxCapacity": {"type": "Number", "value": 100},
+        "name": {"type": "Text", "value": "Corner Unit"}
+    },
+    {
+        "id": "urn:ngsi-ld:Shelf:unit004",
+        "type": "Shelf",
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:002"},
+        "maxCapacity": {"type": "Number", "value": 100},
+        "name": {"type": "Text", "value": "Corner Unit"}
+    },
+    {
+        "id": "urn:ngsi-ld:Shelf:unit005",
+        "type": "Shelf",
+        "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [-0.375, 39.4699]}},
+        "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:003"},
+        "maxCapacity": {"type": "Number", "value": 100},
         "name": {"type": "Text", "value": "Corner Unit"}
     }
     ]
 
-    print(list_entities(type = "InventoryItem"))
+    print(list_entities(type = "Shelf"))
 
     print("Deleting Products entities...")
     for i in range(9):
@@ -411,8 +443,15 @@ if __name__ == "__main__":
 
     print()
     print("Deleting Shelf entities...")
-    for i in range(4):
-        status = delete_entity("urn:ngsi-ld:Shelf:00" + str(i+1))
+    list_shelfs = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010"]
+    for i in list_shelfs:
+        status = delete_entity("urn:ngsi-ld:Shelf:unit" + i)
+    
+    print()
+    print("Creating Shelf entities...")
+    for shelf in shelfs:
+        status = create_entity(shelf)
+        status, val = read_entity(str(shelf["id"]))
 
     print()
     print("Deleting InventoryItem entities...")
