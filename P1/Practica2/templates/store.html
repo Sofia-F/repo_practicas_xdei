@@ -32,6 +32,7 @@
     <tr>
     <th>Store</th>
     <th>Shelf</th>
+    <th>Progress bar</th>
     <th>shelfCount</th>
     <th>maxCapacity</th>
     </tr>
@@ -39,6 +40,12 @@
     <tr>
        <td>{{ store_id.split(':')[3] }}</td>
        <td>{{ shelf_id.split(':')[3]}}</td>
+       {% set percentage =  (grouped_inventory[(store_id, shelf_id)] / grouped_capacity[(store_id, shelf_id)])*100 %}
+       <td>
+        <div class="border">
+            <div style="height:24px;width:{{percentage}}%;background-color: gray;"></div>
+        </div>
+       </td>
        <td>{{ grouped_inventory[(store_id, shelf_id)] }}</td>
        <td>{{ grouped_capacity[(store_id, shelf_id)] }}</td>
      </tr>
