@@ -196,25 +196,30 @@ def store(id):
 def create_store():
     if request.method == 'POST':
         print(request.form["id"])
-        location = request.form["location"]
-        X_cord, Y_cord = location.split(',') 
+        print(request.form["name"])
+        print(request.form["address"])
+        print(request.form["xcoord"])
+        print(request.form["ycoord"])
+        print(request.form["telephone"])
+        print(request.form["countryCode"])
+        print(request.form["capacity"])
+        print(request.form["description"])
+
         store = {"id": request.form["id"],
                 "type": "Store",
                 "name": {"type": "Text", "value": request.form["name"]},
                 "address": {"type": "Text", "value": request.form["address"]},
                 "location": {"type": "geo:json",
-                             "value": {"type": "Point", "coordinates": [float(X_cord),
-                                                                        float(Y_cord)]}},
-                "image": {"type": "Text", "value": request.form["image"]},  
+                             "value": {"type": "Point", "coordinates": [request.form["xcoord"],
+                                                                        request.form["ycoord"]]}},
+                "image": {"type": "Text", "value": ngsiv2.b64(request.form["image"])},  
                 "url": {"type": "Text", "value": request.form["url"]},
                 "telephone": {"type": "Text", "value": request.form["telephone"]},
                 "countryCode": {"type": "Text", "value": request.form["countryCode"]},
                 "capacity": {"type": "Integer", "value": request.form["capacity"]},
-                "description": {"type": "Integer", "value": request.form["description"]},
-                "temperature": {"type": "Text", "value": request.form["temperature"]},    
-                "relativeHumidity": {"type": "Integer", "value": request.form["relativeHumidity"]}
+                "description": {"type": "Integer", "value": request.form["description"]}
         }
-        
+        print(store)
         status = ngsiv2.create_entity(store)
         print(status)
         if status == 201:

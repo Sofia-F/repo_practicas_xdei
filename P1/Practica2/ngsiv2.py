@@ -248,7 +248,6 @@ if __name__ == "__main__":
         "telephone": {"type": "Text", "value": "913456789"},
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 600},
-        "address": {"type": "Text", "value": "Berlin"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.5133, 13.4233]}},
         "description": {"type": "Text", "value": "Store number 1"}
     },
@@ -262,7 +261,6 @@ if __name__ == "__main__":
         "telephone": {"type": "Text", "value": "917654321"},
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 450},
-        "address": {"type": "Text", "value": "Berlin"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.5333, 13.4033]}},
         "description": {"type": "Text", "value": "Store number 2"},
     },
@@ -276,7 +274,6 @@ if __name__ == "__main__":
         "telephone": {"type": "Text", "value": "910987654"},
         "countryCode": {"type": "Text", "value": "GE"},
         "capacity": {"type": "Number", "value": 700},
-        "address": {"type": "Text", "value": "Berlin"},
         "location": {"type": "geo:json", "value": {"type": "Point", "coordinates": [52.5343, 13.4033]}},
         "description": {"type": "Text", "value": "Store number 3"}
     }
