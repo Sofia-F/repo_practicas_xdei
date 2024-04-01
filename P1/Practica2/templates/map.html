@@ -7,9 +7,7 @@
     <script>
         const map = L.map('map').setView([52.52, 13.405], 12); 
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         
         const stores = {{ stores | tojson }};
 
@@ -17,16 +15,21 @@
             const lat = store.location.coordinates[0];
             const lng = store.location.coordinates[1];
             let id = store.id
+            let name = store.name
             let address = store.address
+            let telephone = store.telephone
+            let capacity = store.capacity
             let image = "data:image/png;base64," + store.image
-            let capacity = stores.capacity
             const marker = L.marker([lat, lng]).addTo(map);
 
             const popupContent = `
                 <div>
-                    <h3>${id}</h3>
-                    <h3>${address}</h3>
-                    <img class=product_image src=${image} alt="Image 2">
+                    <img class=product_image  src=${image} alt="Image 2">
+                    <p>ID: <a href="/stores/${ id }">Store${ id.split(":")[3] }</a></p>
+                    <p>Name: ${name}</p>
+                    <p>Address: ${address}</p>
+                    <p>Telephone: ${telephone}</p>
+                    <p>Capacity: ${capacity}</p>
                 </div>
             `;
 
