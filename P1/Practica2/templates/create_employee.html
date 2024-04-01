@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% block title %}Create Employee{% endblock %}
 {% block content %}
-<form action="/employee/create">
+<form action="/employee/create" method = "POST">
     <label for="id">Id:</label><br>
     <input type="text" id="id" name="id"><br>
 
@@ -28,6 +28,9 @@
     
     <label for="name">Password:</label><br>
     <input type="text" id="password" name="password"><br><br>
+    
+    <label for="image">Image:</label><br>
+    <input type="file" id="image" name="image"><br><br>
 
     <label for="name">RefStore:</label><br>
     <input type="text" id="refStore" name="refStore"><br><br>
