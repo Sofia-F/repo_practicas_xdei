@@ -5,8 +5,12 @@ from flask import render_template, request, redirect, url_for
 import ngsiv2
 from flask import Flask
 import math
-app = Flask(__name__)
 import json
+from flask import Flask, render_template
+from flask_socketio import SocketIO
+
+app = Flask(__name__)
+socketio = SocketIO(app)
 
 def get_weather_value(id, attr):
     url = "http://localhost:1026/v2/entities/"+ id + "/attrs/"+ attr +"/value"
@@ -453,7 +457,6 @@ def update_product(id):
                 return redirect(next)
             return redirect(url_for('products'))
     else:
-        print(id)
         return render_template('update_product.html', id = id)
     
 @app.route("/product/delete/<id>", methods=['GET', 'POST'])
@@ -482,7 +485,17 @@ def buy_product(id):
                 return redirect(next)
             return redirect(url_for('stores'))
 
+@app.route('/subscription/')
+def subscription():
+    json_msg = { "id": "324", "value": 50}
+    socketio.emit('my event', json_msg)
+    return render_template('subscription.html')
+
 @app.route('/map/')
 def map():
     (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')
     return render_template('map.html', stores = stores)
+
+if __name__ == '__main__':
+    socketio.run(app)
+

@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block title %}Stores{% endblock %}
+{% block content %}
+<script>
+    const socket = io();
+    socket.on('my event', function(msg) {
+            console.log(
+                "[" +
+                new Date().toLocaleString() +
+                "] " +
+                "My Event received: " +
+                JSON.stringify(msg));
+    });
+</script>
+{% endblock %}
