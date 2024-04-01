@@ -487,8 +487,10 @@ def buy_product(id):
 
 @app.route('/subscription/')
 def subscription():
-    json_msg = { "id": "324", "value": 50}
-    socketio.emit('my event', json_msg)
+    print(request.method)
+    if request.method == "POST":
+        json_msg = request.form
+        socketio.emit('my event', json_msg)
     return render_template('notificaciones.html')
 
 @app.route('/map/')
