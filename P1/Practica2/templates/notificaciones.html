@@ -4,13 +4,13 @@
 <script>
     const socket = io();
     socket.on('my event', function(msg) {
-            console.log(
+        document.getElementById("demo").innerHTML = 
                 "[" +
                 new Date().toLocaleString() +
                 "] " +
                 "My Event received: " +
-                JSON.stringify(msg));
+                JSON.stringify(msg)
     });
 </script>
-<p>{{msg}}</p>
+<p id="demo"></p>
 {% endblock %}
