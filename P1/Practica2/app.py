@@ -79,7 +79,7 @@ def update_employee(id):
                 "skills": {"type": "Text", "value": request.form["skills"]},
                 "username": {"type": "Text", "value": request.form["username"]},
                 "password": {"type": "Text", "value": request.form["password"]},
-                "refStore": {"type": "Relationship", "value": request.form["store"]}
+                "refStore": {"type": "Relationship", "value": request.form["refStore"]}
                 }
         
         status = ngsiv2.update_attrs(id, attrs)
@@ -192,13 +192,15 @@ def store(id):
 def create_store():
     if request.method == 'POST':
         print(request.form["id"])
+        location = request.form["location"]
+        X_cord, Y_cord = location.split(',') 
         store = {"id": request.form["id"],
                 "type": "Store",
                 "name": {"type": "Text", "value": request.form["name"]},
                 "address": {"type": "Text", "value": request.form["address"]},
                 "location": {"type": "geo:json",
-                             "value": {"type": "Point", "coordinates": [request.form["X_cord"],
-                                                                        request.form["Y_cord"]]}},
+                             "value": {"type": "Point", "coordinates": [float(X_cord),
+                                                                        float(Y_cord)]}},
                 "image": {"type": "Text", "value": request.form["image"]},  
                 "url": {"type": "Text", "value": request.form["url"]},
                 "telephone": {"type": "Text", "value": request.form["telephone"]},
