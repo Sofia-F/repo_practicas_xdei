@@ -489,7 +489,7 @@ def buy_product(id):
 def subscription():
     json_msg = { "id": "324", "value": 50}
     socketio.emit('my event', json_msg)
-    return render_template('subscription.html')
+    return render_template('notificaciones.html')
 
 @app.route('/map/')
 def map():

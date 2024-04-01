@@ -133,18 +133,37 @@ def register_tweet_provider(id):
 
     return response.status_code, response.text
 
-def register_subscription():
+def register_shelfSubscription(id):
     url = "http://localhost:1026/v2/subscriptions"
 
     payload = json.dumps({
     "description": "Notify me of all product price changes",
     "subject": { "entities": [{"idPattern": ".*", "type": "Product"}],
                  "condition": {"attrs": ["shelfCount"],
-                             "expression": {"q": "shelfCount<10;refStore==urn:ngsi-ld:Store:001"}}
+                             "expression": {"q": "shelfCount<10;refStore=="+id}}
     },
     "notification": {
-    "http": { "url": "http://tutorial:3000/subscription/price-change" } }
+    "http": { "url": "http://host.docker.internal:5000/subscription/" } }
     })
+
+    headers = {
+    'Content-Type': 'application/json'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    return response.status_code
+
+def register_priceSubscription():
+    url = "http://localhost:1026/v2/subscriptions"
+
+    payload = json.dumps({
+    "description": "Notify me of all product price changes",
+    "subject": {"entities": [{"idPattern": ".*", "type": "Product"}],
+                "condition": {"attrs": [ "price" ]}
+    },
+    "notification": {
+        "http": {"url": "http://host.docker.internal:5000/subscription/"}
+    }})
 
     headers = {
     'Content-Type': 'application/json'
@@ -480,13 +499,14 @@ if __name__ == "__main__":
         status = register_tweet_provider(str(store["id"]))
         status = create_entity(store)
         status, val = read_entity(str(store["id"]))
+        status3 = register_shelfSubscription(str(store["id"]))
     
     print()
     print("Creating products entities...")
-    status3 = register_subscription()
     print(status)
     for product in products:
         status = create_entity(product)
         status, val = read_entity(product["id"])
     print()
+    status4 = register_priceSubscription()
     print("Completed")
