@@ -5,7 +5,7 @@
     <title>Update Product</title>
 </head>
 <body>
-    <form action="{{ url_for('update_product', id=id) }}" class="navbar-item">
+    <form action="{{ url_for('update_product', id=id) }}" method = "post" class="navbar-item">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name"><br>
         <label for="name">Price:</label><br>
@@ -16,6 +16,7 @@
         <input type="file" id="image" name="image"><br>
         <label for="name">Color:</label><br>
         <input type="text" id="color" name="color"><br>
+        <br>
         <input type="submit" value="Submit">
         <button onclick="location.href = 'http://127.0.0.1:5000/products/';">Cancel</button>
     </form>

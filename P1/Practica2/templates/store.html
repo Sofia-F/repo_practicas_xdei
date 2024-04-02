@@ -8,8 +8,6 @@
     <br>
     <img class="map_store" src="https://tile.openstreetmap.org/{{zoom}}/{{xtile}}/{{ytile}}.png" alt="Image 2">
 </div>
-<button>Delete store</button>
-<button onclick="location.href = 'http://127.0.0.1:5000/store/update';">Modify store</button>
 {% set id_items = store.id.split(':') %}
 <p>
     <b>Store ID</b>: {{id_items[3]}}<br>
@@ -42,7 +40,7 @@
        {% set percentage =  (grouped_inventory[(store_id, shelf_id)] / grouped_capacity[(store_id, shelf_id)])*100 %}
        <td>
         <div class="border">
-            {% if percentage < 50 %}
+            {% if percentage <= 50 %}
                 <div style="height:24px;width:{{percentage}}%;background-color: red;"></div>
             {% endif %}
             {% if percentage > 50 %}

@@ -138,7 +138,7 @@ def register_shelfSubscription(id):
 
     payload = json.dumps({
     "description": "Notify me of all product price changes",
-    "subject": { "entities": [{"idPattern": ".*", "type": "Product"}],
+    "subject": { "entities": [{"idPattern": ".*", "type": "InventoryItem"}],
                  "condition": {"attrs": ["shelfCount"],
                              "expression": {"q": "shelfCount<10;refStore=="+id}}
     },
@@ -162,7 +162,7 @@ def register_priceSubscription():
                 "condition": {"attrs": [ "price" ]}
     },
     "notification": {
-        "http": {"url": "http://host.docker.internal:5000/subscription/"}
+        "http": {"url": "http://host.docker.internal:3000:3000/subscription/price-change"}
     }})
 
     headers = {
@@ -175,19 +175,14 @@ def register_priceSubscription():
 def delete_context_provider(id):
     url = "http://localhost:1026/v2/registrations"
 
-    payload = {}
-    files={}
-    headers = {}
+    response = requests.request("GET", url)
+    registrations = response.json()
 
-    response = requests.request("GET", url, headers=headers, data=payload, files=files)
-    response["dataProvided"]
-
-    url = "http://localhost:1026/v2/registrations/5ad5b9435c28633f0ae90671"
-    payload = {}
-    files={}
-    headers = {}
-    response = requests.request("DELETE", url, headers=headers, data=payload, files=files)
-    return response
+    for registration in registrations:
+        print(registration["dataProvided"]["entities"][0]["id"])
+        if registration["dataProvided"]["entities"][0]["id"] == id:
+            url = "http://localhost:1026/v2/registrations/"+registration["id"]
+            response = requests.request("DELETE", url)
 
 if __name__ == "__main__":
 
@@ -243,7 +238,7 @@ if __name__ == "__main__":
         "type": "Store",
         "name": {"type": "Text", "value": "Store 1"},
         "address": {"type": "Text", "value": "Unter den Linden, Germany"},
-        "image": {"type": "Image", "value": b64("images/stores/store1.jpg")},
+        "image": {"type": "Text", "value": b64("images/stores/store1.jpg")},
         "url": {"type": "Text", "value": "https://store1.com"},
         "telephone": {"type": "Text", "value": "913456789"},
         "countryCode": {"type": "Text", "value": "GE"},
@@ -256,7 +251,7 @@ if __name__ == "__main__":
         "type": "Store",
         "name": {"type": "Text", "value": "Store 2"},
         "address": {"type": "Text", "value": "Marienplatz, Germany"},
-        "image": {"type": "Image", "value": b64("images/stores/store2.jpg")},
+        "image": {"type": "Text", "value": b64("images/stores/store2.jpg")},
         "url": {"type": "Text", "value": "https://store2.com"},
         "telephone": {"type": "Text", "value": "917654321"},
         "countryCode": {"type": "Text", "value": "GE"},
@@ -269,7 +264,7 @@ if __name__ == "__main__":
         "type": "Store",
         "name": {"type": "Text", "value": "Store 3"},
         "address": {"type": "Text", "value": "Brandenburger Tor, Germany"},
-        "image": {"type": "Image", "value": b64("images/stores/store3.jpg")},
+        "image": {"type": "Text", "value": b64("images/stores/store3.jpg")},
         "url": {"type": "Text", "value": "https://store3.com"},
         "telephone": {"type": "Text", "value": "910987654"},
         "countryCode": {"type": "Text", "value": "GE"},
@@ -446,7 +441,6 @@ if __name__ == "__main__":
     ]
 
     print(list_entities(type = "Shelf"))
-
     print("Deleting Products entities...")
     for i in range(9):
         status = delete_entity("urn:ngsi-ld:Product:00"+str(i+1))
@@ -468,6 +462,7 @@ if __name__ == "__main__":
     for shelf in shelfs:
         status = create_entity(shelf)
         status, val = read_entity(str(shelf["id"]))
+
 
     print()
     print("Deleting InventoryItem entities...")
@@ -496,7 +491,7 @@ if __name__ == "__main__":
         status = register_tweet_provider(str(store["id"]))
         status = create_entity(store)
         status, val = read_entity(str(store["id"]))
-        status3 = register_shelfSubscription(str(store["id"]))
+        register_shelfSubscription(str(store["id"]))
     
     print()
     print("Creating products entities...")
@@ -504,6 +499,7 @@ if __name__ == "__main__":
     for product in products:
         status = create_entity(product)
         status, val = read_entity(product["id"])
-    print()
     status4 = register_priceSubscription()
+    print(status4)
+    print()
     print("Completed")

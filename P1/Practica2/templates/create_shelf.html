@@ -1,13 +1,13 @@
 {% extends 'layout.html' %}
 {% block title %}Shelf{% endblock %}
 {% block content %}
-<form action="store/{{id}}/product/{{idProduct}}/shelf/create" method = "POST">
+<form action="/store/{{id}}/product/{{idProduct}}/shelf/create" method = "POST">
     <label for="id">Id:</label><br>
     <input type="text" id="id" name="id"><br>
     <label for="id">refShelf:</label><br>
-    <select id="refProduct" name="refProduct">
-    {% for product in product_list %}
-        <option value="{{product}}">{{product}}</option>
+    <select type="text" id="refShelf" name="refShelf">
+    {% for shelf in shelf_list %}
+        <option value="{{shelf}}">{{shelf}}</option>
     {% endfor %}
     </select>
     <br>

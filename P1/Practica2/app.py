@@ -56,7 +56,7 @@ def create_employee():
                 "skills": {"type": "Text", "value": request.form["skills"]},
                 "username": {"type": "Text", "value": request.form["username"]},
                 "password": {"type": "Text", "value": request.form["password"]},
-                "image": {"type": "Text", "value": ngsiv2.b64(request.form["image"])},
+                "image": {"type": "Text", "value": ngsiv2.b64("images/employees/"+request.form["image"])},
                 "refStore": {"type": "Relationship", "value": request.form["refStore"]}
                 }
         status = ngsiv2.create_entity(employee)
@@ -83,7 +83,7 @@ def update_employee(id):
                 "username": {"type": "Text", "value": request.form["username"]},
                 "password": {"type": "Text", "value": request.form["password"]},
                 "refStore": {"type": "Relationship", "value": request.form["refStore"]},
-                "image": {"type": "Text", "value": ngsiv2.b64(request.form["image"])}
+                "image": {"type": "Text", "value": ngsiv2.b64("images/employees/"+request.form["image"])}
                 }
         
         status = ngsiv2.update_attrs(id, attrs)
@@ -101,7 +101,6 @@ def delete_employee(id):
     if request.method == 'GET':
 
         status = ngsiv2.delete_entity(id)
-        #status = ngsiv2.delete_context_provider(identifier)
 
         if status == 204:
             next = request.args.get('next', None)
@@ -112,14 +111,12 @@ def delete_employee(id):
 @app.route('/stores/')
 def stores():
  (status, stores) = ngsiv2.list_entities(type = 'Store', options = 'keyValues')
- print(stores)
  for store in stores:
-     print("Tienda")
+     print(store["id"])
      status, response = get_weather_value(store["id"], "relativeHumidity")
      status2, response2 = get_weather_value(store["id"], "temperature")
      store["temperature"] = {"type": "Text", "value": response}
      store["relativeHumidity"] = {"type": "Text", "value": response2}
-
  if status == 200:
     return render_template('stores.html', stores = stores)
  
@@ -197,6 +194,7 @@ def create_store():
     if request.method == 'POST':
         print(request.form["id"])
         print(request.form["name"])
+        print(request.form["url"])
         print(request.form["address"])
         print(request.form["xcoord"])
         print(request.form["ycoord"])
@@ -204,23 +202,26 @@ def create_store():
         print(request.form["countryCode"])
         print(request.form["capacity"])
         print(request.form["description"])
-
+        print("images/stores/"+request.form["image"])
         store = {"id": request.form["id"],
                 "type": "Store",
                 "name": {"type": "Text", "value": request.form["name"]},
                 "address": {"type": "Text", "value": request.form["address"]},
-                "location": {"type": "geo:json",
-                             "value": {"type": "Point", "coordinates": [request.form["xcoord"],
-                                                                        request.form["ycoord"]]}},
-                "image": {"type": "Text", "value": ngsiv2.b64(request.form["image"])},  
+                "image": {"type": "Text", "value": ngsiv2.b64("images/stores/"+request.form["image"])}, 
                 "url": {"type": "Text", "value": request.form["url"]},
                 "telephone": {"type": "Text", "value": request.form["telephone"]},
                 "countryCode": {"type": "Text", "value": request.form["countryCode"]},
-                "capacity": {"type": "Integer", "value": request.form["capacity"]},
-                "description": {"type": "Integer", "value": request.form["description"]}
+                "capacity": {"type": "Number", "value": int(request.form["capacity"])}, 
+                "location": {"type": "geo:json",
+                             "value": {"type": "Point", "coordinates": [float(request.form["xcoord"]),
+                                                                        float(request.form["ycoord"])]}},
+                "description": {"type": "Text", "value": request.form["description"]}
         }
         print(store)
         status = ngsiv2.create_entity(store)
+        status2 = ngsiv2.register_weather_provider(str(store["id"]))
+        status3 = ngsiv2.register_tweet_provider(str(store["id"]))
+        print(status2, status3)
         print(status)
         if status == 201:
             next = request.args.get('next', None)
@@ -237,16 +238,14 @@ def update_store(id):
                 "name": {"type": "Text", "value": request.form["name"]},
                 "address": {"type": "Text", "value": request.form["address"]},
                 "location": {"type": "geo:json",
-                             "value": {"type": "Point", "coordinates": [request.form["X_cord"],
-                                                                        request.form["Y_cord"]]}},
-                "image": {"type": "Text", "value": request.form["image"]},  
+                             "value": {"type": "Point", "coordinates": [float(request.form["xcoord"]),
+                                                                        float(request.form["ycoord"])]}},
+                "image": {"type": "Text", "value": ngsiv2.b64("images/stores/"+request.form["image"])},  
                 "url": {"type": "Text", "value": request.form["url"]},
                 "telephone": {"type": "Text", "value": request.form["telephone"]},
                 "countryCode": {"type": "Text", "value": request.form["countryCode"]},
-                "capacity": {"type": "Integer", "value": request.form["capacity"]},
-                "description": {"type": "Integer", "value": request.form["description"]},
-                "temperature": {"type": "Text", "value": request.form["temperature"]},    
-                "relativeHumidity": {"type": "Integer", "value": request.form["relativeHumidity"]}
+                "capacity": {"type": "Number", "value": int(request.form["capacity"])},
+                "description": {"type": "Text", "value": request.form["description"]}
         }
         status = ngsiv2.update_attrs(id, attrs)
         print(status)
@@ -260,9 +259,11 @@ def update_store(id):
 
 @app.route("/store/delete/<id>", methods=['GET', 'POST'])
 def delete_store(id):
+    print("hola2")
     if request.method == 'GET':
+        print("hola")
         status = ngsiv2.delete_entity(id)
-        print(status)
+        status2 = ngsiv2.delete_context_provider(id)
         if status == 204:
             next = request.args.get('next', None)
             if next:
@@ -315,17 +316,17 @@ def create_shelfProd(id,idShelf):
 def create_shelf(id, idProduct):
     if request.method == 'POST':
 
-        store = {
+        inventory = {
             "id": request.form["id"],
             "type": "InventoryItem",
-            "refShelf": {"type": "Text", "value": request.form["refShelf"]},
-            "refStore": {"type": "Text", "value": id},
-            "refProduct": {"type": "Text", "value": idProduct},
-            "shelfCount": {"type": "Number", "value": request.form["shelfCount"]},
-            "stockCount": {"type": "Number", "value": request.form["stockCount"]}
+            "refProduct": {"type": "Relationship", "value": idProduct},
+            "refShelf": {"type": "Relationship", "value": request.form["refShelf"]},
+            "refStore": {"type": "Relationship", "value": id},
+            "shelfCount": {"type": "Number", "value": float(request.form["shelfCount"])},
+            "stockCount": {"type": "Number", "value": float(request.form["stockCount"])}
         }
-        
-        status = ngsiv2.create_entity(store)
+        print(inventory)
+        status = ngsiv2.create_entity(inventory)
         print(status)
         if status == 201:
             next = request.args.get('next', None)
@@ -350,8 +351,8 @@ def create_shelf(id, idProduct):
 
         return render_template('create_shelf.html', 
                                id = id,
-                               idShelf = idProduct,
-                               product_list = shelf_list)
+                               idProduct = idProduct,
+                               shelf_list = shelf_list)
     
 @app.route("/store/<idStore>/shelf/delete/<id>", methods=['GET', 'POST'])
 def delete_shelf(id, idStore):
@@ -388,8 +389,6 @@ def update_shelf(id, idStore):
 @app.route('/products/')
 def products():
  (status, products) = ngsiv2.list_entities(type = 'Product')
-#  print(status)
- product["image"]["value"] = product["image"]["value"].ljust(math.ceil(len(product["image"]["value"]) / 4) * 4, '=')
  if status == 200:
     return render_template('products.html', products = products)
 
@@ -430,7 +429,7 @@ def create_product():
         product = {"id": request.form["id"],
                 "type": "Product",
                 "name": {"type": "Text", "value": request.form["name"]},
-                "image": {"type": "Text", "value": request.form["image"]},      
+                "image": {"type": "Text", "value": ngsiv2.b64("images/products/"+request.form["image"])},      
                 "color": {"type": "Text", "value": request.form["color"]},          
                 "size": {"type": "Text", "value": request.form["size"]},
                 "price": {"type": "Integer", "value": int(request.form["price"])}}
@@ -451,7 +450,7 @@ def update_product(id):
         print(id)
         attrs = {
                 "name": {"type": "Text", "value": request.form["name"]},
-                "image": {"type": "Text", "value": request.form["image"]},      
+                "image": {"type": "Text", "value": ngsiv2.b64("images/products/"+request.form["image"])},      
                 "color": {"type": "Text", "value": request.form["color"]},          
                 "size": {"type": "Text", "value": request.form["size"]},
                 "price": {"type": "Integer", "value": int(request.form["price"])}}
@@ -493,9 +492,10 @@ def buy_product(id):
 
 @app.route('/subscription/')
 def subscription():
-    print(request.method)
     if request.method == "POST":
-        json_msg = request.form
+        url = "http://localhost:1026/v2/subscriptions"
+        response = requests.request("POST", url)
+        json_msg = response.json()
         socketio.emit('my event', json_msg)
     return render_template('notificaciones.html')
 
