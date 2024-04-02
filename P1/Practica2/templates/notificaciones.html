@@ -1,8 +1,13 @@
 {% extends 'layout.html' %}
 {% block title %}Subscription{% endblock %}
 {% block content %}
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
 <script>
     const socket = io();
+    socket.on('connect', function() {
+        console.log('Conexión establecida con el servidor de Socket.IO');
+    });
     socket.on('my event', function(msg) {
         document.getElementById("demo").innerHTML = 
                 "[" +

@@ -347,8 +347,8 @@ if __name__ == "__main__":
         "refProduct": {"type": "Relationship", "value": "urn:ngsi-ld:Product:001"},
         "refShelf": {"type": "Relationship", "value": "urn:ngsi-ld:Shelf:unit001"},
         "refStore": {"type": "Relationship", "value": "urn:ngsi-ld:Store:001"},
-        "shelfCount": {"type": "Number", "value": 50},
-        "stockCount": {"type": "Number", "value": 500}
+        "shelfCount": {"type": "Number", "value": 11},
+        "stockCount": {"type": "Number", "value": 11}
     },
     {
         "id": "urn:ngsi-ld:InventoryItem:002",

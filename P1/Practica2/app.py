@@ -490,7 +490,7 @@ def buy_product(id):
                 return redirect(next)
             return redirect(url_for('stores'))
 
-@app.route('/subscription/')
+@app.route('/subscription/', methods=['GET', 'POST'])
 def subscription():
     if request.method == "POST":
         url = "http://localhost:1026/v2/subscriptions"
