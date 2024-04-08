@@ -143,7 +143,7 @@ def register_shelfSubscription(id):
                              "expression": {"q": "shelfCount<10;refStore=="+id}}
     },
     "notification": {
-    "http": { "url": "http://host.docker.internal:5000/subscription/" } }
+    "http": { "url": "http://host.docker.internal:5000/alertas/" } }
     })
 
     headers = {

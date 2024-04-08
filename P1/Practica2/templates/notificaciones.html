@@ -8,7 +8,9 @@
     socket.on('connect', function() {
         console.log('Conexión establecida con el servidor de Socket.IO');
     });
+
     socket.on('my event', function(msg) {
+        console.log('Conexión establecida con el servidor de Socket.IO');
         document.getElementById("demo").innerHTML = 
                 "[" +
                 new Date().toLocaleString() +

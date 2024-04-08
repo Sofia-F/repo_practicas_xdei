@@ -490,14 +490,20 @@ def buy_product(id):
                 return redirect(next)
             return redirect(url_for('stores'))
 
-@app.route('/subscription/', methods=['GET', 'POST'])
+json_msg = {"hola": 1}
+@app.route('/alertas/', methods=['POST'])
 def subscription():
     if request.method == "POST":
-        url = "http://localhost:1026/v2/subscriptions"
-        response = requests.request("POST", url)
-        json_msg = response.json()
-        socketio.emit('my event', json_msg)
-    return render_template('notificaciones.html')
+        print("hola")
+        print(json_msg)
+        print(request.get_json())
+        print(json.dumps(json_msg))
+        socketio.emit('my event',json_msg)
+    return ""
+
+@app.route('/notificaciones/')
+def notificaciones():
+    return render_template("notificaciones.html")
 
 @app.route('/map/')
 def map():
