@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
 {% block title %}Store{% endblock %}
 {% block content %}
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
 <div class="image-container">
     {% set image_base = "data:image/png;base64," + store.image.value %}
     <br>
@@ -86,14 +88,32 @@
         <td>{{ inventory_item.prodColor }}</td>
         <td>{{ inventory_item.shelfCount }}</td>
         <td>{{ inventory_item.stockCount }}</td>
-        {% set unit_url = '/buy/' + inventory_item.id %}
-        <td><button onclick="location.href = '{{unit_url}}';">Buy</button></td>
+        {% set unit_url = '/' + inventory_item.refStore + '/buy/' + inventory_item.id %}
+        <td><button onclick="window.location.href = '{{unit_url}}';">Buy</button></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store.id}}/shelf/update/{{ inventory_item.id }}';">Update</button></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store.id}}/shelf/delete/{{ inventory_item.id }}';">Delete</button></td>
         <td><button onclick="location.href = 'http://127.0.0.1:5000/store/{{store.id}}/shelf/{{inventory_item.refShelf}}/product/create';">Add Shelf</button></td>
     </tr>
     {% endfor %}
 </table>
+<br>
+<script>
+    const socket = io();
+    socket.on('connect', function() {
+        console.log('Conexión establecida con el servidor de Socket.IO');
+    });
+
+    socket.on('my event', function(msg) {
+        console.log('Conexión establecida con el servidor de Socket.IO');
+        document.getElementById("demo").innerHTML = 
+                "[" +
+                new Date().toLocaleString() +
+                "] " +
+                "My Event received: " +
+                JSON.stringify(msg)
+    });
+</script>
+<p id="demo"></p>
 <br>
 <div class="tweet-container">
    {% for tweet in store.tweets.value %}
