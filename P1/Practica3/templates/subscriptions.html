@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block title %}Stores{% endblock %}
+{% block content %}
+
+<tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Pais</th>
+        <th>Temperatura</th>
+        <th>Humedad Relativa</th>
+        <th>Image</th>
+        <th>Update</th>
+        <th>Delete</th>
+</tr>
+<tr>
+    <td>Prueba</td>
+    <td><img class="img_store" src="{{ image_base }}" alt="Store Image"></td>
+    <td><button onclick="location.href = 'http://127.0.0.1:5000/subscription/update/';">Update subscription</button></td>
+    <td><button onclick="location.href = 'http://127.0.0.1:5000/subscription/delete/';">Delete subscription</button></td>
+    
+</tr>
+{% endblock %}

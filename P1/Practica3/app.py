@@ -3,7 +3,7 @@ import pprint
 from datetime import datetime
 from flask import render_template
 import ngsiv2
-from flask import Flask
+from flask import Flask, render_template, redirect, url_for, request
 import math
 app = Flask(__name__)
 
@@ -63,3 +63,47 @@ def product(id):
     print(inventory_items)
     if status == 200:
         return render_template('product.html', product = product, inventory_items = inventory_items)
+
+
+@app.route("/subscriptions/update/<id>", methods=['GET', 'POST'])
+def update_subscription(id):
+    if request.method == 'POST':
+
+        attrs = {
+                "name": {"type": "Text", "value": request.form["name"]},
+                "email": {"type": "Text", "value": request.form["email"]},      
+                "dateOfContract": {"type": "Text", "value": request.form["dateOfContract"]},          
+                "category": {"type": "Text", "value": request.form["category"]},
+                "salary": {"type": "Integer", "value": int(request.form["salary"])},
+                "skills": {"type": "Text", "value": request.form["skills"]},
+                "username": {"type": "Text", "value": request.form["username"]},
+                "password": {"type": "Text", "value": request.form["password"]},
+                "refStore": {"type": "Relationship", "value": request.form["refStore"]},
+                "image": {"type": "Text", "value": ngsiv2.b64("images/employees/"+request.form["image"])}
+                }
+        
+        status = ngsiv2.update_attrs(id, attrs)
+        print(status)
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('subscriptions'))
+    else:
+        return render_template('update_subscription.html', id = id)
+
+@app.route("/subscriptions/delete/<id>", methods=['GET', 'POST'])
+def delete_subscription(id):
+    if request.method == 'GET':
+
+        status = ngsiv2.delete_entity(id)
+
+        if status == 204:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('subscriptions'))
+
+@app.route('/subscriptions/')
+def subscriptions():
+    return render_template("subscriptions.html")
