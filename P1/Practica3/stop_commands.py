@@ -1,7 +1,7 @@
 import requests 
 
 def switch_off_lamp(id):
-    url = f"http://localhost:3001/iot/"+id
+    url = "http://localhost:3001/iot/"+id
     payload = "urn:ngsi-ld:" + id + "@off"
     
     headers = {
