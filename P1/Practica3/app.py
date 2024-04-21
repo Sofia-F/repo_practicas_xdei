@@ -1,9 +1,12 @@
 import requests
+import pandas as pd
 import pprint
 from datetime import datetime
 from flask import render_template
 import ngsiv2
 from flask import Flask, render_template, redirect, url_for, request
+from read_subscriptions import read_subscriptions
+import create_subscriptions
 import math
 app = Flask(__name__)
 
@@ -64,23 +67,60 @@ def product(id):
     if status == 200:
         return render_template('product.html', product = product, inventory_items = inventory_items)
 
+@app.route("/subscriptions/create/", methods=['GET', 'POST'])
+def create_subscription():
+    if request.method == 'POST':
+
+        Description = request.form["description"]
+
+        Subject = {
+            "entities": [{"idPattern": request.form["entity_id_pattern"]}],
+            "condition": {"attrs": [request.form["condition_attrs"]]}
+        }
+
+        Notification = {
+            "http": {"url": "http://quantumleap:8668/v2/notify"},
+            "attrs": [request.form["condition_attrs"]],
+            "metadata": ["dateCreated", "dateModified"]
+        }
+
+        Throttling = request.form["throttling"]
+        
+        print(Description)
+        print(Subject)
+        print(Notification)
+        print(Throttling)
+
+        status = create_subscriptions.create_subs(Description, Subject, Notification, Throttling)
+        print(status)
+        if status == 400:
+            next = request.args.get('next', None)
+            if next:
+                return redirect(next)
+            return redirect(url_for('subscriptions'))
+    else:
+        return render_template('create_subscription.html')
 
 @app.route("/subscriptions/update/<id>", methods=['GET', 'POST'])
 def update_subscription(id):
     if request.method == 'POST':
 
         attrs = {
-                "name": {"type": "Text", "value": request.form["name"]},
-                "email": {"type": "Text", "value": request.form["email"]},      
-                "dateOfContract": {"type": "Text", "value": request.form["dateOfContract"]},          
-                "category": {"type": "Text", "value": request.form["category"]},
-                "salary": {"type": "Integer", "value": int(request.form["salary"])},
-                "skills": {"type": "Text", "value": request.form["skills"]},
-                "username": {"type": "Text", "value": request.form["username"]},
-                "password": {"type": "Text", "value": request.form["password"]},
-                "refStore": {"type": "Relationship", "value": request.form["refStore"]},
-                "image": {"type": "Text", "value": ngsiv2.b64("images/employees/"+request.form["image"])}
-                }
+            "description" : [request.form["description"]],
+
+            "subject" : {
+                "entities": [{"idPattern": [request.form["entity_id_pattern"]]}],
+                "condition": {"attrs": [request.form["condition_attrs"]]}
+            },
+
+            "notification" : {
+                "http": {"url": "http://quantumleap:8668/v2/notify"},
+                "attrs": [request.form["condition_attrs"]],
+                "metadata": ["dateCreated", "dateModified"]
+            },
+
+            "throttling" : request.form["throttling"]
+        }
         
         status = ngsiv2.update_attrs(id, attrs)
         print(status)
@@ -94,16 +134,27 @@ def update_subscription(id):
 
 @app.route("/subscriptions/delete/<id>", methods=['GET', 'POST'])
 def delete_subscription(id):
-    if request.method == 'GET':
+    url = "http://localhost:1026/v2/subscriptions/"
 
-        status = ngsiv2.delete_entity(id)
+    headers = {
+        'fiware-service': 'openiot',
+        'fiware-servicepath': '/'
+    }
 
-        if status == 204:
-            next = request.args.get('next', None)
-            if next:
-                return redirect(next)
-            return redirect(url_for('subscriptions'))
+    subscriptions = requests.request("GET", url, headers=headers).json()
+
+    for subscription in subscriptions:
+        if subscription["id"] == id:
+            url = "http://localhost:1026/v2/subscriptions/"+subscription["id"]
+            response = requests.request("DELETE", url, headers=headers)
+
+    if response.status_code == 204:
+        next = request.args.get('next', None)
+        if next:
+            return redirect(next)
+        return redirect(url_for('subscriptions'))
 
 @app.route('/subscriptions/')
 def subscriptions():
-    return render_template("subscriptions.html")
+    subscriptions = read_subscriptions().json()
+    return render_template("subscriptions.html", subscriptions = subscriptions)

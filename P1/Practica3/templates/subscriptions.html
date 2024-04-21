@@ -2,21 +2,44 @@
 {% block title %}Stores{% endblock %}
 {% block content %}
 
-<tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Pais</th>
-        <th>Temperatura</th>
-        <th>Humedad Relativa</th>
-        <th>Image</th>
-        <th>Update</th>
-        <th>Delete</th>
-</tr>
-<tr>
-    <td>Prueba</td>
-    <td><img class="img_store" src="{{ image_base }}" alt="Store Image"></td>
-    <td><button onclick="location.href = 'http://127.0.0.1:5000/subscription/update/';">Update subscription</button></td>
-    <td><button onclick="location.href = 'http://127.0.0.1:5000/subscription/delete/';">Delete subscription</button></td>
-    
-</tr>
+<table>
+    <tr>
+    <th>description</th>
+    <th>entities_id_pattern</th>
+    <th>condition_attrs</th>
+    <th>notif_http_url</th>
+    <th>notif_attrs</th>
+    <th>notif_metadata</th>
+    <th>throttling</th>
+    <th>update</th>
+    <th>delete</th>
+    </tr>
+
+    {% for subscription in subscriptions %}
+        <tr>
+        <td>{{subscription.description}}</td>
+        <td>{{subscription.subject.entities[0].idPattern}}</td>
+        <td>{{subscription.subject.condition.attrs}}</td>
+        <td>{{subscription.notification.http.url}}</td>
+        <td>{{subscription.notification.attrs}}</td>
+        <td>{{subscription.notification.metadata}}</td>
+        <td>{{subscription.throttling}}</td>
+        <td>
+            <button onclick="location.href = 'http://127.0.0.1:5000/subscriptions/update/{{ subscription.id }}';">
+                Update
+            </button>
+        </td>
+        <td><button onclick="location.href = 'http://127.0.0.1:5000/subscriptions/delete/{{ subscription.id }}';">
+                Delete
+            </button>
+        </td>
+        </tr>
+    {% endfor %}
+
+</table>
+<br>
+<button onclick="location.href = 'http://127.0.0.1:5000/subscriptions/create';">
+    Create
+</button>
+
 {% endblock %}

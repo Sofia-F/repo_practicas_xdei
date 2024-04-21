@@ -1,46 +1,33 @@
 import requests 
-import json
 
 def switch_off_lamp(id):
-    url = "http://localhost:1026/v2/entities/urn:ngsi-ld:"+ id + "/attrs?type=Lamp"
-
-    payload = json.dumps({
-    "off": {
-        "type": "command",
-        "value": ""
-    }
-
-    })
+    url = f"http://localhost:3001/iot/"+id
+    payload = "urn:ngsi-ld:" + id + "@off"
+    
     headers = {
-    'fiware-service': 'openiot',
-    'fiware-servicepath': '/',
-    'Content-Type': 'application/json'
+        'Content-Type': 'text/plain'
     }
 
-    response = requests.request("PATCH", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload)
 
     return response.status_code
 
 def lock_door(id):
-    url = "http://localhost:1026/v2/entities/urn:ngsi-ld:"+id+"/attrs?type=Door"
-
-    payload = json.dumps({
-    "lock": {
-        "type": "command",
-        "value": ""
-    }
-    })
+    url = "http://localhost:3001/iot/"+id
+    payload = "urn:ngsi-ld:" + id + "@lock"
+    
     headers = {
-    'fiware-service': 'openiot',
-    'fiware-servicepath': '/',
-    'Content-Type': 'application/json'
+        'Content-Type': 'text/plain'
     }
 
-    response = requests.request("PATCH", url, headers=headers, data=payload)
+    headers = {
+        'Content-Type': 'text/plain'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
 
     return response.status_code
 
-# Cierra las puertas y apaga las lámparas
 def stop_devices():
     url = "http://localhost:4041/iot/devices"
 
@@ -52,7 +39,16 @@ def stop_devices():
 
     response = requests.request("GET", url, headers=headers, data=payload)
 
-    return(response.json())
+    for device in response.json()["devices"]:
+
+        if device["entity_type"] == "Door":
+            status = lock_door(device["device_id"])
+        
+        if device["entity_type"] == "Lamp":
+            status = switch_off_lamp(device["device_id"])
+
+
+    return response.status_code
 
 if __name__ == "__main__":
 

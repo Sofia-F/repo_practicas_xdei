@@ -1,15 +1,24 @@
 import requests 
+import pandas as pd
 
-# Lee todas las suscripciones en formato de tabla.
-# Borra todas las suscripciones existentes en Orion.
 def read_subscriptions():
+
     url = "http://localhost:1026/v2/subscriptions/"
 
-    response = requests.request("GET", url)
-    subscriptions = response.json()
+    payload = {}
+    headers = {
+    'fiware-service': 'openiot',
+    'fiware-servicepath': '/'
+    }
 
-    return subscriptions
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    return response
 
 if __name__ == "__main__":
     
-    subscriptions = read_subscriptions()
+    print("\nReading subscriptions...")
+    response = pd.DataFrame(read_subscriptions().json())
+    print()
+    print(response)
+    print(read_subscriptions().json())

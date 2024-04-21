@@ -1,84 +1,29 @@
-# Crea una suscripcion en Orion
-
 import requests
 import json
-import pandas as pd
 
-def read_subscriptions():
-
+def create_subs(Description, Subject, Notification, Throttling = None):
     url = "http://localhost:1026/v2/subscriptions/"
 
-    payload = {}
-    headers = {
-    'fiware-service': 'openiot',
-    'fiware-servicepath': '/'
+    payload = {
+        "description": Description,
+        "subject": Subject,
+        "notification": Notification
     }
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-
-    df = pd.DataFrame(response.json())
-
-    if df.empty:
-        return "No active subscriptions"
-    else:
-        return df[['id', 'description', 'status']]
-
-def create_subscription(Description, Subject, Notification, Throttling = None):
-    url = "http://localhost:1026/v2/subscriptions/"
-
-    payload = json.dumps({
-    "description": Description,
-    "subject": Subject,
-    "notification": Notification
-    })
 
     if Throttling is not None:
         payload["throttling"] = Throttling
 
-    headers = {
-    'Content-Type': 'application/json',
-    'fiware-service': 'openiot',
-    'fiware-servicepath': '/'
-    }
-
-    response = requests.request("POST", url, headers=headers, data=payload)
-
-    return response.status_code
-
-def delete_subscriptions():
-    url = "http://localhost:1026/v2/subscriptions/"
+    print(payload)
 
     headers = {
+        'Content-Type': 'application/json',
         'fiware-service': 'openiot',
         'fiware-servicepath': '/'
     }
 
-    registrations = requests.request("GET", url, headers=headers).json()
-
-    for registration in registrations:
-        url = "http://localhost:1026/v2/subscriptions/"+registration["id"]
-        response = requests.request("DELETE", url, headers=headers)
+    response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
 
     return response.status_code
-
-def delete_subscription(id):
-    url = "http://localhost:1026/v2/subscriptions/"
-
-    headers = {
-        'fiware-service': 'openiot',
-        'fiware-servicepath': '/'
-    }
-
-    registrations = requests.request("GET", url, headers=headers).json()
-
-    for registration in registrations:
-        if registration["id"] == id:
-            url = "http://localhost:1026/v2/subscriptions/"+registration["id"]
-            response = requests.request("DELETE", url, headers=headers)
-
-            return response.status_code
-        else:
-            return "Failed to delete"
 
 if __name__ == "__main__":
 
@@ -122,20 +67,16 @@ if __name__ == "__main__":
         }
     ]
 
+    Throttling = [None, None, 5]
+
     print("Creating subscriptions ...")
-    i = 2
-    status = create_subscription(Description[i], Subject[i], Notification[i])
+    for i in range(len(Description)):
+        print(Description[i])
+        print(Subject[i])
+        print(Notification[i])
+        print(Throttling[i])
+        print()
+        status = create_subs(Description[i], Subject[i], Notification[i], Throttling[i])
     print(status)
-
-    print("\nReading subscriptions...")
-    response = read_subscriptions()
-    print(response)
-
-    print("\nDeleting subscriptions...")
-    status = delete_subscriptions()
-
-    print("\nReading subscriptions...")
-    response = read_subscriptions()
-    print(response)
 
 

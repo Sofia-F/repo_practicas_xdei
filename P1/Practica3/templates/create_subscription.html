@@ -1,31 +1,18 @@
 {% extends 'layout.html' %}
 {% block title %}Create Employee{% endblock %}
 {% block content %}
-<form action="/employee/create" method = "POST">
-    <label for="id">Id:</label><br>
-    <input type="text" id="id" name="id"><br>
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name"><br>
-    <label for="name">Email:</label><br>
-    <input type="text" id="email" name="email"><br>
-    <label for="dateTime">dateOfContract:</label><br>
-    <input type="dateTime" id="dateOfContract" name="dateOfContract"><br><br>
-    <label for="name">Category:</label><br>
-    <input type="text" id="category" name="category"><br><br>
-    <label for="name">Salary:</label><br>
-    <input type="number" id="salary" name="salary"><br><br>
-    <label for="name">Skills:</label><br>
-    <input type="text" id="skills" name="skills"><br><br>
-    <label for="name">Username:</label><br>
-    <input type="text" id="username" name="username"><br><br>
-    <label for="name">Password:</label><br>
-    <input type="text" id="password" name="password"><br><br>
-    <label for="name">Image:</label><br>
-    <input type="file" id="image" name="image"><br><br>
-    <label for="name">RefStore:</label><br>
-    <input type="text" id="refStore" name="refStore"><br><br>
-    
+<form action="/subscriptions/create" method = "POST">
+    <label for="description">description:</label><br>
+    <input type="text" id="description" name="description"><br>
+    <label for="entity_id_pattern">entity_id_pattern:</label><br>
+    <input type="text" id="entity_id_pattern" name="entity_id_pattern"><br>
+    <label for="condition_attrs">condition_attrs:</label><br>
+    <input type="text" id="condition_attrs" name="condition_attrs"><br>
+    <label for="notif_attrs">notif_attrs:</label><br>
+    <input type="text" id="notif_attrs" name="notif_attrs"><br>
+    <label for="throttling">throttling:</label><br>
+    <input type="number" id="throttling" name="throttling"><br>
     <input type="submit" value="Submit">
-    <button onclick="location.href = 'http://127.0.0.1:5000/employees/';">Cancel</button>
+    <button onclick="location.href = 'http://127.0.0.1:5000/subscriptions/';">Cancel</button>
 </form>
 {% endblock %}
