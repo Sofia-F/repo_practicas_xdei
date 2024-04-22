@@ -16,7 +16,6 @@
             <a href="{{ url_for('stores') }}" {% if request.path == url_for('stores') %}class="active"{% endif %}>Stores</a>
             <a href="{{ url_for('employees') }}" {% if request.path == url_for('employees') %}class="active"{% endif %}>Employees</a>
             <a href="{{ url_for('map') }}" {% if request.path == url_for('map') %}class="active"{% endif %}>Map</a>
-            <a href="{{ url_for('notificaciones') }}" {% if request.path == url_for('notificaciones') %}class="active"{% endif %}>Notificaciones</a>
             <a href="{{ url_for('about') }}" {% if request.path == url_for('about') %}class="active"{% endif %}>About</a>
         </div>
 

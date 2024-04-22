@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block title %}Create Employee{% endblock %}
+{% block content %}
+<form action="/subscriptions/update" method = "POST">
+    <label for="description">description:</label><br>
+    <input type="text" id="description" name="description"><br>
+    <label for="entity_id_pattern">entity_id_pattern:</label><br>
+    <input type="text" id="entity_id_pattern" name="entity_id_pattern"><br>
+    <label for="condition_attrs">condition_attrs:</label><br>
+    <input type="text" id="condition_attrs" name="condition_attrs"><br>
+    <label for="notif_attrs">notif_attrs:</label><br>
+    <input type="text" id="notif_attrs" name="notif_attrs"><br>
+    <label for="throttling">throttling:</label><br>
+    <input type="number" id="throttling" name="throttling"><br>
+    <input type="submit" value="Submit">
+    <button onclick="location.href = 'http://127.0.0.1:5000/subscriptions/';">Cancel</button>
+</form>
+{% endblock %}

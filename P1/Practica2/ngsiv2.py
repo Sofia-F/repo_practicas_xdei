@@ -173,7 +173,7 @@ def register_priceSubscription():
     return response.status_code
 
 def delete_context_provider(id):
-    url = "http://localhost:1026/v2/registrations"
+    url = "http://localhost:1026/v2/subscriptions"
 
     response = requests.request("GET", url)
     registrations = response.json()

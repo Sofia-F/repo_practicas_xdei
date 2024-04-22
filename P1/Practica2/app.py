@@ -475,8 +475,8 @@ def delete_product(id):
                 return redirect(next)
             return redirect(url_for('products'))
 
-@app.route("/buy/<id>", methods=['GET', 'POST'])
-def buy_product(id):
+@app.route("/<idStore>/buy/<id>", methods=['GET', 'POST'])
+def buy_product(idStore, id):
     if request.method == 'GET':
         attrs = {
                 "shelfCount": {"type":"Integer", "value": {"$inc": -1}},
@@ -485,25 +485,17 @@ def buy_product(id):
         status = ngsiv2.update_attrs(id, attrs)
         print(status)
         if status == 204:
-            next = request.args.get('next', None)
+            next = request.args.get('next', "/stores/" + idStore)
             if next:
                 return redirect(next)
-            return redirect(url_for('stores'))
 
-json_msg = {"hola": 1}
 @app.route('/alertas/', methods=['POST'])
 def subscription():
     if request.method == "POST":
-        print("hola")
-        print(json_msg)
-        print(request.get_json())
-        print(json.dumps(json_msg))
-        socketio.emit('my event',json_msg)
+        json_msg = request.get_json()
+        message = json.dumps(json_msg)
+        socketio.emit('my event', message)
     return ""
-
-@app.route('/notificaciones/')
-def notificaciones():
-    return render_template("notificaciones.html")
 
 @app.route('/map/')
 def map():
