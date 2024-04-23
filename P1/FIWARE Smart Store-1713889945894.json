@@ -13,6 +13,18 @@
   "__requires": [
     {
       "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "canvas",
+      "name": "Canvas",
+      "version": ""
+    },
+    {
+      "type": "panel",
       "id": "gauge",
       "name": "Gauge",
       "version": ""
@@ -75,7 +87,6 @@
         "type": "grafana-postgresql-datasource",
         "uid": "${DS_CRATEDB}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -94,8 +105,7 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "lumens"
+          }
         },
         "overrides": []
       },
@@ -105,73 +115,15 @@
         "x": 0,
         "y": 0
       },
-      "id": 6,
+      "id": 8,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 75,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/^luminosity$/",
-          "values": true
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto"
+        "inlineEditing": true,
+        "panZoom": false,
+        "showAdvancedTypes": true
       },
       "pluginVersion": "10.4.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "${DS_CRATEDB}"
-          },
-          "editorMode": "builder",
-          "format": "table",
-          "rawSql": "SELECT entity_id, luminosity FROM etlamp LIMIT null ",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "entity_id",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "luminosity",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "whereJsonTree": {
-              "children1": [],
-              "id": "baba9a9a-0123-4456-b89a-b18f0647f1ff",
-              "type": "group"
-            }
-          },
-          "table": "etlamp"
-        }
-      ],
-      "title": "Panel Luminosity Gauges",
-      "type": "gauge"
+      "title": "Panel Last Motion Detection",
+      "type": "canvas"
     },
     {
       "datasource": {
@@ -183,7 +135,7 @@
         "defaults": {
           "color": {
             "fixedColor": "#ccccdc",
-            "mode": "continuous-GrYlRd"
+            "mode": "thresholds"
           },
           "custom": {
             "fillOpacity": 70,
@@ -199,17 +151,17 @@
           "mappings": [
             {
               "options": {
-                "Closed": {
+                "CLOSED": {
                   "color": "yellow",
                   "index": 0,
                   "text": "CL"
                 },
-                "Locked": {
+                "LOCKED": {
                   "color": "red",
                   "index": 2,
                   "text": "LK"
                 },
-                "Open": {
+                "OPEN": {
                   "color": "green",
                   "index": 1,
                   "text": "OP"
@@ -224,10 +176,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "dark-red",
-                "value": 50
               }
             ]
           },
@@ -265,7 +213,7 @@
           },
           "editorMode": "builder",
           "format": "time_series",
-          "rawSql": "SELECT entity_id, state AS \".\", time_index AS \"time\" FROM etdoor WHERE $__timeFilter(time_index) LIMIT 50 ",
+          "rawSql": "SELECT entity_id, state AS \".\", time_index AS \"time\" FROM etdoor WHERE $__timeFilter(time_index) ",
           "refId": "B",
           "sql": {
             "columns": [
@@ -307,7 +255,7 @@
                 "type": "groupBy"
               }
             ],
-            "limit": 50,
+            "limit": null,
             "whereJsonTree": {
               "children1": [
                 {
@@ -380,13 +328,408 @@
           },
           "unit": "lumens"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:001"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 1"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:002"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 2"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:003"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 3"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:004"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 4"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 8
+      },
+      "id": 7,
+      "options": {
+        "displayMode": "gradient",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "${DS_CRATEDB}"
+          },
+          "editorMode": "builder",
+          "format": "time_series",
+          "rawSql": "SELECT entity_id, luminosity AS \".\", time_index AS \"time\" FROM etlamp WHERE $__timeFilter(time_index) ORDER BY time_index ASC LIMIT null ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "entity_id",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\".\"",
+                "parameters": [
+                  {
+                    "name": "luminosity",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"time\"",
+                "parameters": [
+                  {
+                    "name": "time_index",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "orderBy": {
+              "property": {
+                "name": [
+                  "time_index"
+                ],
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "orderByDirection": "ASC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "8999aa98-89ab-4cde-b012-318f0bad4c97",
+                  "properties": {
+                    "field": "time_index",
+                    "fieldSrc": "field",
+                    "operator": "macros",
+                    "value": [
+                      "timeFilter"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "datetime"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "baba9a9a-0123-4456-b89a-b18f0647f1ff",
+              "type": "group"
+            },
+            "whereString": "$__timeFilter(time_index)"
+          },
+          "table": "etlamp"
+        }
+      ],
+      "title": "panel Luminosity Bar Gauges",
+      "transformations": [
+        {
+          "id": "partitionByValues",
+          "options": {
+            "fields": [],
+            "keepFields": false,
+            "naming": {
+              "asLabels": true
+            }
+          }
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${DS_CRATEDB}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 50
+              },
+              {
+                "color": "green",
+                "value": 75
+              }
+            ]
+          },
+          "unit": "lumens"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:001"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 1"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:002"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 2"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:003"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 3"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:004"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 4"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 6,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "${DS_CRATEDB}"
+          },
+          "editorMode": "builder",
+          "format": "time_series",
+          "rawSql": "SELECT entity_id, luminosity AS \".\", time_index AS \"time\" FROM etlamp WHERE $__timeFilter(time_index) ORDER BY time_index ASC ",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "entity_id",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\".\"",
+                "parameters": [
+                  {
+                    "name": "luminosity",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "alias": "\"time\"",
+                "parameters": [
+                  {
+                    "name": "time_index",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              }
+            ],
+            "groupBy": [],
+            "orderBy": {
+              "property": {
+                "name": "time_index",
+                "type": "string"
+              },
+              "type": "property"
+            },
+            "orderByDirection": "ASC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "8bbba9b9-cdef-4012-b456-718f0bbabe73",
+                  "properties": {
+                    "field": "time_index",
+                    "fieldSrc": "field",
+                    "operator": "macros",
+                    "value": [
+                      "timeFilter"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "datetime"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "baba9a9a-0123-4456-b89a-b18f0647f1ff",
+              "type": "group"
+            },
+            "whereString": "$__timeFilter(time_index)"
+          },
+          "table": "etlamp"
+        }
+      ],
+      "title": "Panel Luminosity Gauges",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${DS_CRATEDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "lumens"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
       },
       "id": 3,
       "options": {
@@ -566,7 +909,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "dark-red",
@@ -582,7 +926,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 32
       },
       "id": 2,
       "options": {
@@ -739,7 +1083,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -755,7 +1100,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 40
       },
       "id": 1,
       "options": {
@@ -869,13 +1214,13 @@
     "list": []
   },
   "time": {
-    "from": "now-1m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "FIWARE Smart Store",
   "uid": "bdix7a57xuha8e",
-  "version": 9,
+  "version": 22,
   "weekStart": ""
 }
