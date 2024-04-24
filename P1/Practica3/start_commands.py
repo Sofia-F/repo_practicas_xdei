@@ -20,10 +20,6 @@ def unlock_door(id):
         'Content-Type': 'text/plain'
     }
 
-    headers = {
-        'Content-Type': 'text/plain'
-    }
-
     response = requests.request("POST", url, headers=headers, data=payload)
 
     return response.status_code

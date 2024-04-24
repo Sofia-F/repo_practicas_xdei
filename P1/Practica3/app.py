@@ -9,6 +9,7 @@ from read_subscriptions import read_subscriptions
 import create_subscriptions
 import math
 app = Flask(__name__)
+import json
 
 
 @app.route("/")
@@ -69,22 +70,29 @@ def product(id):
 
 @app.route("/subscriptions/create/", methods=['GET', 'POST'])
 def create_subscription():
+
     if request.method == 'POST':
+        
+        print("hola")
+        print()
+        print(request.form["condition_attrs"])
+        print(request.form["condition_attrs"].split(", "))
+        print()
 
         Description = request.form["description"]
 
         Subject = {
             "entities": [{"idPattern": request.form["entity_id_pattern"]}],
-            "condition": {"attrs": [request.form["condition_attrs"]]}
+            "condition": {"attrs": request.form["condition_attrs"].split(", ")}
         }
 
         Notification = {
-            "http": {"url": "http://quantumleap:8668/v2/notify"},
-            "attrs": [request.form["condition_attrs"]],
-            "metadata": ["dateCreated", "dateModified"]
+            "http": {"url": request.form["notif_http_url"]},
+            "attrs": request.form["condition_attrs"].split(", "),
+            "metadata": request.form["notif_metadata"].split(", ")
         }
 
-        Throttling = request.form["throttling"]
+        Throttling = int(request.form["throttling"])
         
         print(Description)
         print(Subject)
@@ -93,42 +101,49 @@ def create_subscription():
 
         status = create_subscriptions.create_subs(Description, Subject, Notification, Throttling)
         print(status)
-        if status == 400:
+        if status == 201:
             next = request.args.get('next', None)
             if next:
                 return redirect(next)
             return redirect(url_for('subscriptions'))
     else:
-        return render_template('create_subscription.html')
+        return render_template('create_subscription.html')   
 
 @app.route("/subscriptions/update/<id>", methods=['GET', 'POST'])
 def update_subscription(id):
+
     if request.method == 'POST':
+       
+        url = "http://localhost:1026/v2/subscriptions/"+id
 
-        attrs = {
-            "description" : [request.form["description"]],
-
-            "subject" : {
-                "entities": [{"idPattern": [request.form["entity_id_pattern"]]}],
-                "condition": {"attrs": [request.form["condition_attrs"]]}
-            },
-
-            "notification" : {
-                "http": {"url": "http://quantumleap:8668/v2/notify"},
-                "attrs": [request.form["condition_attrs"]],
-                "metadata": ["dateCreated", "dateModified"]
-            },
-
-            "throttling" : request.form["throttling"]
+        payload = {
+           
+         'description': request.form["description"], 
+         'subject': {'entities': [{'idPattern': request.form["entity_id_pattern"]}], 
+                     'condition': {'attrs': request.form["condition_attrs"].split(",")}},
+         'notification': {'http': {'url': request.form["notif_http_url"]}, 
+                                   'attrs': request.form["notif_attrs"].split(", "),
+                                   'metadata': request.form["notif_metadata"].split(", ")},
+         'throttling': int(request.form["throttling"])
         }
-        
-        status = ngsiv2.update_attrs(id, attrs)
+
+        print(payload)
+
+        headers = {
+            'Content-Type': 'application/json',
+            'fiware-service': 'openiot',
+            'fiware-servicepath': '/'
+        }
+
+        response = requests.request("PATCH", url, headers=headers, data=json.dumps(payload))
+        status = response.status_code
         print(status)
         if status == 204:
             next = request.args.get('next', None)
             if next:
                 return redirect(next)
             return redirect(url_for('subscriptions'))
+        
     else:
         return render_template('update_subscription.html', id = id)
 

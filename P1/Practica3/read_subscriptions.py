@@ -1,5 +1,5 @@
 import requests 
-import pandas as pd
+from prettytable import PrettyTable
 
 def read_subscriptions():
 
@@ -18,7 +18,28 @@ def read_subscriptions():
 if __name__ == "__main__":
     
     print("\nReading subscriptions...")
-    response = pd.DataFrame(read_subscriptions().json())
-    print()
-    print(response)
-    print(read_subscriptions().json())
+    responses = read_subscriptions().json()
+    
+    table = PrettyTable()
+    table.field_names = ["description", "entities_id_pattern", "condition_attrs", "notif_http_url", "notif_attrs",
+                         "notif_metadata", "throttling"]
+    for response in responses:
+        print(response)
+        if "throttling" in response.keys():
+            table.add_row([response["description"],
+                        response["subject"]["entities"][0]["idPattern"],
+                        response["subject"]["condition"]["attrs"],
+                        response["notification"]["http"]["url"],
+                        response["notification"]["attrs"],
+                        response["notification"]["metadata"],
+                        response["throttling"]])
+        else:
+            table.add_row([response["description"],
+                    response["subject"]["entities"][0]["idPattern"],
+                    response["subject"]["condition"]["attrs"],
+                    response["notification"]["http"]["url"],
+                    response["notification"]["attrs"],
+                    response["notification"]["metadata"],
+                    0])
+
+    print(table)

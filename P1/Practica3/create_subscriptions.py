@@ -13,8 +13,6 @@ def create_subs(Description, Subject, Notification, Throttling = None):
     if Throttling is not None:
         payload["throttling"] = Throttling
 
-    print(payload)
-
     headers = {
         'Content-Type': 'application/json',
         'fiware-service': 'openiot',
@@ -71,12 +69,10 @@ if __name__ == "__main__":
 
     print("Creating subscriptions ...")
     for i in range(len(Description)):
-        print(Description[i])
-        print(Subject[i])
-        print(Notification[i])
-        print(Throttling[i])
-        print()
-        status = create_subs(Description[i], Subject[i], Notification[i], Throttling[i])
+        if Subject[i]["entities"][0]["idPattern"] == "Lamp.*":
+            for id in ["001", "002", "003", "004"]:
+                Subject[i]["entities"][0]["idPattern"] = "Lamp"+id
+                status = create_subs(Description[i], Subject[i], Notification[i], Throttling[i])
+        else:
+            status = create_subs(Description[i], Subject[i], Notification[i], Throttling[i])
     print(status)
-
-
