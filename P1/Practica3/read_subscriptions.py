@@ -24,7 +24,6 @@ if __name__ == "__main__":
     table.field_names = ["description", "entities_id_pattern", "condition_attrs", "notif_http_url", "notif_attrs",
                          "notif_metadata", "throttling"]
     for response in responses:
-        print(response)
         if "throttling" in response.keys():
             table.add_row([response["description"],
                         response["subject"]["entities"][0]["idPattern"],

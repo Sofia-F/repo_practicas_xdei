@@ -71,7 +71,7 @@ if __name__ == "__main__":
     for i in range(len(Description)):
         if Subject[i]["entities"][0]["idPattern"] == "Lamp.*":
             for id in ["001", "002", "003", "004"]:
-                Subject[i]["entities"][0]["idPattern"] = "Lamp"+id
+                Subject[i]["entities"][0]["idPattern"] = "Lamp:"+id
                 status = create_subs(Description[i], Subject[i], Notification[i], Throttling[i])
         else:
             status = create_subs(Description[i], Subject[i], Notification[i], Throttling[i])

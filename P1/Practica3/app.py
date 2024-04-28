@@ -1,5 +1,4 @@
 import requests
-import pandas as pd
 import pprint
 from datetime import datetime
 from flask import render_template
