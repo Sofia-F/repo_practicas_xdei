@@ -90,24 +90,41 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
-          "fieldMinMax": false,
-          "mappings": [
-            {
-              "options": {
-                "No": {
-                  "color": "red",
-                  "index": 1
-                },
-                "Yes": {
-                  "color": "green",
-                  "index": 0
-                }
-              },
-              "type": "value"
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": 3600000,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
             }
-          ],
+          },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -121,9 +138,58 @@
               }
             ]
           },
-          "unit": "bool_yes_no"
+          "unit": "lumens"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "luminosity Lamp:001"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 1"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "luminosity Lamp:002"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 2"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "luminosity Lamp:003"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 3"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "luminosity Lamp:004"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 4"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -131,201 +197,23 @@
         "x": 0,
         "y": 0
       },
-      "id": 8,
+      "id": 1,
       "options": {
-        "inlineEditing": true,
-        "panZoom": false,
-        "root": {
-          "background": {
-            "color": {
-              "fixed": "transparent"
-            },
-            "image": {
-              "field": "",
-              "fixed": "",
-              "mode": "fixed"
-            },
-            "size": "fill"
-          },
-          "border": {
-            "color": {
-              "fixed": "dark-green"
-            }
-          },
-          "constraint": {
-            "horizontal": "left",
-            "vertical": "top"
-          },
-          "elements": [
-            {
-              "background": {
-                "color": {
-                  "fixed": "transparent"
-                },
-                "image": {
-                  "field": "",
-                  "fixed": "",
-                  "mode": "field"
-                },
-                "size": "original"
-              },
-              "border": {
-                "color": {
-                  "fixed": "dark-green"
-                }
-              },
-              "config": {
-                "fill": {
-                  "field": "Time",
-                  "fixed": "#D9D9D9"
-                },
-                "path": {
-                  "fixed": "img/icons/unicons/star.svg",
-                  "mode": "fixed"
-                }
-              },
-              "constraint": {
-                "horizontal": "left",
-                "vertical": "top"
-              },
-              "name": "MOTION1",
-              "placement": {
-                "height": 100,
-                "left": 47,
-                "top": 12,
-                "width": 100
-              },
-              "type": "icon"
-            },
-            {
-              "background": {
-                "color": {
-                  "fixed": "transparent"
-                },
-                "image": {
-                  "fixed": ""
-                }
-              },
-              "border": {
-                "color": {
-                  "fixed": "dark-green"
-                }
-              },
-              "config": {
-                "fill": {
-                  "field": "Time",
-                  "fixed": "#D9D9D9"
-                },
-                "path": {
-                  "field": ".",
-                  "fixed": "img/icons/unicons/star.svg",
-                  "mode": "fixed"
-                }
-              },
-              "constraint": {
-                "horizontal": "left",
-                "vertical": "top"
-              },
-              "name": "MOTION2",
-              "placement": {
-                "height": 100,
-                "left": 171,
-                "top": 12,
-                "width": 100
-              },
-              "type": "icon"
-            },
-            {
-              "background": {
-                "color": {
-                  "fixed": "transparent"
-                },
-                "image": {
-                  "field": "",
-                  "fixed": "",
-                  "mode": "field"
-                },
-                "size": "original"
-              },
-              "border": {
-                "color": {
-                  "fixed": "dark-green"
-                }
-              },
-              "config": {
-                "fill": {
-                  "field": "Time",
-                  "fixed": "#D9D9D9"
-                },
-                "path": {
-                  "fixed": "img/icons/unicons/star.svg",
-                  "mode": "fixed"
-                }
-              },
-              "constraint": {
-                "horizontal": "left",
-                "vertical": "top"
-              },
-              "name": "MOTION3",
-              "placement": {
-                "height": 100,
-                "left": 295,
-                "top": 12,
-                "width": 100
-              },
-              "type": "icon"
-            },
-            {
-              "background": {
-                "color": {
-                  "fixed": "transparent"
-                },
-                "image": {
-                  "fixed": ""
-                }
-              },
-              "border": {
-                "color": {
-                  "fixed": "dark-green"
-                }
-              },
-              "config": {
-                "fill": {
-                  "field": "Time",
-                  "fixed": "#D9D9D9"
-                },
-                "path": {
-                  "field": ".",
-                  "fixed": "img/icons/unicons/star.svg",
-                  "mode": "fixed"
-                }
-              },
-              "constraint": {
-                "horizontal": "left",
-                "vertical": "top"
-              },
-              "name": "MOTION4",
-              "placement": {
-                "height": 100,
-                "left": 419,
-                "top": 12,
-                "width": 100
-              },
-              "type": "icon"
-            }
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "mean"
           ],
-          "name": "Element 1713974531528",
-          "placement": {
-            "height": 100,
-            "left": 0,
-            "top": 0,
-            "width": 100
-          },
-          "type": "frame"
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
         },
-        "showAdvancedTypes": true
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -334,10 +222,29 @@
           },
           "editorMode": "builder",
           "format": "time_series",
-          "rawSql": "SELECT entity_id, time_index AS \"time\", count AS \".\" FROM etmotion WHERE $__timeFilter(time_index) ORDER BY time_index ASC LIMIT null ",
+          "rawSql": "SELECT time_index AS \"time\", luminosity, entity_id FROM etlamp WHERE $__timeFilter(time_index) ORDER BY time_index ASC ",
           "refId": "A",
           "sql": {
             "columns": [
+              {
+                "alias": "\"time\"",
+                "parameters": [
+                  {
+                    "name": "time_index",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "luminosity",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
               {
                 "parameters": [
                   {
@@ -346,7 +253,133 @@
                   }
                 ],
                 "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "orderBy": {
+              "property": {
+                "name": "time_index",
+                "type": "string"
               },
+              "type": "property"
+            },
+            "orderByDirection": "ASC",
+            "whereJsonTree": {
+              "children1": [
+                {
+                  "id": "aaaa9bb9-4567-489a-bcde-f18ee7a6c4ec",
+                  "properties": {
+                    "field": "time_index",
+                    "fieldSrc": "field",
+                    "operator": "macros",
+                    "value": [
+                      "timeFilter"
+                    ],
+                    "valueSrc": [
+                      "value"
+                    ],
+                    "valueType": [
+                      "datetime"
+                    ]
+                  },
+                  "type": "rule"
+                }
+              ],
+              "id": "9a89ab9b-0123-4456-b89a-b18ee79b94bf",
+              "properties": {
+                "conjunction": "AND"
+              },
+              "type": "group"
+            },
+            "whereString": "$__timeFilter(time_index)"
+          },
+          "table": "etlamp"
+        }
+      ],
+      "title": "Luminosity Time Series",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${DS_CRATEDB}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ccccdc",
+            "mode": "continuous-RdYlGr"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": 3600000
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 50
+              }
+            ]
+          },
+          "unit": "bool_yes_no"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "${DS_CRATEDB}"
+          },
+          "editorMode": "builder",
+          "format": "time_series",
+          "rawSql": "SELECT time_index AS \"time\", count AS \".\", entity_id FROM etmotion WHERE $__timeFilter(time_index) ORDER BY time_index ASC ",
+          "refId": "B",
+          "sql": {
+            "columns": [
               {
                 "alias": "\"time\"",
                 "parameters": [
@@ -362,6 +395,15 @@
                 "parameters": [
                   {
                     "name": "count",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
+              {
+                "parameters": [
+                  {
+                    "name": "entity_id",
                     "type": "functionParameter"
                   }
                 ],
@@ -389,7 +431,7 @@
             "whereJsonTree": {
               "children1": [
                 {
-                  "id": "b999999b-4567-489a-bcde-f18f1c3e868c",
+                  "id": "ba9babb8-4567-489a-bcde-f18eecfa0e71",
                   "properties": {
                     "field": "time_index",
                     "fieldSrc": "field",
@@ -407,7 +449,7 @@
                   "type": "rule"
                 }
               ],
-              "id": "8ba9988a-0123-4456-b89a-b18f1c3dba21",
+              "id": "99b89b98-0123-4456-b89a-b18eecf147e6",
               "type": "group"
             },
             "whereString": "$__timeFilter(time_index)"
@@ -415,8 +457,8 @@
           "table": "etmotion"
         }
       ],
-      "title": "Panel Last Motion Detection",
-      "type": "canvas"
+      "title": "Motion Detection",
+      "type": "state-timeline"
     },
     {
       "datasource": {
@@ -479,8 +521,8 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 0
+        "x": 0,
+        "y": 8
       },
       "id": 5,
       "options": {
@@ -602,7 +644,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "continuous-RdYlGr"
           },
           "mappings": [],
           "thresholds": {
@@ -620,83 +662,69 @@
           },
           "unit": "lumens"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": ". Lamp:001"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Lamp 1"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": ". Lamp:002"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Lamp 2"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": ". Lamp:003"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Lamp 3"
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": ". Lamp:004"
-            },
-            "properties": [
-              {
-                "id": "displayName",
-                "value": "Lamp 4"
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
+        "x": 12,
         "y": 8
       },
-      "id": 7,
+      "id": 3,
       "options": {
-        "displayMode": "gradient",
-        "maxVizHeight": 300,
-        "minVizHeight": 16,
-        "minVizWidth": 8,
-        "namePlacement": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "basemap": {
+          "config": {},
+          "type": "osm-standard"
         },
-        "showUnfilled": true,
-        "sizing": "auto",
-        "valueMode": "color"
+        "controls": {
+          "mouseWheelZoom": true,
+          "showAttribution": true,
+          "showDebug": false,
+          "showLayercontrol": true,
+          "showScale": false,
+          "showZoom": true
+        },
+        "layers": [
+          {
+            "config": {
+              "cluster": false,
+              "clusterDistance": 20,
+              "clusterMinDistance": 0,
+              "clusterValue": "size",
+              "color": {
+                "fixed": "dark-green"
+              },
+              "enableGradient": false,
+              "enableShadow": false,
+              "fillOpacity": 0.3,
+              "iconSize": 20,
+              "pinShape": "marker",
+              "selectIcon": "fa-lightbulb-o",
+              "shape": "circle",
+              "showLegend": true,
+              "showPin": true,
+              "size": {
+                "field": "luminosity",
+                "fixed": 5,
+                "max": 15,
+                "min": 2
+              }
+            },
+            "location": {
+              "mode": "auto"
+            },
+            "name": "Luminosity Map",
+            "query": "A",
+            "type": "markers"
+          }
+        ],
+        "view": {
+          "id": "coords",
+          "lat": 52.507886,
+          "lon": 13.393926,
+          "zoom": 11.8
+        }
       },
-      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -704,11 +732,20 @@
             "uid": "${DS_CRATEDB}"
           },
           "editorMode": "builder",
-          "format": "time_series",
-          "rawSql": "SELECT entity_id, luminosity AS \".\", time_index AS \"time\" FROM etlamp WHERE $__timeFilter(time_index) ORDER BY time_index ASC LIMIT null ",
+          "format": "table",
+          "rawSql": "SELECT time_index, entity_id, location, luminosity FROM etlamp WHERE $__timeFilter(time_index) ORDER BY time_index ASC ",
           "refId": "A",
           "sql": {
             "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "time_index",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
               {
                 "parameters": [
                   {
@@ -719,20 +756,18 @@
                 "type": "function"
               },
               {
-                "alias": "\".\"",
                 "parameters": [
                   {
-                    "name": "luminosity",
+                    "name": "location",
                     "type": "functionParameter"
                   }
                 ],
                 "type": "function"
               },
               {
-                "alias": "\"time\"",
                 "parameters": [
                   {
-                    "name": "time_index",
+                    "name": "luminosity",
                     "type": "functionParameter"
                   }
                 ],
@@ -749,9 +784,7 @@
             ],
             "orderBy": {
               "property": {
-                "name": [
-                  "time_index"
-                ],
+                "name": "time_index",
                 "type": "string"
               },
               "type": "property"
@@ -760,7 +793,7 @@
             "whereJsonTree": {
               "children1": [
                 {
-                  "id": "8999aa98-89ab-4cde-b012-318f0bad4c97",
+                  "id": "98a9aaab-cdef-4012-b456-718eed050b16",
                   "properties": {
                     "field": "time_index",
                     "fieldSrc": "field",
@@ -778,7 +811,7 @@
                   "type": "rule"
                 }
               ],
-              "id": "baba9a9a-0123-4456-b89a-b18f0647f1ff",
+              "id": "99b89b98-0123-4456-b89a-b18eecf147e6",
               "type": "group"
             },
             "whereString": "$__timeFilter(time_index)"
@@ -786,20 +819,8 @@
           "table": "etlamp"
         }
       ],
-      "title": "panel Luminosity Bar Gauges",
-      "transformations": [
-        {
-          "id": "partitionByValues",
-          "options": {
-            "fields": [],
-            "keepFields": false,
-            "naming": {
-              "asLabels": true
-            }
-          }
-        }
-      ],
-      "type": "bargauge"
+      "title": "Luminosity Map",
+      "type": "orchestracities-map-panel"
     },
     {
       "datasource": {
@@ -1001,241 +1022,101 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "yellow",
+                "value": 40
+              },
+              {
+                "color": "green",
+                "value": 70
               }
             ]
           },
           "unit": "lumens"
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 24
-      },
-      "id": 3,
-      "options": {
-        "basemap": {
-          "config": {},
-          "type": "default"
-        },
-        "controls": {
-          "mouseWheelZoom": true,
-          "showAttribution": true,
-          "showDebug": false,
-          "showLayercontrol": true,
-          "showScale": false,
-          "showZoom": true
-        },
-        "layers": [
+        "overrides": [
           {
-            "config": {
-              "cluster": false,
-              "clusterDistance": 20,
-              "clusterMinDistance": 0,
-              "clusterValue": "size",
-              "color": {
-                "fixed": "dark-green"
-              },
-              "enableGradient": false,
-              "enableShadow": false,
-              "fillOpacity": 0.4,
-              "iconSize": 20,
-              "pinShape": "marker",
-              "selectIcon": "fa-lightbulb-o",
-              "shape": "circle",
-              "showLegend": true,
-              "showPin": true,
-              "size": {
-                "fixed": 5,
-                "max": 15,
-                "min": 2
-              }
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:001"
             },
-            "location": {
-              "mode": "auto"
-            },
-            "query": "A",
-            "type": "markers"
-          }
-        ],
-        "view": {
-          "id": "coords",
-          "lat": 52.507886,
-          "lon": 13.393926,
-          "zoom": 11.8
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "grafana-postgresql-datasource",
-            "uid": "${DS_CRATEDB}"
-          },
-          "editorMode": "builder",
-          "format": "table",
-          "rawSql": "SELECT time_index, entity_id, location, luminosity FROM etlamp WHERE $__timeFilter(time_index) ORDER BY time_index ASC LIMIT 50 ",
-          "refId": "A",
-          "sql": {
-            "columns": [
+            "properties": [
               {
-                "parameters": [
-                  {
-                    "name": "time_index",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "entity_id",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "location",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "luminosity",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50,
-            "orderBy": {
-              "property": {
-                "name": "time_index",
-                "type": "string"
-              },
-              "type": "property"
-            },
-            "orderByDirection": "ASC",
-            "whereJsonTree": {
-              "children1": [
-                {
-                  "id": "98a9aaab-cdef-4012-b456-718eed050b16",
-                  "properties": {
-                    "field": "time_index",
-                    "fieldSrc": "field",
-                    "operator": "macros",
-                    "value": [
-                      "timeFilter"
-                    ],
-                    "valueSrc": [
-                      "value"
-                    ],
-                    "valueType": [
-                      "datetime"
-                    ]
-                  },
-                  "type": "rule"
-                }
-              ],
-              "id": "99b89b98-0123-4456-b89a-b18eecf147e6",
-              "type": "group"
-            },
-            "whereString": "$__timeFilter(time_index)"
-          },
-          "table": "etlamp"
-        }
-      ],
-      "title": "Luminosity Map",
-      "type": "orchestracities-map-panel"
-    },
-    {
-      "datasource": {
-        "type": "grafana-postgresql-datasource",
-        "uid": "${DS_CRATEDB}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "#ccccdc",
-            "mode": "continuous-RdYlGr"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineWidth": 0,
-            "spanNulls": 3600000
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "dark-red",
-                "value": 50
+                "id": "displayName",
+                "value": "Lamp 1"
               }
             ]
           },
-          "unit": "bool_yes_no"
-        },
-        "overrides": []
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:002"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 2"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:003"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 3"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": ". Lamp:004"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Lamp 4"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 32
+        "x": 12,
+        "y": 16
       },
-      "id": 2,
+      "id": 7,
       "options": {
-        "alignValue": "center",
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "displayMode": "gradient",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "mergeValues": true,
-        "rowHeight": 0.9,
-        "showValue": "always",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
       },
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1244,15 +1125,14 @@
           },
           "editorMode": "builder",
           "format": "time_series",
-          "rawSql": "SELECT time_index AS \"time\", count AS \".\", entity_id FROM etmotion WHERE $__timeFilter(time_index) ORDER BY time_index ASC ",
-          "refId": "B",
+          "rawSql": "SELECT entity_id, luminosity AS \".\", time_index AS \"time\" FROM etlamp WHERE $__timeFilter(time_index) ORDER BY time_index ASC LIMIT null ",
+          "refId": "A",
           "sql": {
             "columns": [
               {
-                "alias": "\"time\"",
                 "parameters": [
                   {
-                    "name": "time_index",
+                    "name": "entity_id",
                     "type": "functionParameter"
                   }
                 ],
@@ -1262,16 +1142,17 @@
                 "alias": "\".\"",
                 "parameters": [
                   {
-                    "name": "count",
+                    "name": "luminosity",
                     "type": "functionParameter"
                   }
                 ],
                 "type": "function"
               },
               {
+                "alias": "\"time\"",
                 "parameters": [
                   {
-                    "name": "entity_id",
+                    "name": "time_index",
                     "type": "functionParameter"
                   }
                 ],
@@ -1299,7 +1180,7 @@
             "whereJsonTree": {
               "children1": [
                 {
-                  "id": "ba9babb8-4567-489a-bcde-f18eecfa0e71",
+                  "id": "8999aa98-89ab-4cde-b012-318f0bad4c97",
                   "properties": {
                     "field": "time_index",
                     "fieldSrc": "field",
@@ -1317,59 +1198,41 @@
                   "type": "rule"
                 }
               ],
-              "id": "99b89b98-0123-4456-b89a-b18eecf147e6",
+              "id": "baba9a9a-0123-4456-b89a-b18f0647f1ff",
               "type": "group"
             },
             "whereString": "$__timeFilter(time_index)"
           },
-          "table": "etmotion"
+          "table": "etlamp"
         }
       ],
-      "title": "Motion Detection",
-      "type": "state-timeline"
+      "title": "panel Luminosity Bar Gauges",
+      "transformations": [
+        {
+          "id": "partitionByValues",
+          "options": {
+            "fields": [],
+            "keepFields": false,
+            "naming": {
+              "asLabels": true
+            }
+          }
+        }
+      ],
+      "type": "bargauge"
     },
     {
       "datasource": {
         "type": "grafana-postgresql-datasource",
         "uid": "${DS_CRATEDB}"
       },
+      "description": "\n",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "continuous-RdYlGr"
           },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "smooth",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": 3600000,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
+          "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -1377,36 +1240,351 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
-          "unit": "lumens"
+          "unit": "bool_yes_no"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
-        "y": 40
+        "x": 7,
+        "y": 24
       },
-      "id": 1,
+      "id": 8,
       "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+        "inlineEditing": true,
+        "panZoom": false,
+        "root": {
+          "background": {
+            "color": {
+              "fixed": "transparent"
+            },
+            "image": {
+              "field": "",
+              "fixed": "",
+              "mode": "fixed"
+            },
+            "size": "fill"
+          },
+          "border": {
+            "color": {
+              "fixed": "dark-green"
+            }
+          },
+          "constraint": {
+            "horizontal": "left",
+            "vertical": "top"
+          },
+          "elements": [
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "image": {
+                  "field": "",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "size": "original"
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "fill": {
+                  "field": ". Motion:001",
+                  "fixed": "#D9D9D9"
+                },
+                "path": {
+                  "fixed": "img/icons/unicons/star.svg",
+                  "mode": "fixed"
+                }
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "MOTION1",
+              "placement": {
+                "height": 100,
+                "left": 32,
+                "top": 12,
+                "width": 100
+              },
+              "type": "icon"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "image": {
+                  "fixed": ""
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "fill": {
+                  "field": ". Motion:002",
+                  "fixed": "#D9D9D9"
+                },
+                "path": {
+                  "field": ".",
+                  "fixed": "img/icons/unicons/star.svg",
+                  "mode": "fixed"
+                }
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "MOTION2",
+              "placement": {
+                "height": 100,
+                "left": 180,
+                "top": 12,
+                "width": 100
+              },
+              "type": "icon"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                },
+                "image": {
+                  "field": "",
+                  "fixed": "",
+                  "mode": "field"
+                },
+                "size": "original"
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "fill": {
+                  "field": ". Motion:003",
+                  "fixed": "#D9D9D9"
+                },
+                "path": {
+                  "fixed": "img/icons/unicons/star.svg",
+                  "mode": "fixed"
+                }
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "MOTION3",
+              "placement": {
+                "height": 100,
+                "left": 328,
+                "top": 12,
+                "width": 100
+              },
+              "type": "icon"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "fill": {
+                  "field": ". Motion:004",
+                  "fixed": "#D9D9D9"
+                },
+                "path": {
+                  "field": "",
+                  "fixed": "img/icons/unicons/star.svg",
+                  "mode": "fixed"
+                }
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "MOTION4",
+              "placement": {
+                "height": 100,
+                "left": 476,
+                "top": 12,
+                "width": 100
+              },
+              "type": "icon"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgb(204, 204, 220)"
+                },
+                "size": 16,
+                "text": {
+                  "fixed": "Motion 1"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "NAME1",
+              "placement": {
+                "height": 50,
+                "left": 32,
+                "top": 112,
+                "width": 100
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgb(204, 204, 220)"
+                },
+                "size": 16,
+                "text": {
+                  "fixed": "Motion 2"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "NAME2",
+              "placement": {
+                "height": 50,
+                "left": 180,
+                "top": 112,
+                "width": 100
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgb(204, 204, 220)"
+                },
+                "size": 16,
+                "text": {
+                  "fixed": "Motion 3"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "NAME3",
+              "placement": {
+                "height": 50,
+                "left": 328,
+                "top": 112,
+                "width": 100
+              },
+              "type": "text"
+            },
+            {
+              "background": {
+                "color": {
+                  "fixed": "transparent"
+                }
+              },
+              "border": {
+                "color": {
+                  "fixed": "dark-green"
+                }
+              },
+              "config": {
+                "align": "center",
+                "color": {
+                  "fixed": "rgb(204, 204, 220)"
+                },
+                "size": 16,
+                "text": {
+                  "fixed": "Motion 4"
+                },
+                "valign": "middle"
+              },
+              "constraint": {
+                "horizontal": "left",
+                "vertical": "top"
+              },
+              "name": "NAME4",
+              "placement": {
+                "height": 50,
+                "left": 476,
+                "top": 112,
+                "width": 100
+              },
+              "type": "text"
+            }
+          ],
+          "name": "Element 1713974531528",
+          "placement": {
+            "height": 100,
+            "left": 0,
+            "top": 0,
+            "width": 100
+          },
+          "type": "frame"
         },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
+        "showAdvancedTypes": true
       },
+      "pluginVersion": "10.4.1",
       "targets": [
         {
           "datasource": {
@@ -1415,10 +1593,19 @@
           },
           "editorMode": "builder",
           "format": "time_series",
-          "rawSql": "SELECT time_index AS \"time\", luminosity, entity_id FROM etlamp WHERE $__timeFilter(time_index) ORDER BY time_index ASC ",
+          "rawSql": "SELECT entity_id, time_index AS \"time\", count AS \".\" FROM etmotion WHERE $__timeFilter(time_index) ORDER BY time_index ASC LIMIT null ",
           "refId": "A",
           "sql": {
             "columns": [
+              {
+                "parameters": [
+                  {
+                    "name": "entity_id",
+                    "type": "functionParameter"
+                  }
+                ],
+                "type": "function"
+              },
               {
                 "alias": "\"time\"",
                 "parameters": [
@@ -1430,18 +1617,10 @@
                 "type": "function"
               },
               {
+                "alias": "\".\"",
                 "parameters": [
                   {
-                    "name": "luminosity",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "parameters": [
-                  {
-                    "name": "entity_id",
+                    "name": "count",
                     "type": "functionParameter"
                   }
                 ],
@@ -1458,7 +1637,9 @@
             ],
             "orderBy": {
               "property": {
-                "name": "time_index",
+                "name": [
+                  "time_index"
+                ],
                 "type": "string"
               },
               "type": "property"
@@ -1467,7 +1648,7 @@
             "whereJsonTree": {
               "children1": [
                 {
-                  "id": "aaaa9bb9-4567-489a-bcde-f18ee7a6c4ec",
+                  "id": "b999999b-4567-489a-bcde-f18f1c3e868c",
                   "properties": {
                     "field": "time_index",
                     "fieldSrc": "field",
@@ -1485,19 +1666,16 @@
                   "type": "rule"
                 }
               ],
-              "id": "9a89ab9b-0123-4456-b89a-b18ee79b94bf",
-              "properties": {
-                "conjunction": "AND"
-              },
+              "id": "8ba9988a-0123-4456-b89a-b18f1c3dba21",
               "type": "group"
             },
             "whereString": "$__timeFilter(time_index)"
           },
-          "table": "etlamp"
+          "table": "etmotion"
         }
       ],
-      "title": "Luminosity Time Series",
-      "type": "timeseries"
+      "title": "Panel Last Motion Detection",
+      "type": "canvas"
     }
   ],
   "schemaVersion": 39,
@@ -1513,6 +1691,6 @@
   "timezone": "browser",
   "title": "FIWARE Smart Store",
   "uid": "bdix7a57xuha8e",
-  "version": 4,
+  "version": 6,
   "weekStart": ""
 }
