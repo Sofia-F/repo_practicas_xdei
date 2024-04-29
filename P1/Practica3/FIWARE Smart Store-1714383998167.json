@@ -710,6 +710,11 @@
                 "min": 2
               }
             },
+            "displayProperties": [
+              "time_index",
+              "entity_id",
+              "luminosity"
+            ],
             "location": {
               "mode": "auto"
             },
@@ -1238,8 +1243,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1691,6 +1695,6 @@
   "timezone": "browser",
   "title": "FIWARE Smart Store",
   "uid": "bdix7a57xuha8e",
-  "version": 6,
+  "version": 2,
   "weekStart": ""
 }
