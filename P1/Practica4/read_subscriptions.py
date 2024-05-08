@@ -17,5 +17,6 @@ def read_subscriptions():
 if __name__ == "__main__":
     
     print("\nReading subscriptions...")
-    responses = read_subscriptions().json()
-    print(responses)
+    responses = read_subscriptions()
+    print(responses.json())
+    print(responses.status_code)

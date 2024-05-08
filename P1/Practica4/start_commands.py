@@ -76,16 +76,21 @@ if __name__ == "__main__":
 
         if device["entity_type"] == "Tractor":
             status = start_tractor(device["device_id"])
+            print("tractor: ", status)
         
-        if device["entity_type"] == "Filling":
+        if device["entity_type"] == "FillingLevelSensor":
             if device["device_id"][-3:] in ["001", "002", "003"]:
                 status = remove_hay(device["device_id"])
+                print("filling: ", status)
             else: 
                 status = add_hay(device["device_id"])
+                print("filling", status)
 
-        if device["entity_type"] == "Temperature":
+        if device["entity_type"] == "TemperatureSensor":
             if device["device_id"][-3:] in ["001", "002", "003"]:
                 status = raise_temperature(device["device_id"])
+                print("temperature", status)
             else: 
                 status = lower_temperature(device["device_id"])
+                print("temperature", status)
 

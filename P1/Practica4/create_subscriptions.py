@@ -15,7 +15,7 @@ def create_subscription(Description, Entity_type, Watched_attrs, Notification_at
     "watchedAttributes": Watched_attrs,
     "notification": {
         "attributes": Notification_attrs,
-        "format": "keyValues",
+        "format": "normalized",
         "endpoint": {
         "uri": "http://quantumleap:8668/v2/notify",
         "accept": "application/json",
@@ -41,23 +41,27 @@ if __name__ == "__main__":
     Description = ["Notify me of all feedstock changes",
                    "Notify me of all temperature and humidity changes",
                    "Notify me of all temperature and humidity changes",
+                   "Notify me of all status and location changes",
                    "Notify me of all status and location changes"]
     
     Entity_type = ["FillingLevelSensor",
                    "TemperatureSensor",
                    "SoilSensor",
-                   "Tractor"]
+                   "Tractor",
+                   "Device"]
 
     Watched_attrs = [["filling"],
                     ["temperature", "humidity"],
                     ["temperature", "humidity"],
-                    ["status"]
+                    ["status"],
+                    ["location", "status", "heartRate"]
                     ]
 
     Notification_attrs = [["filling","location"],
                          ["temperature","humidity"],
                          ["temperature","humidity"],
-                         ["status","location"]]
+                         ["status","location"],
+                         ["location", "status", "heartRate"]]
 
     print("Creating subscriptions ...")
     for i in range(len(Description)):
