@@ -2,32 +2,13 @@
 <html>
 <body>
     <h1>Gráficas de ejemplo</h1>
-    <div id='chart_time' class='chart_time'”></div>
-    <div id='chart_reg' class='chart_reg'”></div>
-    <div id='chart_pie' class='chart_pie'”></div>
-    <div id='chart_hist' class='chart_hist'”></div>
-    <div id='chart_bar' class='chart_bar'”></div>
-    {{ iframe|safe }}
-    {{ iframe2|safe }}
-    {{ iframe3|safe }}
+    <div id='chart_fill_time' class='chart_fill_time'”></div>
 </body>
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
 
-    var graphs_time = {{graphJSON_time | safe}};
-    Plotly.plot('chart_time',graphs_time,{});
-
-    var graphs_reg = {{graphJSON_reg | safe}};
-    Plotly.plot('chart_reg',graphs_reg,{});
-
-    var graphs_chart = {{graphJSON_chart | safe}};
-    Plotly.plot('chart_pie',graphs_chart,{});
-
-    var graphs_hist = {{graphJSON_hist | safe}};
-    Plotly.plot('chart_hist', graphs_hist,{});
-
-    var graphs_bar = {{graphJSON_bar | safe}};
-    Plotly.plot('chart_bar', graphs_bar,{});
+    var graphs_fill_time = {{graphJSON_fill_time | safe}};
+    Plotly.plot('chart_fill_time',graphs_fill_time,{});
 
 </script>
 </html>

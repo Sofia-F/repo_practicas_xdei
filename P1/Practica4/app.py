@@ -21,9 +21,7 @@ def home():
     soil = pd.read_csv("soilsensor.csv")
     filling = pd.read_csv("fillingsensor.csv")
 
+    fig_fill_time = px.line(filling, x='time_index', y="filling")
+    graphJSON_fill_time = json.dumps(fig_fill_time, cls=plotly.utils.PlotlyJSONEncoder)
 
-    return render_template('home.html', graphJSON_time = graphJSON_time,
-                                        graphJSON_reg = graphJSON_reg,
-                                        graphJSON_chart = graphJSON_chart,
-                                        graphJSON_hist = graphJSON_hist,
-                                        graphJSON_bar = graphJSON_bar)
+    return render_template('home.html', graphJSON_fill_time = graphJSON_fill_time)
