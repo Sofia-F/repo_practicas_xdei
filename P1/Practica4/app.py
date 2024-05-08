@@ -17,7 +17,10 @@ app = Flask(__name__)
 def home():
 
     animals = pd.read_csv("animals.csv")
-    
+    tractors = pd.read_csv("tractors.csv")
+    soil = pd.read_csv("soilsensor.csv")
+    filling = pd.read_csv("fillingsensor.csv")
+
 
     return render_template('home.html', graphJSON_time = graphJSON_time,
                                         graphJSON_reg = graphJSON_reg,
