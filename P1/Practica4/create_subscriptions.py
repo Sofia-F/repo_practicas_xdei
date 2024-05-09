@@ -1,7 +1,7 @@
 import requests
 import json
 
-def create_subscription(Description, Entity_type, Watched_attrs, Notification_attrs):
+def create_subscription(Description, Entity_type, Watched_attrs, Notification_attrs, Throttling):
     url = "http://localhost:1026/ngsi-ld/v1/subscriptions/"
 
     payload = json.dumps({
@@ -28,9 +28,14 @@ def create_subscription(Description, Entity_type, Watched_attrs, Notification_at
     "@context": "http://context/ngsi-context.jsonld"
     })
     headers = {
-    'Content-Type': 'application/ld+json',
-    'NGSILD-Tenant': 'openiot'
+        'Content-Type': 'application/json',
+        'NGSILD-Tenant': 'openiot',
+        'fiware-servicepath': '/',
+        'Link': '<http://context/ngsi-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
     }
+
+    if Throttling > 0:
+        payload["throttling"] = Throttling
 
     response = requests.request("POST", url, headers=headers, data=payload)
 
@@ -42,7 +47,7 @@ if __name__ == "__main__":
                    "Notify me of all temperature and humidity changes",
                    "Notify me of all temperature and humidity changes",
                    "Notify me of all status and location changes",
-                   "Notify me of all status and location changes"]
+                   "Notify me of animal locations"]
     
     Entity_type = ["FillingLevelSensor",
                    "TemperatureSensor",
@@ -53,15 +58,16 @@ if __name__ == "__main__":
     Watched_attrs = [["filling"],
                     ["temperature", "humidity"],
                     ["temperature", "humidity"],
-                    ["status"],
-                    ["location", "status", "heartRate"]
-                    ]
+                    ["status", "location"],
+                    ["location", "status", "heartRate"]]
 
     Notification_attrs = [["filling","location"],
                          ["temperature","humidity"],
                          ["temperature","humidity"],
                          ["status","location"],
                          ["location", "status", "heartRate"]]
+
+    Throttling = [0,0,0,0,10]
 
     print("Creating subscriptions ...")
     for i in range(len(Description)):

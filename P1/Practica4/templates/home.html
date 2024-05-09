@@ -3,12 +3,16 @@
 <body>
     <h1>Gráficas de ejemplo</h1>
     <div id='chart_fill_time' class='chart_fill_time'”></div>
+    <div id='chart_bar' class='chart_bar'”></div>
 </body>
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
 
     var graphs_fill_time = {{graphJSON_fill_time | safe}};
     Plotly.plot('chart_fill_time',graphs_fill_time,{});
+
+    var graphs_bar = {{graphJSON_bar | safe}};
+    Plotly.plot('chart_bar',graphs_bar,{});
 
 </script>
 </html>
