@@ -1,18 +1,90 @@
 <!doctype html>
 <html>
 <body>
-    <h1>Gráficas de ejemplo</h1>
-    <div id='chart_fill_time' class='chart_fill_time'”></div>
+    <h1>Gráficas enunciado</h1>
+
+    <!-- Graficas enunciado -->
+    <div id='chart_area' class='chart_area'”></div>
+    <br>
+    <br>
+    <div id='chart_hum' class='chart_hum'”></div>
+    <br>
+    <br>
+    <div id='chart_temp' class='chart_temp'”></div>
+    <br>
+    <br>
+    <div id='chart_P1' class='chart_P1'”></div>
+    <br>
+    <br>
+    <div id='chart_C1' class='chart_C1'”></div>
+    <br>
+    <br>
+    <div id='chart_firstC_status' class='chart_firstC_status'”></div>
+    <br>
+    <br>
+    <div id='chart_firstP_status' class='chart_firstP_status'”></div>
+    <br>
+    <br>
+    <p>Mapa de última localización vacas y cerdos</p>
+    {{ iframe_last|safe }}
+    <p>Mapa evolución temporal localización vacas y cerdos</p>
+    {{ iframe_time|safe }}
+
+    <h1>Gráficas propias</h1>
+    <!-- Graficas propias -->
     <div id='chart_bar' class='chart_bar'”></div>
+    <br>
+    <br>
+    <div id='chart_box' class='chart_box'”></div>
+    <br>
+    <br>
+    <div id='chart_pie' class='chart_pie'”></div>
+    <br>
+    <br>
+    <div id='chart_hist' class='chart_hist'”></div>
+    <br>
+    <br>
+    <p>Mapa de calor del primer cerdo</p>
+    {{ iframe_heat|safe }}
+
 </body>
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type='text/javascript'>
 
-    var graphs_fill_time = {{graphJSON_fill_time | safe}};
-    Plotly.plot('chart_fill_time',graphs_fill_time,{});
+    /* Graficas enunciado */
+    var graphs_area = {{graphJSON_area | safe}};
+    Plotly.plot('chart_area',graphs_area,{});
 
+    var graphs_hum = {{graphJSON_hum | safe}};
+    Plotly.plot('chart_hum',graphs_hum,{});
+
+    var graphs_temp = {{graphJSON_temp | safe}};
+    Plotly.plot('chart_temp',graphs_temp,{});
+
+    var graphs_firstP_status = {{graphJSON_firstP_status | safe}};
+    Plotly.plot('chart_firstP_status',graphs_firstP_status,{});
+
+    var graphs_firstC_status = {{graphJSON_firstC_status | safe}};
+    Plotly.plot('chart_firstC_status',graphs_firstC_status,{});
+
+    var graphs_P1 = {{graphJSON_P1 | safe}};
+    Plotly.plot('chart_P1',graphs_P1,{});
+
+    var graphs_C1 = {{graphJSON_C1 | safe}};
+    Plotly.plot('chart_C1',graphs_C1,{});
+
+    /* Graficas propias */
     var graphs_bar = {{graphJSON_bar | safe}};
     Plotly.plot('chart_bar',graphs_bar,{});
+
+    var graphs_box = {{graphJSON_box | safe}};
+    Plotly.plot('chart_box',graphs_box,{});
+
+    var graphs_pie = {{graphJSON_pie | safe}};
+    Plotly.plot('chart_pie',graphs_pie,{});
+
+    var graphs_hist = {{graphJSON_hist | safe}};
+    Plotly.plot('chart_hist',graphs_hist,{});
 
 </script>
 </html>

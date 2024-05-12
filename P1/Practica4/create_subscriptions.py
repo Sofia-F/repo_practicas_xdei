@@ -4,7 +4,7 @@ import json
 def create_subscription(Description, Entity_type, Watched_attrs, Notification_attrs, Throttling):
     url = "http://localhost:1026/ngsi-ld/v1/subscriptions/"
 
-    payload = json.dumps({
+    payload_dict = {
     "description": Description,
     "type": "Subscription",
     "entities": [
@@ -17,16 +17,20 @@ def create_subscription(Description, Entity_type, Watched_attrs, Notification_at
         "attributes": Notification_attrs,
         "format": "normalized",
         "endpoint": {
-        "uri": "http://quantumleap:8668/v2/notify",
-        "accept": "application/json",
-        "receiverInfo": [{
-          "key": "fiware-service",
-          "value": "openiot"
+            "uri": "http://quantumleap:8668/v2/notify",
+            "accept": "application/json",
+            "receiverInfo": [{
+                "key": "fiware-service",
+                "value": "openiot"
         }]
         }
-    },
-    "@context": "http://context/ngsi-context.jsonld"
-    })
+    }
+    }
+
+    if Throttling > 0:
+        payload_dict["throttling"] = int(Throttling)
+
+    payload = json.dumps(payload_dict)
     headers = {
         'Content-Type': 'application/json',
         'NGSILD-Tenant': 'openiot',
@@ -34,9 +38,7 @@ def create_subscription(Description, Entity_type, Watched_attrs, Notification_at
         'Link': '<http://context/ngsi-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
     }
 
-    if Throttling > 0:
-        payload["throttling"] = Throttling
-
+    print(payload)
     response = requests.request("POST", url, headers=headers, data=payload)
 
     return response.status_code
@@ -62,8 +64,8 @@ if __name__ == "__main__":
                     ["location", "status", "heartRate"]]
 
     Notification_attrs = [["filling","location"],
-                         ["temperature","humidity"],
-                         ["temperature","humidity"],
+                         ["temperature", "humidity"],
+                         ["temperature", "humidity"],
                          ["status","location"],
                          ["location", "status", "heartRate"]]
 
@@ -72,5 +74,6 @@ if __name__ == "__main__":
     print("Creating subscriptions ...")
     for i in range(len(Description)):
         status = create_subscription(Description[i], Entity_type[i],
-                                        Watched_attrs[i], Notification_attrs[i])
+                                        Watched_attrs[i], Notification_attrs[i],
+                                        Throttling[i])
         print(status)

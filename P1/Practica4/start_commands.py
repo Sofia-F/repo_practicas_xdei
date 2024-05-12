@@ -61,36 +61,27 @@ def lower_temperature(id):
 
 if __name__ == "__main__":
 
-    url = "http://localhost:4041/iot/devices"
+    tractors = ["tractor001", "tractor002", "tractor003", "tractor004"]
+    fillings = ["filling001", "filling002", "filling003", "filling004"]
+    temperatures = ["temperature001", "temperature002", "temperature003", "temperature004"]
 
-    payload = ""
-    headers = {
-    'fiware-service': 'openiot',
-    'fiware-servicepath': '/'
-    }
+    for tractor in tractors:
+        status = start_tractor(tractor)
+        print("tractor:", status)
+    
+    for filling in fillings:
+        if filling[-3:] in ["001", "002", "003"]:
+            status = remove_hay(filling)
+            print("filling:", status)
+        else: 
+            status = add_hay(filling)
+            print("filling:", status)
 
-    response = requests.request("GET", url, headers=headers, data=payload)
-    devices = response.json()["devices"]
-
-    for device in devices:
-
-        if device["entity_type"] == "Tractor":
-            status = start_tractor(device["device_id"])
-            print("tractor: ", status)
-        
-        if device["entity_type"] == "FillingLevelSensor":
-            if device["device_id"][-3:] in ["001", "002", "003"]:
-                status = remove_hay(device["device_id"])
-                print("filling: ", status)
-            else: 
-                status = add_hay(device["device_id"])
-                print("filling", status)
-
-        if device["entity_type"] == "TemperatureSensor":
-            if device["device_id"][-3:] in ["001", "002", "003"]:
-                status = raise_temperature(device["device_id"])
-                print("temperature", status)
-            else: 
-                status = lower_temperature(device["device_id"])
-                print("temperature", status)
+    for temperature in temperatures:
+        if temperature[-3:] in ["001", "002", "003"]:
+            status = raise_temperature(temperature)
+            print("temperature:", status)
+        else: 
+            status = lower_temperature(temperature)
+            print("temperature:", status)
 
