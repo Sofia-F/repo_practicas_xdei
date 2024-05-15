@@ -1,5 +1,4 @@
 import requests 
-from prettytable import PrettyTable
 
 def read_subscriptions():
 
@@ -19,4 +18,5 @@ if __name__ == "__main__":
     print("\nReading subscriptions...")
     responses = read_subscriptions()
     print(responses.json())
+    print()
     print(responses.status_code)

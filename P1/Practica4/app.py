@@ -5,11 +5,9 @@ import plotly
 import plotly.express as px
 import folium
 import geopandas as gpd
-from shapely.geometry import Point
 from folium.plugins import TimestampedGeoJson
 import psycopg
 import pandas as pd
-from shapely.geometry import shape
 import datetime
 from folium.plugins import HeatMap
 import datetime

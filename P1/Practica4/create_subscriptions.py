@@ -7,11 +7,8 @@ def create_subscription(Description, Entity_type, Watched_attrs, Notification_at
     payload_dict = {
     "description": Description,
     "type": "Subscription",
-    "entities": [
-        {
-        "type": Entity_type
-        }
-    ],
+    "entities":  Entity_type
+    ,
     "watchedAttributes": Watched_attrs,
     "notification": {
         "attributes": Notification_attrs,
@@ -47,29 +44,26 @@ if __name__ == "__main__":
 
     Description = ["Notify me of all feedstock changes",
                    "Notify me of all temperature and humidity changes",
-                   "Notify me of all temperature and humidity changes",
                    "Notify me of all status and location changes",
                    "Notify me of animal locations"]
     
-    Entity_type = ["FillingLevelSensor",
-                   "TemperatureSensor",
-                   "SoilSensor",
-                   "Tractor",
-                   "Device"]
+    Entity_type = [[{"type": "FillingLevelSensor"}],
+                   [{"type": "SoilSensor"}, 
+                    {"type": "TemperatureSensor"}],
+                   [{"type": "Tractor"}],
+                   [{"type": "Device"}]]
 
     Watched_attrs = [["filling"],
-                    ["temperature", "humidity"],
                     ["temperature", "humidity"],
                     ["status", "location"],
                     ["location", "status", "heartRate"]]
 
     Notification_attrs = [["filling","location"],
                          ["temperature", "humidity"],
-                         ["temperature", "humidity"],
                          ["status","location"],
                          ["location", "status", "heartRate"]]
 
-    Throttling = [0,0,0,0,10]
+    Throttling = [0,0,0,10]
 
     print("Creating subscriptions ...")
     for i in range(len(Description)):
